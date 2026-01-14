@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>H-TECH | Facturier Pro Ultimate</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-app: #121212;
+            --bg-panel: #1e1e1e;
+            --primary: #00f3ff; /* Cyan H-TECH */
+            --accent: #2c3e50;
+            --text-main: #ffffff;
+            --text-muted: #aaaaaa;
+            
+            --paper-width: 210mm;
+            --paper-height: 297mm;
+        }
+
+        body {
+            background-color: var(--bg-app);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- SIDEBAR DE COMMANDE --- */
+        .sidebar {
+            width: 300px;
+            background: var(--bg-panel);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+            z-index: 10;
+            overflow-y: auto;
+        }
+
+        .brand {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 30px;
+            text-align: center;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+
+        .control-group {
+            margin-bottom: 25px;
+        }
+
+        .control-group label {
+            display: block;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-dark {
+            width: 100%;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: inherit;
+            margin-bottom: 10px;
+            transition: 0.3s;
+        }
+
+        .input-dark:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 5px rgba(0, 243, 255, 0.3);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 4px 15px rgba(0, 243, 255, 0.2);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 243, 255, 0.4); }
+
+        .btn-secondary { background: #333; color: white; }
+        .btn-secondary:hover { background: #444; }
+
+        .btn-danger { background: #ff4757; color: white; }
+        .btn-danger:hover { background: #ff6b81; }
+
+        /* --- ESPACE DE TRAVAIL (CANVAS) --- */
+        .workspace {
+            flex: 1;
+            background: #222;
+            overflow: auto;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        /* --- FEUILLE A4 (Editable) --- */
+        .paper {
+            background: white;
+            color: #333;
+            width: var(--paper-width);
+            min-height: var(--paper-height);
+            padding: 20mm;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        /* --- STYLES INTERNES DE LA FACTURE --- */
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .logo-area {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #2c3e50;
+            text-transform: uppercase;
+        }
+        
+        /* Champs éditables */
+        [contenteditable] {
+            border: 1px dashed transparent;
+            transition: 0.2s;
+            min-width: 50px;
+            display: inline-block;
+        }
+        [contenteditable]:hover {
+            background: rgba(0,0,0,0.05);
+            border-color: #ddd;
+            cursor: text;
+        }
+        [contenteditable]:focus {
+            background: rgba(0, 243, 255, 0.1);
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .client-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+        .box { width: 45%; }
+        .box-title { 
+            font-size: 12px; 
+            color: #888; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            margin-bottom: 10px; 
+            font-weight: 600;
+        }
+
+        /* TABLEAU */
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        .invoice-table th {
+            background: #f8f9fa;
+            color: #2c3e50;
+            font-weight: 600;
+            text-align: left;
+            padding: 12px;
+            border-bottom: 2px solid #ddd;
+            font-size: 14px;
+        }
+
+        .invoice-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+
+        .col-desc { width: 50%; }
+        .col-qty { width: 10%; text-align: center; }
+        .col-price { width: 15%; text-align: right; }
+        .col-total { width: 15%; text-align: right; font-weight: bold; }
+        .col-action { width: 10%; text-align: center; opacity: 0; transition: 0.2s; }
+        
+        .invoice-table tr:hover .col-action { opacity: 1; }
+
+        .btn-remove {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* TOTAUX */
+        .totals-section {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .totals-box {
+            width: 300px;
+        }
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        .total-final {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+            border-top: 2px solid #2c3e50;
+            margin-top: 10px;
+            padding-top: 10px;
+        }
+
+        /* FOOTER */
+        .invoice-footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+        }
+
+        /* IMPRESSION */
+        @media print {
+            body { background: white; height: auto; overflow: visible; }
+            .sidebar { display: none; }
+            .workspace { padding: 0; background: white; display: block; }
+            .paper { box-shadow: none; padding: 0; margin: 0; width: 100%; }
+            .col-action { display: none; }
+            [contenteditable] { border: none !important; }
+            /* Force background colors */
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="brand">
+            <i class="fas fa-file-invoice-dollar"></i> H-TECH PRO
+        </div>
+
+        <div class="control-group">
+            <button class="btn btn-primary" onclick="window.print()">
+                <i class="fas fa-print"></i> Imprimer / PDF
+            </button>
+            <button class="btn btn-secondary" onclick="addNewRow()">
+                <i class="fas fa-plus"></i> Ajouter une ligne
+            </button>
+            <button class="btn btn-danger" onclick="resetInvoice()">
+                <i class="fas fa-trash"></i> Réinitialiser
+            </button>
+        </div>
+
+        <div class="control-group">
+            <label>Configuration TVA (%)</label>
+            <input type="number" id="taxRate" class="input-dark" value="20" onchange="calculateTotals()">
+        </div>
+        
+        <div class="control-group">
+            <label>Devise</label>
+            <input type="text" id="currency" class="input-dark" value="DH" onchange="updateCurrency()">
+        </div>
+
+        <div style="margin-top: auto; font-size: 12px; color: #666; text-align: center;">
+            Sauvegarde automatique activée <i class="fas fa-check-circle" style="color: var(--primary)"></i>
+        </div>
+    </div>
+
+    <!-- WORKSPACE -->
+    <div class="workspace">
+        <div class="paper" id="invoicePaper">
+            
+            <!-- Header Facture -->
+            <div class="invoice-header">
+                <div class="logo-area" contenteditable="true">
+                    H-TECH SOLUTIONS
+                </div>
+                <div style="text-align: right;">
+                    <h1 style="margin: 0; color: #333; font-size: 32px;">FACTURE</h1>
+                    <p style="margin: 5px 0; color: #666;">
+                        N° <span contenteditable="true" id="invoiceNumber">FAC-2025-001</span>
+                    </p>
+                    <p style="margin: 5px 0; color: #666;">
+                        Date : <span contenteditable="true" id="invoiceDate">07/01/2025</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Infos Client / Émetteur -->
+            <div class="client-section">
+                <div class="box">
+                    <div class="box-title">ÉMETTEUR</div>
+                    <div contenteditable="true" id="senderInfo">
+                        <strong>Votre Entreprise</strong><br>
+                        123 Rue de l'Innovation<br>
+                        75000 Paris, France<br>
+                        contact@htech.com<br>
+                        SIRET : 123 456 789 00000
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="box-title">FACTURÉ À</div>
+                    <div contenteditable="true" id="clientInfo">
+                        <strong>Client Nom / Entreprise</strong><br>
+                        Adresse du client<br>
+                        Code Postal, Ville<br>
+                        Email du client
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tableau -->
+            <table class="invoice-table">
+                <thead>
+                    <tr>
+                        <th class="col-desc">Description</th>
+                        <th class="col-qty">Qté</th>
+                        <th class="col-price">Prix Unit.</th>
+                        <th class="col-total">Total</th>
+                        <th class="col-action"></th>
+                    </tr>
+                </thead>
+                <tbody id="itemsBody">
+                    <!-- Lignes générées par JS -->
+                </tbody>
+            </table>
+
+            <!-- Totaux -->
+            <div class="totals-section">
+                <div class="totals-box">
+                    <div class="total-row">
+                        <span>Sous-total :</span>
+                        <span id="subTotal">0.00 DH</span>
+                    </div>
+                    <div class="total-row">
+                        <span>TVA (<span id="displayTaxRate">20</span>%) :</span>
+                        <span id="taxAmount">0.00 DH</span>
+                    </div>
+                    <div class="total-row total-final">
+                        <span>TOTAL À PAYER :</span>
+                        <span id="grandTotal">0.00 DH</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="invoice-footer" contenteditable="true" id="invoiceFooter">
+                Conditions de paiement : Paiement à réception de facture.<br>
+                Merci de votre confiance !<br>
+                Banque : IBAN FR76 1234 5678 9101 1121 3141 516 - BIC : XXXXXX
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // --- LOGIQUE METIER ---
+        let currencySymbol = "DH";
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            if(document.getElementById('itemsBody').children.length === 0) {
+                addNewRow(); // Une ligne vide par défaut
+            }
+            updateDate();
+        });
+
+        function updateDate() {
+            // Met la date d'aujourd'hui si c'est vide
+            const dateEl = document.getElementById('invoiceDate');
+            if(dateEl.innerText.trim() === '07/01/2025' || dateEl.innerText.trim() === '') {
+                const today = new Date();
+                dateEl.innerText = today.toLocaleDateString('fr-FR');
+            }
+        }
+
+        function updateCurrency() {
+            currencySymbol = document.getElementById('currency').value;
+            calculateTotals();
+        }
+
+        function addNewRow() {
+            const tbody = document.getElementById('itemsBody');
+            const tr = document.createElement('tr');
+            
+            tr.innerHTML = `
+                <td class="col-desc" contenteditable="true" oninput="saveData()">Description de la prestation...</td>
+                <td class="col-qty" contenteditable="true" oninput="calculateRow(this)">1</td>
+                <td class="col-price" contenteditable="true" oninput="calculateRow(this)">0.00</td>
+                <td class="col-total">0.00 ${currencySymbol}</td>
+                <td class="col-action">
+                    <button class="btn-remove" onclick="removeRow(this)"><i class="fas fa-times"></i></button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+            saveData();
+        }
+
+        function removeRow(btn) {
+            if(confirm('Supprimer cette ligne ?')) {
+                btn.closest('tr').remove();
+                calculateTotals();
+            }
+        }
+
+        function calculateRow(element) {
+            const row = element.closest('tr');
+            const qty = parseFloat(row.querySelector('.col-qty').innerText.replace(',', '.')) || 0;
+            const price = parseFloat(row.querySelector('.col-price').innerText.replace(',', '.')) || 0;
+            
+            const total = qty * price;
+            row.querySelector('.col-total').innerText = total.toFixed(2) + ' ' + currencySymbol;
+            
+            calculateTotals();
+        }
+
+        function calculateTotals() {
+            let subTotal = 0;
+            const rows = document.querySelectorAll('#itemsBody tr');
+            
+            rows.forEach(row => {
+                const qty = parseFloat(row.querySelector('.col-qty').innerText.replace(',', '.')) || 0;
+                const price = parseFloat(row.querySelector('.col-price').innerText.replace(',', '.')) || 0;
+                subTotal += qty * price;
+                
+                // Met à jour la ligne au cas où la devise a changé
+                row.querySelector('.col-total').innerText = (qty * price).toFixed(2) + ' ' + currencySymbol;
+            });
+
+            const taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
+            const taxAmount = subTotal * (taxRate / 100);
+            const grandTotal = subTotal + taxAmount;
+
+            document.getElementById('subTotal').innerText = subTotal.toFixed(2) + ' ' + currencySymbol;
+            document.getElementById('displayTaxRate').innerText = taxRate;
+            document.getElementById('taxAmount').innerText = taxAmount.toFixed(2) + ' ' + currencySymbol;
+            document.getElementById('grandTotal').innerText = grandTotal.toFixed(2) + ' ' + currencySymbol;
+
+            saveData();
+        }
+
+        // --- SAUVEGARDE LOCALE ---
+        function saveData() {
+            const data = {
+                sender: document.getElementById('senderInfo').innerHTML,
+                client: document.getElementById('clientInfo').innerHTML,
+                footer: document.getElementById('invoiceFooter').innerHTML,
+                number: document.getElementById('invoiceNumber').innerText,
+                items: []
+            };
+
+            document.querySelectorAll('#itemsBody tr').forEach(row => {
+                data.items.push({
+                    desc: row.querySelector('.col-desc').innerHTML,
+                    qty: row.querySelector('.col-qty').innerText,
+                    price: row.querySelector('.col-price').innerText
+                });
+            });
+
+            localStorage.setItem('htech_invoice_data', JSON.stringify(data));
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem('htech_invoice_data');
+            if(saved) {
+                const data = JSON.parse(saved);
+                if(data.sender) document.getElementById('senderInfo').innerHTML = data.sender;
+                if(data.client) document.getElementById('clientInfo').innerHTML = data.client;
+                if(data.footer) document.getElementById('invoiceFooter').innerHTML = data.footer;
+                if(data.number) document.getElementById('invoiceNumber').innerText = data.number;
+
+                if(data.items && data.items.length > 0) {
+                    const tbody = document.getElementById('itemsBody');
+                    tbody.innerHTML = ''; // Clear defaults
+                    data.items.forEach(item => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td class="col-desc" contenteditable="true" oninput="saveData()">${item.desc}</td>
+                            <td class="col-qty" contenteditable="true" oninput="calculateRow(this)">${item.qty}</td>
+                            <td class="col-price" contenteditable="true" oninput="calculateRow(this)">${item.price}</td>
+                            <td class="col-total">...</td>
+                            <td class="col-action">
+                                <button class="btn-remove" onclick="removeRow(this)"><i class="fas fa-times"></i></button>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                        // Force recalculate row total
+                        calculateRow(tr.querySelector('.col-qty'));
+                    });
+                }
+            }
+            calculateTotals();
+        }
+
+        function resetInvoice() {
+            if(confirm('Tout effacer et recommencer à zéro ?')) {
+                localStorage.removeItem('htech_invoice_data');
+                location.reload();
+            }
+        }
+        
+        // Auto-save on editable fields blur
+        document.body.addEventListener('focusout', (e) => {
+            if (e.target.isContentEditable) {
+                saveData();
+            }
+        });
+    </script>
+</body>
+</html>

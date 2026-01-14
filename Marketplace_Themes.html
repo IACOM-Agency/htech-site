@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H-THEMES MARKETPLACE | Premium WordPress Solutions</title>
+    <meta name="robots" content="index,follow">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="description" content="Marketplace de thèmes WordPress premium prêts à l'emploi : E-commerce, Restaurant, Immobilier, Santé, Portfolio. Design, performance, et conversion au meilleur prix.">
+    <meta property="og:title" content="H-THEMES MARKETPLACE | Thèmes WordPress Premium">
+    <meta property="og:description" content="Découvrez nos thèmes WordPress 'Clé en main' conçus pour convertir. E-commerce, Corporate, Santé, Créatif.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1499750310159-52f0f83ad713?q=80&w=1200">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:url" content="">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="canonical" id="canonical" href="">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "H-TECH Themes",
+      "url": "https://h-themes.example.com/",
+      "logo": "https://h-themes.example.com/logo.png",
+      "sameAs": [
+        "https://www.facebook.com/htech",
+        "https://www.instagram.com/htech"
+      ]
+    }
+    </script>
+    <script>
+      (function() {
+        var url = window.location.href;
+        var canonical = document.getElementById('canonical');
+        if (canonical) canonical.setAttribute('href', url);
+        var ogUrl = document.querySelector('meta[property="og:url"]');
+        if (ogUrl) ogUrl.setAttribute('content', url);
+        var twitterTitle = document.querySelector('meta[name="twitter:title"]');
+        if (!twitterTitle) {
+          var t = document.createElement('meta');
+          t.setAttribute('name','twitter:title');
+          t.setAttribute('content', document.title);
+          document.head.appendChild(t);
+        }
+        var twitterDesc = document.querySelector('meta[name="twitter:description"]');
+        if (!twitterDesc) {
+          var d = document.createElement('meta');
+          d.setAttribute('name','twitter:description');
+          var md = document.querySelector('meta[name="description"]');
+          d.setAttribute('content', md ? md.getAttribute('content') : '');
+          document.head.appendChild(d);
+        }
+      })();
+    </script>
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #141414;
+            --primary: #d4af37; /* Gold */
+            --accent: #ffffff;
+            --text-gray: #888;
+            --border: rgba(255,255,255,0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER --- */
+        header {
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .logo span { color: var(--primary); }
+
+        .header-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .header-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* --- HERO --- */
+        .hero {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #222 0%, var(--bg-dark) 70%);
+            padding: 0 20px;
+            margin-top: 60px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 80px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .filter-bar {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .filter-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 500;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary);
+            color: black;
+            border-color: var(--primary);
+        }
+
+        /* --- GRID --- */
+        .theme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+            padding: 50px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .theme-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: 0.4s;
+            position: relative;
+            group: hover;
+        }
+
+        .theme-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .theme-type-banner {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            background: #21759b;
+            color: white;
+            padding: 5px 15px;
+            font-weight: 900;
+            font-size: 12px;
+            text-transform: uppercase;
+            z-index: 10;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            letter-spacing: 1px;
+        }
+        .theme-type-banner.custom {
+            background: linear-gradient(90deg, #f7df1e, #e34c26);
+            color: black;
+        }
+
+        .card-img {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .theme-card:hover .card-overlay { opacity: 1; }
+
+        .view-demo-btn {
+            background: white;
+            color: black;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transform: translateY(20px);
+            transition: 0.3s;
+        }
+
+        .theme-card:hover .view-demo-btn { transform: translateY(0); }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-tags {
+            font-size: 12px;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .card-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .card-price {
+            font-size: 18px;
+            color: white;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .tech-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            z-index: 5;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        .tech-wordpress { background: #21759b; color: white; border: 1px solid rgba(255,255,255,0.2); }
+        .tech-custom { background: linear-gradient(135deg, #f7df1e, #e34c26); color: black; border: 1px solid rgba(255,255,255,0.2); }
+
+        .price-tag {
+            background: rgba(255,255,255,0.1);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        /* --- QUOTE BUILDER CSS --- */
+        .tech-selector {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .tech-option input { display: none; }
+        .tech-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            padding: 20px 40px;
+            border-radius: 15px;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.3s;
+            min-width: 200px;
+        }
+        .tech-option input:checked + .tech-card {
+            border-color: var(--primary);
+            background: rgba(212, 175, 55, 0.1);
+        }
+        .tech-card i { font-size: 30px; margin-bottom: 10px; display: block; }
+        .tech-card span { font-weight: bold; display: block; font-size: 18px; }
+        .tech-card small { color: #888; font-size: 12px; }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-buy {
+            flex: 1;
+            background: var(--primary);
+            color: black;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-buy:hover { opacity: 0.9; }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 50px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: var(--text-gray);
+            margin-top: 100px;
+        }
+
+        /* Floating WhatsApp */
+        .floating-whatsapp {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            background: #25D366;
+            color: white;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 1200;
+            cursor: pointer;
+        }
+        .floating-whatsapp i { font-size: 1.6rem; }
+
+        /* Product Modal */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1500;
+        }
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            max-width: 800px;
+            width: 92%;
+            overflow: hidden;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+        .modal-body { padding: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .modal-body img { width: 100%; height: 220px; object-fit: cover; border-radius: 8px; }
+        .badge { background: rgba(255,255,255,0.1); padding: 6px 10px; border-radius: 6px; font-size: 12px; margin-right: 8px; }
+        .feature-list { list-style: none; padding: 0; color: #bbb; font-size: 14px; }
+        .feature-list li { margin-bottom: 8px; }
+        .modal-actions { display: flex; gap: 10px; margin-top: 15px; }
+        .btn { padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: white; cursor: pointer; }
+        .btn-primary { background: var(--primary); color: black; border: none; }
+        .btn-outline { background: transparent; }
+        .btn-close { background: transparent; border: none; color: #aaa; font-size: 1.4rem; cursor: pointer; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 40px; }
+            .theme-grid { padding: 20px; grid-template-columns: 1fr; }
+            .filter-bar { gap: 10px; }
+            .modal-body { grid-template-columns: 1fr; }
+        }
+
+        /* --- CART & QUOTE STYLES --- */
+        .cart-icon-container {
+            position: relative;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--primary);
+            color: black;
+            font-size: 10px;
+            font-weight: bold;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0; right: -400px;
+            width: 350px;
+            height: 100vh;
+            background: var(--bg-card);
+            border-left: 1px solid var(--border);
+            z-index: 2000;
+            transition: 0.4s;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+        }
+        .cart-sidebar.open { right: 0; }
+        .cart-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.2);
+        }
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .cart-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+        .cart-item img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
+        .cart-footer {
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            background: rgba(0,0,0,0.2);
+        }
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        /* Quote Builder */
+        .quote-section {
+            padding: 80px 20px;
+            background: linear-gradient(to bottom, var(--bg-dark), #111);
+            border-top: 1px solid var(--border);
+        }
+        .quote-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+        .quote-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+        .quote-group h4 { color: var(--primary); margin-bottom: 15px; }
+        .quote-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .quote-option input { margin-right: 10px; accent-color: var(--primary); transform: scale(1.2); }
+        .quote-total-box {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        .estimated-price { font-size: 32px; color: var(--primary); font-weight: 900; margin: 10px 0; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">H-THEMES<span>.</span></div>
+        <div style="display:flex; align-items:center;">
+        <a href="Site_Web_H-TECH.html" style="text-decoration: none; color: #fff; margin-right: 25px; font-size: 14px; display: flex; align-items: center; gap: 8px; opacity: 0.7; transition: 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
+            <i class="fas fa-arrow-left"></i> Retour Site
+        </a>
+        <div class="cart-icon-container" onclick="toggleCart()">
+                <i class="fas fa-shopping-bag" style="font-size: 24px;"></i>
+                <div class="cart-badge" id="cartBadge">0</div>
+            </div>
+            <button class="header-btn" style="margin-left: 20px;" onclick="scrollToQuote()">Devis Sur Mesure</button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div>
+            <p>COLLECTION EXCLUSIVE 2026</p>
+            <h1>L'Excellence Web<br>à Portée de Main.</h1>
+            <p>Découvrez nos thèmes WordPress premium conçus pour convertir.<br>Design, Performance, Innovation.</p>
+            
+            <div class="filter-bar">
+                <button class="filter-btn active" onclick="filterThemes('all')">Tout voir</button>
+                <button class="filter-btn" onclick="filterThemes('ecommerce')">E-Commerce</button>
+                <button class="filter-btn" onclick="filterThemes('corporate')">Entreprise</button>
+                <button class="filter-btn" onclick="filterThemes('creative')">Créatif & Art</button>
+                <button class="filter-btn" onclick="filterThemes('sante')">Santé & Bien-être</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="theme-grid" id="themeGrid">
+        <!-- JS will populate this -->
+    </div>
+
+    <!-- Product Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h3 id="pmTitle" style="font-family:'Playfair Display',serif;"></h3>
+                    <div id="pmTags" style="margin-top:6px;">
+                        <span class="badge">Clé en Main</span>
+                        <span class="badge">Responsive</span>
+                        <span class="badge">Optimisé SEO</span>
+                    </div>
+                </div>
+                <button class="btn-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <img id="pmImage" alt="">
+                    <div style="margin-top:12px; color:#ccc; font-size:14px;" id="pmDesc"></div>
+                </div>
+                <div>
+                    <div style="margin-bottom:10px;">
+                        <span style="color:#aaa; font-size:14px;">Prix</span>
+                        <div id="pmPrice" style="font-size:26px; font-weight:900; color:var(--primary);">—</div>
+                    </div>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check" style="color:var(--primary)"></i> Installation et mise en ligne</li>
+                        <li><i class="fas fa-check" style="color:var(--primary)"></i> Personnalisation couleurs/logo</li>
+                        <li><i class="fas fa-check" style="color:var(--primary)"></i> Pages essentielles (Accueil, Contact, Mentions)</li>
+                        <li><i class="fas fa-check" style="color:var(--primary)"></i> Formulaires et WhatsApp connectés</li>
+                    </ul>
+                    <div class="modal-actions">
+                        <button class="btn btn-primary" id="pmBuyBtn"><i class="fas fa-shopping-cart"></i> Commander</button>
+                        <button class="btn btn-outline" id="pmDemoBtn"><i class="fas fa-eye"></i> Voir la démo</button>
+                        <button class="btn btn-outline" id="pmEmailBtn"><i class="fas fa-envelope"></i> Email</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quote Builder Section -->
+    <section class="quote-section" id="quote-builder">
+        <div class="quote-container">
+            <div style="text-align:center; margin-bottom:40px;">
+                <h2 style="font-family:'Playfair Display'; font-size:40px; margin-bottom:10px;">Constructeur de Devis</h2>
+                <p style="color:var(--text-gray);">Estimez le coût de votre projet web sur mesure en quelques clics.</p>
+            </div>
+            
+            <!-- Tech Selector -->
+            <div class="tech-selector">
+                <label class="tech-option">
+                    <input type="radio" name="q-tech" value="wordpress" checked onchange="toggleQuoteMode()">
+                    <div class="tech-card">
+                        <i class="fab fa-wordpress" style="color:#21759b;"></i>
+                        <span>Thème WordPress</span>
+                        <small>Rapide & Économique</small>
+                    </div>
+                </label>
+                <label class="tech-option">
+                    <input type="radio" name="q-tech" value="custom" onchange="toggleQuoteMode()">
+                    <div class="tech-card">
+                        <i class="fas fa-code" style="color:#e34c26;"></i>
+                        <span>Sur Mesure (Code)</span>
+                        <small>Performance & Unique</small>
+                    </div>
+                </label>
+            </div>
+
+            <!-- WordPress Options -->
+            <div id="opts-wordpress" class="quote-grid">
+                <div class="quote-group">
+                    <h4>Type de Site WP</h4>
+                    <label class="quote-option"><input type="radio" name="qw-type" value="2000" checked onchange="calcQuote()"> Vitrine (2000 DH)</label>
+                    <label class="quote-option"><input type="radio" name="qw-type" value="3500" onchange="calcQuote()"> E-Commerce (3500 DH)</label>
+                    <label class="quote-option"><input type="radio" name="qw-type" value="2500" onchange="calcQuote()"> Blog / Magazine (2500 DH)</label>
+                </div>
+                <div class="quote-group">
+                    <h4>Pages & Contenu</h4>
+                    <label class="quote-option"><input type="radio" name="qw-pages" value="0" checked onchange="calcQuote()"> Standard (5 pages)</label>
+                    <label class="quote-option"><input type="radio" name="qw-pages" value="1000" onchange="calcQuote()"> +5 Pages (1000 DH)</label>
+                    <label class="quote-option"><input type="radio" name="qw-pages" value="2000" onchange="calcQuote()"> +10 Pages (2000 DH)</label>
+                </div>
+                <div class="quote-group">
+                    <h4>Services WP</h4>
+                    <label class="quote-option"><input type="checkbox" class="qw-opt" value="500" onchange="calcQuote()"> Installation Complète (500 DH)</label>
+                    <label class="quote-option"><input type="checkbox" class="qw-opt" value="800" onchange="calcQuote()"> Pack SEO Pro (800 DH)</label>
+                    <label class="quote-option"><input type="checkbox" class="qw-opt" value="600" onchange="calcQuote()"> Sécurité Renforcée (600 DH)</label>
+                </div>
+            </div>
+
+            <!-- Custom Options -->
+            <div id="opts-custom" class="quote-grid" style="display:none;">
+                <div class="quote-group">
+                    <h4>Type de Projet Code</h4>
+                    <label class="quote-option"><input type="radio" name="qc-type" value="4500" checked onchange="calcQuote()"> Vitrine Haute Perf. (4500 DH)</label>
+                    <label class="quote-option"><input type="radio" name="qc-type" value="8000" onchange="calcQuote()"> Dashboard / SaaS (8000 DH)</label>
+                    <label class="quote-option"><input type="radio" name="qc-type" value="6000" onchange="calcQuote()"> Web App Interactive (6000 DH)</label>
+                </div>
+                <div class="quote-group">
+                    <h4>Complexité</h4>
+                    <label class="quote-option"><input type="radio" name="qc-comp" value="0" checked onchange="calcQuote()"> Standard</label>
+                    <label class="quote-option"><input type="radio" name="qc-comp" value="3000" onchange="calcQuote()"> Avancée (API, DB) (+3000 DH)</label>
+                    <label class="quote-option"><input type="radio" name="qc-comp" value="6000" onchange="calcQuote()"> Complexe (IA, Realtime) (+6000 DH)</label>
+                </div>
+                <div class="quote-group">
+                    <h4>Services Dev</h4>
+                    <label class="quote-option"><input type="checkbox" class="qc-opt" value="2000" onchange="calcQuote()"> Design UI/UX Sur Mesure (2000 DH)</label>
+                    <label class="quote-option"><input type="checkbox" class="qc-opt" value="4000" onchange="calcQuote()"> Version Mobile PWA (4000 DH)</label>
+                    <label class="quote-option"><input type="checkbox" class="qc-opt" value="1500" onchange="calcQuote()"> Maintenance VIP (1500 DH)</label>
+                </div>
+            </div>
+
+            <div class="quote-total-box">
+                <p>Estimation de votre projet</p>
+                <div class="estimated-price" id="quotePrice">2000 DH</div>
+                <button class="btn-buy" style="padding:15px 40px; font-size:18px;" onclick="sendQuote()">
+                    <i class="fab fa-whatsapp"></i> Demander ce Devis
+                </button>
+                <p style="font-size:12px; color:#666; margin-top:10px;">*Prix estimatif hors taxes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Votre Panier</h3>
+            <button class="btn-close" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Items go here -->
+            <p style="text-align:center; color:#666; margin-top:20px;">Votre panier est vide.</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total</span>
+                <span id="cartTotal">0 DH</span>
+            </div>
+            <button class="btn-buy" style="width:100%" onclick="checkoutCart()">
+                <i class="fab fa-whatsapp"></i> Commander via WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 H-THEMES MARKETPLACE. Designed by H-TECH AI.</p>
+    </footer>
+
+    <!-- Floating WhatsApp -->
+    <a class="floating-whatsapp" href="https://wa.me/212600000000?text=Bonjour%2C%20je%20veux%20acheter%20un%20th%C3%A8me%20WordPress.%20Pouvez-vous%20m%27aider%20%3F" target="_blank" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        const themes = [
+            // --- WORDPRESS THEMES ---
+            {
+                title: "Lusso Fashion",
+                tech: "wordpress",
+                category: "ecommerce",
+                tags: "Mode • Luxe • Shop",
+                price: "2500 DH",
+                image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800",
+                file: "demo_shop_fashion.html",
+                desc: "Thème e-commerce minimaliste pour marques de vêtements haut de gamme."
+            },
+            {
+                title: "Cyber Tech",
+                tech: "wordpress",
+                category: "ecommerce",
+                tags: "Tech • Gaming • Dark",
+                price: "2800 DH",
+                image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800",
+                file: "demo_shop_tech.html",
+                desc: "Design futuriste néon pour boutiques informatique et gaming."
+            },
+            {
+                title: "Craft & Art",
+                tech: "wordpress",
+                category: "ecommerce",
+                tags: "Artisanat • Handmade • Doux",
+                price: "2200 DH",
+                image: "https://images.unsplash.com/photo-1452860606245-08befc0ff44b?q=80&w=800",
+                file: "demo_shop_artisan.html",
+                desc: "Ambiance chaleureuse pour artisans et créateurs de produits faits main."
+            },
+            {
+                title: "Gastro Chef",
+                tech: "wordpress",
+                category: "corporate",
+                tags: "Restaurant • Réservation • Menu",
+                price: "2000 DH",
+                image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800",
+                file: "demo_restaurant.html",
+                desc: "Présentation élégante de menus avec système de réservation de table."
+            },
+            {
+                title: "Estate Pro",
+                tech: "wordpress",
+                category: "corporate",
+                tags: "Immobilier • Listings • Search",
+                price: "3000 DH",
+                image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=800",
+                file: "demo_real_estate.html",
+                desc: "Agence immobilière complète avec moteur de recherche de biens."
+            },
+            {
+                title: "FitLife Gym",
+                tech: "wordpress",
+                category: "sante",
+                tags: "Sport • Coaching • Planning",
+                price: "1800 DH",
+                image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800",
+                file: "demo_fitness.html",
+                desc: "Pour salles de sport et coachs, avec planning et tarifs dynamiques."
+            },
+            {
+                title: "MediCare",
+                tech: "wordpress",
+                category: "sante",
+                tags: "Clinique • Docteur • RDV",
+                price: "2500 DH",
+                image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800",
+                file: "demo_medical.html",
+                desc: "Confiance et sérieux pour cabinets médicaux et cliniques."
+            },
+            {
+                title: "Zen Spa",
+                tech: "wordpress",
+                category: "sante",
+                tags: "Beauté • Détente • Soins",
+                price: "2000 DH",
+                image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=800",
+                file: "demo_beauty_spa.html",
+                desc: "Ambiance relaxante avec carte des soins et galerie photos."
+            },
+            {
+                title: "Build Master",
+                tech: "wordpress",
+                category: "corporate",
+                tags: "BTP • Construction • Devis",
+                price: "2200 DH",
+                image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=800",
+                file: "demo_corporate.html",
+                desc: "Robuste et industriel pour entreprises de bâtiment et travaux."
+            },
+            {
+                title: "Edu Learn",
+                tech: "wordpress",
+                category: "corporate",
+                tags: "École • Cours • E-learning",
+                price: "2800 DH",
+                image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=800",
+                file: "demo_education.html",
+                desc: "Plateforme éducative pour écoles et formations en ligne."
+            },
+            {
+                title: "Minimal Folio",
+                tech: "wordpress",
+                category: "creative",
+                tags: "Portfolio • Clean • Agency",
+                price: "1500 DH",
+                image: "https://images.unsplash.com/photo-1499750310159-52f0f83ad713?q=80&w=800",
+                file: "demo_minimalist.html",
+                desc: "L'essentiel pour freelances et créatifs. Design ultra-épuré."
+            },
+            {
+                title: "Creative Studio",
+                tech: "wordpress",
+                category: "creative",
+                tags: "Agence • Design • Bold",
+                price: "1800 DH",
+                image: "https://images.unsplash.com/photo-1558655146-d09347e0b7a9?q=80&w=800",
+                file: "demo_portfolio.html",
+                desc: "Portfolio audacieux pour agences digitales et artistes."
+            },
+            {
+                title: "Corporate Blue",
+                tech: "wordpress",
+                category: "corporate",
+                tags: "Business • Finance • Trust",
+                price: "2000 DH",
+                image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800",
+                file: "demo_corporate.html",
+                desc: "Classique et rassurant pour cabinets de conseil et finance."
+            },
+            {
+                title: "CyberPress",
+                tech: "wordpress",
+                category: "ecommerce",
+                tags: "Cyberpunk • Gaming • Neon",
+                price: "2900 DH",
+                image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800",
+                file: "demo_shop_tech.html",
+                desc: "Design futuriste Cyberpunk pour gaming et tech."
+            },
+            {
+                title: "Green Leaf",
+                tech: "wordpress",
+                category: "sante",
+                tags: "Eco • Nature • Green",
+                price: "1800 DH",
+                image: "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=800",
+                file: "demo_green_leaf.html",
+                desc: "Thème écologique pour associations et produits bio."
+            },
+            {
+                title: "Luxe Living",
+                tech: "wordpress",
+                category: "corporate",
+                tags: "Luxury • Gold • Black",
+                price: "3500 DH",
+                image: "https://images.unsplash.com/photo-1600596542815-2a4d04792c95?q=80&w=800",
+                file: "demo_minimalist.html",
+                desc: "Immobilier de ultra-luxe et architecture d'intérieur."
+            },
+            {
+                title: "Zen Yoga",
+                tech: "wordpress",
+                category: "sante",
+                tags: "Yoga • Wellness • Soft",
+                price: "2100 DH",
+                image: "https://images.unsplash.com/photo-1544367563-12123d8959bd?q=80&w=800",
+                file: "demo_zen_yoga.html",
+                desc: "Bien-être, yoga et méditation. Ambiance apaisante."
+            },
+            {
+                title: "SaaS Starter",
+                tech: "wordpress",
+                category: "corporate",
+                tags: "Startup • SaaS • Gradient",
+                price: "2600 DH",
+                image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800",
+                file: "demo_saas_start.html",
+                desc: "Landing page performante pour startups et logiciels."
+            },
+            {
+                title: "News Grid",
+                tech: "wordpress",
+                category: "creative",
+                tags: "News • Magazine • Grid",
+                price: "2300 DH",
+                image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=800",
+                file: "demo_news_grid.html",
+                desc: "Magazine d'actualité moderne type journal en ligne."
+            },
+
+            // --- CUSTOM SITES (HTML/JS/CSS) ---
+            {
+                title: "Atlas Logistics Pro",
+                tech: "custom",
+                category: "corporate",
+                tags: "HTML5 • Performance • Custom",
+                price: "4500 DH",
+                image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800",
+                file: "#",
+                desc: "Site corporate ultra-rapide codé de A à Z en HTML5/CSS3. Score Google 100/100."
+            },
+            {
+                title: "RestoApp PWA",
+                tech: "custom",
+                category: "ecommerce",
+                tags: "React • PWA • App Mobile",
+                price: "6000 DH",
+                image: "https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=800",
+                file: "demo_restaurant.html",
+                desc: "Application Web Progressive pour restaurant. Commande en ligne sans rechargement de page."
+            },
+            {
+                title: "H-Dashboard V1",
+                tech: "custom",
+                category: "corporate",
+                tags: "NodeJS • Admin • Dashboard",
+                price: "8000 DH",
+                image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800",
+                file: "Admin_Dashboard.html",
+                desc: "Interface d'administration sur mesure pour gestion de stocks et clients en temps réel."
+            }
+        ];
+
+        const grid = document.getElementById('themeGrid');
+        const btns = document.querySelectorAll('.filter-btn');
+        let cart = [];
+
+        // --- CART LOGIC ---
+        function toggleCart() {
+            document.getElementById('cartSidebar').classList.toggle('open');
+        }
+
+        function addToCart(title) {
+            const theme = themes.find(t => t.title === title);
+            if(theme) {
+                cart.push(theme);
+                updateCartUI();
+                toggleCart();
+            }
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cartItems');
+            const totalEl = document.getElementById('cartTotal');
+            const badge = document.getElementById('cartBadge');
+            
+            // Update Badge
+            badge.innerText = cart.length;
+
+            // Update Items
+            if(cart.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#666; margin-top:20px;">Votre panier est vide.</p>';
+                totalEl.innerText = "0 DH";
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const price = parseInt(item.price.replace(/[^0-9]/g, ''));
+                total += price;
+                html += `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.title}">
+                        <div style="flex:1;">
+                            <div style="font-weight:bold;">${item.title}</div>
+                            <div style="color:var(--primary); font-size:14px;">${item.price}</div>
+                        </div>
+                        <button onclick="removeFromCart(${index})" style="background:transparent; border:none; color:#f55; cursor:pointer;">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            totalEl.innerText = total + " DH";
+        }
+
+        function checkoutCart() {
+            if(cart.length === 0) return;
+            
+            // --- SAVE TO ADMIN DASHBOARD (SIMULATION) ---
+            const order = {
+                id: '#ORD-' + Math.floor(1000 + Math.random() * 9000),
+                client: 'Client Web', 
+                product: cart.map(c => c.title).join(', '),
+                date: new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' }),
+                amount: document.getElementById('cartTotal').innerText,
+                status: 'En attente'
+            };
+            
+            let orders = JSON.parse(localStorage.getItem('admin_orders') || '[]');
+            orders.unshift(order);
+            localStorage.setItem('admin_orders', JSON.stringify(orders));
+            // ---------------------------------------------
+
+            let msg = "Bonjour, je souhaite commander les thèmes suivants :%0A";
+            let total = 0;
+            
+            cart.forEach(item => {
+                msg += `- ${item.title} (${item.price})%0A`;
+                total += parseInt(item.price.replace(/[^0-9]/g, ''));
+            });
+            
+            msg += `%0ATotal: ${total} DH.%0AComment procéder au paiement ?`;
+            window.open(`https://wa.me/212600000000?text=${msg}`, '_blank');
+            
+            // Clear Cart
+            cart = [];
+            updateCartUI();
+            alert("Votre commande a été initiée ! Un administrateur va la recevoir dans le Dashboard.");
+        }
+
+        // --- QUOTE BUILDER LOGIC ---
+        function scrollToQuote() {
+            document.getElementById('quote-builder').scrollIntoView({behavior: 'smooth'});
+        }
+
+        function toggleQuoteMode() {
+            const tech = document.querySelector('input[name="q-tech"]:checked').value;
+            document.getElementById('opts-wordpress').style.display = tech === 'wordpress' ? 'grid' : 'none';
+            document.getElementById('opts-custom').style.display = tech === 'custom' ? 'grid' : 'none';
+            calcQuote();
+        }
+
+        function calcQuote() {
+            let total = 0;
+            const tech = document.querySelector('input[name="q-tech"]:checked').value;
+            
+            if(tech === 'wordpress') {
+                const type = document.querySelector('input[name="qw-type"]:checked');
+                if(type) total += parseInt(type.value);
+
+                const pages = document.querySelector('input[name="qw-pages"]:checked');
+                if(pages) total += parseInt(pages.value);
+
+                document.querySelectorAll('.qw-opt:checked').forEach(opt => {
+                    total += parseInt(opt.value);
+                });
+            } else {
+                const type = document.querySelector('input[name="qc-type"]:checked');
+                if(type) total += parseInt(type.value);
+
+                const comp = document.querySelector('input[name="qc-comp"]:checked');
+                if(comp) total += parseInt(comp.value);
+
+                document.querySelectorAll('.qc-opt:checked').forEach(opt => {
+                    total += parseInt(opt.value);
+                });
+            }
+
+            document.getElementById('quotePrice').innerText = total + " DH";
+        }
+
+        function sendQuote() {
+            const price = document.getElementById('quotePrice').innerText;
+            const tech = document.querySelector('input[name="q-tech"]:checked').value;
+            let details = "";
+
+            if(tech === 'wordpress') {
+                const type = document.querySelector('input[name="qw-type"]:checked').parentElement.innerText;
+                const pages = document.querySelector('input[name="qw-pages"]:checked').parentElement.innerText;
+                details += `- Technologie: WordPress%0A- Type: ${type}%0A- Pages: ${pages}%0A- Options:%0A`;
+                document.querySelectorAll('.qw-opt:checked').forEach(opt => {
+                    details += "  * " + opt.parentElement.innerText + "%0A";
+                });
+            } else {
+                const type = document.querySelector('input[name="qc-type"]:checked').parentElement.innerText;
+                const comp = document.querySelector('input[name="qc-comp"]:checked').parentElement.innerText;
+                details += `- Technologie: Sur Mesure (Code)%0A- Type: ${type}%0A- Complexité: ${comp}%0A- Services:%0A`;
+                document.querySelectorAll('.qc-opt:checked').forEach(opt => {
+                    details += "  * " + opt.parentElement.innerText + "%0A";
+                });
+            }
+
+            const msg = `Bonjour, je souhaite valider une estimation de devis :%0A%0A${details}%0A💰 Estimation Totale: ${price}%0A%0APouvez-vous me confirmer la faisabilité ?`;
+            
+            window.open(`https://wa.me/212600000000?text=${msg}`, '_blank');
+        }
+
+        // --- DISPLAY LOGIC ---
+        function displayThemes(filterType, filterValue) {
+            grid.innerHTML = '';
+            themes.forEach(theme => {
+                let show = false;
+                if (filterType === 'all') show = true;
+                else if (filterType === 'category') show = (filterValue === 'all' || theme.category === filterValue);
+                else if (filterType === 'tech') show = (theme.tech === filterValue);
+
+                if(show) {
+                    // Badge Logic
+                    let badgeClass = theme.tech === 'wordpress' ? 'tech-wordpress' : 'tech-custom';
+                    let badgeText = theme.tech === 'wordpress' ? '<i class="fab fa-wordpress"></i> WordPress' : '<i class="fas fa-code"></i> Sur Mesure';
+
+                    // Demo Button Logic
+                    let demoBtn = '';
+                    if(theme.file !== '#') {
+                        let finalUrl = theme.file;
+                        if(theme.file.startsWith('demo_')) {
+                             finalUrl = `WORDPRESS_THEMES/DEMO_PREVIEWS/${theme.file}`;
+                        }
+
+                        demoBtn = `
+                        <a href="${finalUrl}" target="_blank" class="view-demo-btn">
+                            <i class="fas fa-eye"></i> VOIR LA DÉMO
+                        </a>`;
+                    } else {
+                        demoBtn = `
+                        <button class="view-demo-btn" style="background:rgba(0,0,0,0.8); cursor:not-allowed;">
+                            <i class="fas fa-lock"></i> DÉMO PRIVÉE
+                        </button>`;
+                    }
+
+                    const card = document.createElement('div');
+                    card.className = 'theme-card';
+                    card.innerHTML = `
+                        <div class="card-img" style="background-image: url('${theme.image}')">
+                            <div class="tech-badge ${badgeClass}">${badgeText}</div>
+                            <div class="card-overlay">
+                                ${demoBtn}
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-tags">${theme.tags}</div>
+                            <h3 class="card-title">${theme.title}</h3>
+                            <div class="card-price">
+                                <span style="font-size: 14px; color: #aaa;">${theme.tech === 'wordpress' ? 'Thème + Install' : 'Dev Complet'}</span>
+                                <span class="price-tag">${theme.price}</span>
+                            </div>
+                            <p style="color:#aaa; font-size:14px; margin-bottom:20px;">${theme.desc}</p>
+                            <div class="card-actions">
+                                <button class="btn-buy" onclick="addToCart('${theme.title}')">
+                                    <i class="fas fa-shopping-cart"></i> AJOUTER
+                                </button>
+                                <button class="btn" onclick="showDetails('${theme.title}')">
+                                    <i class="fas fa-file-alt"></i> DÉTAILS
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                }
+            });
+        }
+
+        function filterThemes(category) {
+            // Update active button
+            btns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            displayThemes('category', category);
+        }
+
+        function filterByTech(tech) {
+            btns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            displayThemes('tech', tech);
+        }
+
+        function showDetails(title) {
+            const t = themes.find(x => x.title === title);
+            if (!t) return;
+            document.getElementById('pmTitle').innerText = t.title;
+            document.getElementById('pmDesc').innerText = t.desc;
+            document.getElementById('pmPrice').innerText = t.price;
+            const img = document.getElementById('pmImage');
+            img.src = t.image;
+            img.alt = t.title;
+            
+            // Modal Buttons Logic
+            const demoBtn = document.getElementById('pmDemoBtn');
+            if(t.file !== '#') {
+                let demoUrl = t.file;
+                if(t.file.startsWith('demo_')) {
+                    demoUrl = `WORDPRESS_THEMES/DEMO_PREVIEWS/${t.file}`;
+                }
+                demoBtn.onclick = () => window.open(demoUrl, '_blank');
+                demoBtn.innerHTML = '<i class="fas fa-eye"></i> Voir la démo';
+                demoBtn.style.display = 'inline-block';
+            } else {
+                demoBtn.style.display = 'none';
+            }
+
+            document.getElementById('pmBuyBtn').onclick = () => addToCart(t.title);
+            document.getElementById('pmEmailBtn').onclick = () => window.location.href = `mailto:contact@h-tech.ma?subject=Achat: ${encodeURIComponent(t.title)}&body=Bonjour,%0D%0AJe souhaite acheter le produit ${encodeURIComponent(t.title)}.%0D%0AMerci.`;
+            document.getElementById('productModal').style.display = 'flex';
+        }
+        function closeModal() {
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        // Init
+        displayThemes('all', 'all');
+        calcQuote(); // Init Quote Price
+
+        (function() {
+            var offers = themes.map(function(t) {
+                return {
+                    "@type": "Offer",
+                    "priceCurrency": "MAD",
+                    "price": parseInt(String(t.price).replace(/[^0-9]/g,''), 10),
+                    "url": window.location.href,
+                    "itemOffered": {
+                        "@type": "Product",
+                        "name": t.title,
+                        "category": t.category,
+                        "description": t.desc,
+                        "image": t.image,
+                        "url": window.location.origin + "/WORDPRESS_THEMES/DEMO_PREVIEWS/" + t.file
+                    }
+                };
+            });
+            var ld = {
+                "@context": "https://schema.org",
+                "@type": "OfferCatalog",
+                "name": "H-THEMES Marketplace",
+                "url": window.location.href,
+                "itemListElement": offers
+            };
+            var s = document.createElement('script');
+            s.type = 'application/ld+json';
+            s.text = JSON.stringify(ld);
+            document.head.appendChild(s);
+        })();
+
+    </script>
+</body>
+</html>

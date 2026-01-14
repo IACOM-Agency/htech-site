@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>H-TECH | Générateur de Contrat Ultimate</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-app: #121212;
+            --bg-panel: #1e1e1e;
+            --primary: #d4af37; /* GOLD pour les contrats */
+            --accent: #2c3e50;
+            --text-main: #ffffff;
+            --text-muted: #aaaaaa;
+            
+            --paper-width: 210mm;
+            --paper-height: 297mm;
+        }
+
+        body {
+            background-color: var(--bg-app);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: 300px;
+            background: var(--bg-panel);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+
+        .brand {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            color: var(--primary);
+            margin-bottom: 30px;
+            text-align: center;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+
+        .control-group { margin-bottom: 25px; }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4); }
+
+        .btn-danger { background: #ff4757; color: white; }
+        .btn-danger:hover { background: #ff6b81; }
+
+        .status-msg {
+            margin-top: auto;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+
+        /* --- WORKSPACE --- */
+        .workspace {
+            flex: 1;
+            background: #222;
+            overflow: auto;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        /* --- FEUILLE A4 --- */
+        .paper {
+            background: white;
+            color: #333;
+            width: var(--paper-width);
+            min-height: var(--paper-height);
+            padding: 25mm;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            position: relative;
+            box-sizing: border-box;
+            font-size: 14px;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        /* --- STYLES DU CONTRAT --- */
+        h1 {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            font-size: 24px;
+            margin-bottom: 40px;
+            color: #000;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            color: #000;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            background: #f8f8f8;
+            padding: 5px 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        p { margin-bottom: 15px; }
+
+        .parties-section {
+            background: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid #eee;
+        }
+
+        [contenteditable] {
+            background: rgba(212, 175, 55, 0.1); /* Légère teinte dorée pour montrer l'éditable */
+            border-bottom: 1px dashed #ccc;
+            padding: 0 5px;
+            transition: 0.2s;
+        }
+        [contenteditable]:hover {
+            background: rgba(212, 175, 55, 0.2);
+            cursor: text;
+        }
+        [contenteditable]:focus {
+            background: transparent;
+            outline: none;
+            border-bottom: 2px solid var(--primary);
+            color: #000;
+        }
+
+        /* Zone Signature */
+        .signatures {
+            margin-top: 60px;
+            display: flex;
+            justify-content: space-between;
+            page-break-inside: avoid;
+        }
+        .sig-box {
+            width: 45%;
+            border: 1px solid #ccc;
+            height: 150px;
+            padding: 10px;
+            position: relative;
+        }
+        .sig-title {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 12px;
+            margin-bottom: 40px;
+        }
+        .lu-et-approuve {
+            font-style: italic;
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* IMPRESSION */
+        @media print {
+            body { background: white; height: auto; overflow: visible; }
+            .sidebar { display: none; }
+            .workspace { padding: 0; background: white; display: block; }
+            .paper { box-shadow: none; padding: 0; margin: 0; width: 100%; }
+            [contenteditable] { 
+                background: transparent !important; 
+                border: none !important; 
+                padding: 0;
+            }
+            h2 { background: none !important; padding-left: 0; border: none; font-weight: bold; text-decoration: underline; }
+            /* Force background colors */
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="brand">
+            <i class="fas fa-file-contract"></i> H-TECH LEGAL
+        </div>
+
+        <div class="control-group">
+            <button class="btn btn-primary" onclick="window.print()">
+                <i class="fas fa-print"></i> Imprimer / PDF
+            </button>
+            <button class="btn btn-danger" onclick="resetContract()">
+                <i class="fas fa-trash"></i> Réinitialiser
+            </button>
+        </div>
+
+        <div style="padding: 15px; background: #2a2a2a; border-radius: 6px; font-size: 12px; color: #ccc;">
+            <i class="fas fa-info-circle"></i> <strong>Astuce :</strong><br>
+            Cliquez directement sur le texte surligné en jaune pour modifier les noms, dates et montants.
+        </div>
+
+        <div class="status-msg">
+            Sauvegarde auto active <i class="fas fa-check-circle" style="color: var(--primary)"></i>
+        </div>
+    </div>
+
+    <!-- WORKSPACE -->
+    <div class="workspace">
+        <div class="paper" id="contractPaper">
+            
+            <h1>CONTRAT DE PRESTATION DE SERVICES</h1>
+
+            <div class="parties-section">
+                <p><strong>ENTRE LES SOUSSIGNÉS :</strong></p>
+                
+                <p>
+                    <strong>Le Prestataire :</strong><br>
+                    <span contenteditable="true" id="providerName">H-TECH SOLUTIONS</span>, 
+                    situé au <span contenteditable="true" id="providerAddress">123 Bd de l'Innovation, Casablanca</span>.<br>
+                    Représenté par <span contenteditable="true">M. Elhhi</span>.
+                </p>
+
+                <p style="text-align: center; font-weight: bold;">CI-APRÈS DÉNOMMÉ « LE PRESTATAIRE »</p>
+
+                <p><strong>ET :</strong></p>
+
+                <p>
+                    <strong>Le Client :</strong><br>
+                    <span contenteditable="true" id="clientName">Société CLIENT S.A.R.L</span>, 
+                    situé au <span contenteditable="true" id="clientAddress">456 Avenue des Clients, Rabat</span>.<br>
+                    Représenté par <span contenteditable="true">M. Le Directeur</span>.
+                </p>
+
+                <p style="text-align: center; font-weight: bold;">CI-APRÈS DÉNOMMÉ « LE CLIENT »</p>
+            </div>
+
+            <h2>ARTICLE 1 : OBJET DU CONTRAT</h2>
+            <p>
+                Le présent contrat a pour objet la réalisation par le Prestataire des services suivants pour le compte du Client :
+            </p>
+            <p contenteditable="true" style="min-height: 60px;">
+                - Développement d'une application web sur mesure.<br>
+                - Création d'une galerie 3D virtuelle.<br>
+                - Maintenance technique mensuelle.
+            </p>
+
+            <h2>ARTICLE 2 : DURÉE</h2>
+            <p>
+                Ce contrat prend effet à compter du <span contenteditable="true">07/01/2025</span> et est conclu pour une durée de <span contenteditable="true">3 mois</span>.
+            </p>
+
+            <h2>ARTICLE 3 : PRIX ET MODALITÉS DE PAIEMENT</h2>
+            <p>
+                En contrepartie de la réalisation des prestations définies à l'Article 1, le Client versera au Prestataire la somme globale de :
+                <br><br>
+                <strong><span contenteditable="true">15 000,00</span> <span contenteditable="true">DH</span> HT.</strong>
+            </p>
+            <p>
+                Le paiement s'effectuera selon les modalités suivantes :<br>
+                <span contenteditable="true">- 50% à la signature du présent contrat (Acompte).</span><br>
+                <span contenteditable="true">- 50% à la livraison finale.</span>
+            </p>
+
+            <h2>ARTICLE 4 : OBLIGATIONS DU PRESTATAIRE</h2>
+            <p>
+                Le Prestataire s'engage à mettre en œuvre tous les moyens nécessaires pour la bonne exécution de la prestation. Il est tenu à une obligation de moyens.
+            </p>
+
+            <h2>ARTICLE 5 : CONFIDENTIALITÉ</h2>
+            <p>
+                Les deux parties s'engagent à conserver confidentiels les documents et informations de toute nature concernant l'autre partie, dont elles auraient pu avoir connaissance au cours de l'exécution du présent contrat.
+            </p>
+
+            <h2>ARTICLE 6 : LITIGES</h2>
+            <p>
+                Tout litige relatif à l'interprétation et à l'exécution des présentes conditions générales de vente est soumis au droit marocain. À défaut de résolution amiable, le litige sera porté devant le Tribunal de Commerce compétent.
+            </p>
+
+            <p style="margin-top: 40px;">
+                Fait à <span contenteditable="true">Casablanca</span>, le <span contenteditable="true">07/01/2025</span>.
+                <br>En deux exemplaires originaux.
+            </p>
+
+            <!-- SIGNATURES -->
+            <div class="signatures">
+                <div class="sig-box">
+                    <div class="sig-title">POUR LE PRESTATAIRE</div>
+                    <div class="lu-et-approuve">"Lu et approuvé"</div>
+                </div>
+                <div class="sig-box">
+                    <div class="sig-title">POUR LE CLIENT</div>
+                    <div class="lu-et-approuve">"Lu et approuvé"</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // --- SAUVEGARDE AUTO ---
+        document.addEventListener('DOMContentLoaded', () => {
+            loadContract();
+        });
+
+        function saveContract() {
+            const content = document.getElementById('contractPaper').innerHTML;
+            localStorage.setItem('htech_contract_data', content);
+        }
+
+        function loadContract() {
+            const saved = localStorage.getItem('htech_contract_data');
+            if(saved) {
+                document.getElementById('contractPaper').innerHTML = saved;
+            }
+        }
+
+        function resetContract() {
+            if(confirm('Attention : Cela va effacer tout le contrat actuel et recharger le modèle par défaut. Continuer ?')) {
+                localStorage.removeItem('htech_contract_data');
+                location.reload();
+            }
+        }
+
+        // Sauvegarde à chaque modification de texte
+        document.body.addEventListener('input', (e) => {
+            if (e.target.isContentEditable) {
+                saveContract();
+            }
+        });
+    </script>
+</body>
+</html>

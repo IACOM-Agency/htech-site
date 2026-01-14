@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOS PC RABAT - Dépannage Informatique Urgence 24/7</title>
+    <meta name="description" content="Urgence informatique à Rabat ? PC en panne, écran bleu, virus ? Intervention immédiate à domicile ou à distance. Technicien certifié H-TECH PRO.">
+    <meta name="keywords" content="Urgence PC Rabat, SOS Informatique, Réparation ordinateur nuit, Technicien informatique domicile, Dépannage rapide Rabat">
+    <meta name="robots" content="index, follow">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --neon-red: #ff3333;
+            --neon-blue: #00f3ff;
+            --text-color: #ffffff;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER --- */
+        header {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            color: white;
+        }
+
+        .logo span { color: var(--neon-blue); }
+
+        .urgent-badge {
+            background: rgba(255, 51, 51, 0.2);
+            color: var(--neon-red);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            border: 1px solid var(--neon-red);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 51, 51, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 51, 51, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 51, 51, 0); }
+        }
+
+        /* --- HERO --- */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: radial-gradient(circle at center, rgba(0, 243, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron';
+            font-size: 32px;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            color: #ccc;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .cta-box {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .phone-btn {
+            background: var(--neon-red);
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 0 20px rgba(255, 51, 51, 0.4);
+            transition: 0.3s;
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
+        }
+
+        /* --- PROBLEMS GRID --- */
+        .problems {
+            padding: 40px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-family: 'Orbitron';
+            color: #888;
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .prob-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .prob-card i {
+            font-size: 24px;
+            color: var(--neon-blue);
+            margin-bottom: 10px;
+        }
+
+        .prob-card h3 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        /* --- PRICING --- */
+        .pricing-list {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--glass);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .price-item:last-child { border-bottom: none; }
+
+        .price-val {
+            color: var(--neon-blue);
+            font-weight: bold;
+            font-family: 'Orbitron';
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            font-size: 12px;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+        
+        .back-link {
+            color: #888;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            border: 1px solid #333;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">H-TECH <span>PRO</span></div>
+        <div class="urgent-badge"><i class="fas fa-bolt"></i> URGENCE 24/7</div>
+    </header>
+
+    <section class="hero">
+        <h1>PC EN PANNE ?<br><span style="color:var(--neon-blue)">INTERVENTION RAPIDE</span></h1>
+        <p>Ne perdez pas votre journée. Un technicien certifié intervient chez vous ou à distance en moins de 2h.</p>
+        
+        <div class="cta-box">
+            <a href="tel:+212600000000" class="phone-btn">
+                <i class="fas fa-phone-alt"></i> APPELER MAINTENANT
+            </a>
+            <a href="https://wa.me/212600000000?text=Bonjour,%20j'ai%20une%20urgence%20informatique%20!" class="whatsapp-btn">
+                <i class="fab fa-whatsapp"></i> MESSAGE WHATSAPP
+            </a>
+            <div style="margin-top: 10px; color: #ccc; font-size: 12px;">Dispo 7j/7 de 8h à 22h</div>
+        </div>
+    </section>
+
+    <section class="problems">
+        <h2 class="section-title">QUEL EST VOTRE PROBLÈME ?</h2>
+        <div class="grid">
+            <div class="prob-card">
+                <i class="fas fa-skull-crossbones"></i>
+                <h3>Écran Noir / Bleu</h3>
+            </div>
+            <div class="prob-card">
+                <i class="fas fa-tachometer-alt"></i>
+                <h3>PC Très Lent</h3>
+            </div>
+            <div class="prob-card">
+                <i class="fas fa-wifi"></i>
+                <h3>Pas d'Internet</h3>
+            </div>
+            <div class="prob-card">
+                <i class="fas fa-bug"></i>
+                <h3>Virus / Pubs</h3>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing">
+        <h2 class="section-title">TARIFS TRANSPARENTS</h2>
+        <div class="pricing-list">
+            <div class="price-item">
+                <span>Diagnostic Téléphonique</span>
+                <span class="price-val">GRATUIT</span>
+            </div>
+            <div class="price-item">
+                <span>Intervention Distance</span>
+                <span class="price-val">150 DH</span>
+            </div>
+            <div class="price-item">
+                <span>Déplacement Rabat</span>
+                <span class="price-val">200 DH</span>
+            </div>
+            <div class="price-item">
+                <span>Formatage + Drivers</span>
+                <span class="price-val">150 DH</span>
+            </div>
+        </div>
+        <p style="text-align: center; color: #666; font-size: 12px; margin-top: 15px;">*Hors coût pièces de rechange</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 H-TECH PRO. Service d'Urgence.</p>
+        <p>Rabat - Témara - Salé</p>
+        
+        <a href="Site_Web_H-TECH.html" class="back-link">Voir le Site Complet</a>
+    </footer>
+
+</body>
+</html>

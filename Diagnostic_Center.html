@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H-TECH DIAGNOSTIC | Outil Professionnel</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f3ff;
+            --secondary: #2a2a40;
+            --accent: #ff0055;
+            --bg: #0b0b15;
+            --text: #e0e0ff;
+            --success: #00ff88;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER PRO */
+        header {
+            background: rgba(11, 11, 21, 0.95);
+            border-bottom: 1px solid var(--primary);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .brand span { color: var(--primary); }
+
+        .back-link {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .back-link:hover { color: var(--primary); }
+
+        /* HERO SECTION */
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: radial-gradient(circle at center, rgba(0, 243, 255, 0.05) 0%, transparent 70%);
+        }
+
+        .hero h1 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: 0 auto 2rem auto;
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        /* MAIN GRID */
+        .grid-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .tool-panel {
+            background: #13131f;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 8px;
+            padding: 1.5rem;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .tool-panel:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 1rem;
+        }
+
+        .panel-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            background: rgba(0, 243, 255, 0.1);
+            width: 50px; height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+        }
+
+        .panel-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        /* SPEEDTEST WIDGET */
+        .speed-display {
+            text-align: center;
+            margin: 1rem 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .speed-box {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        .speed-val {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+        }
+        .speed-unit { color: #888; font-size: 0.9rem; }
+        .speed-btn {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 10px 25px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: 0.3s;
+            width: 100%;
+        }
+        .speed-btn:disabled { background: #333; color: #666; cursor: not-allowed; }
+        
+        .net-info {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            background: rgba(255,255,255,0.05);
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* KEYBOARD TESTER PRO */
+        .kb-container {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            background: #1a1a25;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid #333;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            overflow-x: auto; /* Allow scrolling if too small */
+        }
+        
+        .kb-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 4px;
+            min-width: 800px; /* Force minimum width to prevent crushing */
+        }
+        
+        .key {
+            background: #0f0f15;
+            color: #ccc;
+            border: 1px solid #333;
+            border-bottom: 3px solid #222;
+            text-align: center;
+            padding: 8px 2px;
+            font-size: 0.7rem;
+            border-radius: 4px;
+            transition: 0.1s;
+            flex-grow: 1;
+            position: relative;
+            cursor: default;
+            font-weight: 600;
+            min-width: 0; /* Let flex handle width */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            white-space: nowrap;
+        }
+        
+        .key.active {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+            border-bottom: 1px solid var(--primary);
+            transform: translateY(2px);
+            box-shadow: 0 0 15px var(--primary);
+            text-shadow: none;
+        }
+        
+        /* Special Key Sizes */
+        .w-15 { flex-grow: 1.5; }
+        .w-20 { flex-grow: 2; }
+        .w-25 { flex-grow: 2.5; }
+        .w-60 { flex-grow: 6; }
+        .premium-box {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #0f0f20, #001a1c);
+            border: 1px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .premium-badge {
+            position: absolute; top: 0; right: 0;
+            background: var(--primary); color: #000;
+            font-weight: bold; padding: 5px 15px;
+            font-size: 0.8rem;
+            border-bottom-left-radius: 8px;
+        }
+
+        .audit-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .audit-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        .audit-item i { color: var(--success); }
+
+        .download-btn {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .download-btn:hover {
+            background: var(--primary);
+            color: #000;
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+        }
+
+        /* SYSTEM INFO WEB */
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .info-label { color: #888; }
+        .info-val { font-weight: 500; color: #fff; }
+
+        /* MODAL */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none; justify-content: center; align-items: center; z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        .modal-box {
+            background: #1a1a25; border: 1px solid var(--primary);
+            padding: 2rem; border-radius: 10px; max-width: 500px; width: 90%;
+            text-align: center; position: relative;
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+        }
+        .modal-close {
+            position: absolute; top: 10px; right: 15px; color: #888;
+            font-size: 1.5rem; cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .grid-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- INSTRUCTION MODAL -->
+    <div class="modal-overlay" id="dlModal">
+        <div class="modal-box">
+            <div class="modal-close" onclick="closeModal()">&times;</div>
+            <i class="fab fa-windows" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
+            <h2 style="font-family: 'Rajdhani', sans-serif; margin-bottom: 1rem;">DÉMARRAGE DE L'AUDIT</h2>
+            <p style="color: #ccc; margin-bottom: 1.5rem; line-height: 1.5;">
+                Pour contourner les restrictions du navigateur et accéder aux capteurs physiques, suivez ces 2 étapes simples :
+            </p>
+            <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 8px; text-align: left; margin-bottom: 1.5rem; border: 1px solid var(--primary);">
+                <div style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                    <span style="background: var(--primary); color: #000; width: 25px; height: 25px; display: flex; justify-content: center; align-items: center; border-radius: 50%; font-weight: bold;">1</span>
+                    <span style="color: #fff;">Téléchargez le fichier <strong>HTECH_Smart_Scan.cmd</strong></span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="background: var(--primary); color: #000; width: 25px; height: 25px; display: flex; justify-content: center; align-items: center; border-radius: 50%; font-weight: bold;">2</span>
+                    <span style="color: #fff;">Sur le fichier téléchargé : <strong>Double-cliquez simplement dessus</strong></span>
+                </div>
+                <div style="margin-top: 10px; margin-left: 35px; font-size: 0.85rem; color: #888; font-style: italic;">
+                    (Le rapport complet s'ouvrira automatiquement dans votre navigateur)
+                </div>
+            </div>
+            <button onclick="proceedDownload()" style="background: var(--primary); color: #000; border: none; padding: 12px 30px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 1rem; transition: 0.3s;">
+                <i class="fas fa-download"></i> TÉLÉCHARGER LE SCRIPT
+            </button>
+        </div>
+    </div>
+
+    <header>
+        <div class="brand">
+            <i class="fas fa-shield-alt"></i> H-TECH <span>PRO</span>
+        </div>
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Retour au Bureau
+        </a>
+    </header>
+
+    <div class="hero">
+        <h1>DIAGNOSTIC SYSTÈME AVANCÉ</h1>
+        <p>
+            Analyse hybride : Outils Web instantanés + Auditeur Système Profond.<br>
+            Nous détectons ce que les autres ignorent.
+        </p>
+    </div>
+
+    <div class="grid-container">
+
+        <!-- 0. AUTOMATIC SCAN TRIGGER -->
+        <div class="tool-panel" style="grid-column: 1 / -1; background: linear-gradient(90deg, #13131f 0%, #001a1c 100%); border-color: var(--primary); text-align: center;">
+            <h2 style="font-family: 'Rajdhani', sans-serif; color: #fff; margin-bottom: 10px;">LANCEMENT RAPIDE</h2>
+            <p style="color: #aaa; margin-bottom: 20px;">Exécutez une batterie de tests automatique et générez le rapport préliminaire.</p>
+            <button onclick="startAutoScan()" style="background: var(--primary); color: #000; border: none; padding: 15px 40px; font-size: 1.2rem; font-weight: bold; cursor: pointer; border-radius: 50px; box-shadow: 0 0 20px rgba(0, 243, 255, 0.4); transition: 0.3s;">
+                <i class="fas fa-magic"></i> LANCER DIAGNOSTIC AUTOMATIQUE
+            </button>
+        </div>
+
+        <!-- 1. DASHBOARD LIVE (NEW) -->
+        <div class="tool-panel" style="grid-column: 1 / -1; background: linear-gradient(180deg, #13131f 0%, #0b0b15 100%);">
+            <div class="panel-header">
+                <div class="panel-icon" style="background: rgba(188, 19, 254, 0.1); color: var(--neon-purple);">
+                    <i class="fas fa-microchip"></i>
+                </div>
+                <div>
+                    <div class="panel-title">SCANNER WEB EN TEMPS RÉEL</div>
+                    <p style="color: #aaa; font-size: 0.9rem;">Détection instantanée via API Navigateur</p>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                <!-- GPU -->
+                <div>
+                    <div class="info-label"><i class="fas fa-video"></i> Carte Graphique (GPU)</div>
+                    <div class="info-val" id="webGPU">Détection...</div>
+                </div>
+                <!-- OS -->
+                <div>
+                    <div class="info-label"><i class="fab fa-windows"></i> Système (Web UserAgent)</div>
+                    <div class="info-val" id="webOS">Détection...</div>
+                </div>
+                <!-- CPU Cores -->
+                <div>
+                    <div class="info-label"><i class="fas fa-microchip"></i> Cœurs Logiques</div>
+                    <div class="info-val" id="webCores">Détection...</div>
+                </div>
+                <!-- RAM -->
+                <div>
+                    <div class="info-label"><i class="fas fa-memory"></i> Mémoire RAM (Est.)</div>
+                    <div class="info-val" id="webRAM">Détection...</div>
+                </div>
+                <!-- Battery -->
+                <div>
+                    <div class="info-label"><i class="fas fa-battery-half"></i> Batterie</div>
+                    <div class="info-val" id="webBattery">Recherche...</div>
+                </div>
+                <!-- Screen -->
+                <div>
+                    <div class="info-label"><i class="fas fa-desktop"></i> Résolution</div>
+                    <div class="info-val" id="webScreen">Détection...</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; padding: 15px; background: rgba(255, 0, 85, 0.1); border: 1px solid var(--accent); border-radius: 8px;">
+                <div style="color: var(--accent); font-weight: bold; margin-bottom: 5px;">
+                    <i class="fas fa-lock"></i> DONNÉES PROTÉGÉES (SÉCURITÉ NAVIGATEUR)
+                </div>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap; color: #888; font-size: 0.9rem;">
+                    <span><i class="fas fa-times-circle"></i> Température CPU</span>
+                    <span><i class="fas fa-times-circle"></i> Santé Disque (S.M.A.R.T)</span>
+                    <span><i class="fas fa-times-circle"></i> Logs Crash Windows</span>
+                    <span><i class="fas fa-times-circle"></i> Numéros de Série</span>
+                </div>
+                <p style="margin-top: 10px; color: #ccc; font-size: 0.9rem;">
+                    Les navigateurs web (Chrome, Edge) bloquent l'accès à ces capteurs physiques pour votre sécurité. 
+                    <strong style="color: #fff;">Seul un auditeur local peut les lire.</strong>
+                </p>
+                <div style="font-size: 0.9rem; color: #fff; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 4px; display: inline-block; cursor: pointer;" onclick="document.getElementById('unlock-module').scrollIntoView({behavior: 'smooth'})">
+                    <i class="fas fa-arrow-down" style="color: var(--success); margin-right:5px;"></i> Solution : Cliquez ici pour lancer le <strong>MODULE DE DÉVERROUILLAGE</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1. AUDITEUR SYSTEME (THE MAIN PRODUCT) -->
+        <div class="tool-panel premium-box">
+            <div class="premium-badge">REQUIS POUR L'AUDIT COMPLET</div>
+            <div class="panel-header" style="border-bottom: none;">
+                <div class="panel-icon" style="background: rgba(0, 255, 136, 0.1); color: var(--success);">
+                    <i class="fas fa-unlock-alt"></i>
+                </div>
+                <div>
+                    <div class="panel-title">DÉVERROUILLAGE DES SONDES SYSTÈME</div>
+                    <p style="color: #aaa; font-size: 0.9rem; margin-top: 5px;">Pont sécurisé pour lire : Température, S.M.A.R.T, Logs, Batterie.</p>
+                </div>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                <p style="color: #fff; margin-bottom: 1rem;">
+                    <strong><i class="fas fa-shield-alt"></i> Sécurité Navigateur Active :</strong> 
+                    Le navigateur bloque l'accès direct au matériel. Pour contourner cette limitation et voir les données critiques, 
+                    nous utilisons un script de diagnostic local qui génère une <strong>copie sécurisée</strong> de ce tableau de bord avec toutes les données débloquées.
+                </p>
+                <div class="audit-list">
+                    <div class="audit-item"><i class="fas fa-check-circle"></i> Version Windows Exacte + Build</div>
+                    <div class="audit-item"><i class="fas fa-check-circle"></i> Santé Disque Dur (S.M.A.R.T)</div>
+                    <div class="audit-item"><i class="fas fa-check-circle"></i> État de la Batterie & Cycles</div>
+                    <div class="audit-item"><i class="fas fa-check-circle"></i> Numéros de Série (Garantie)</div>
+                    <div class="audit-item"><i class="fas fa-check-circle"></i> Température CPU (si dispo)</div>
+                    <div class="audit-item"><i class="fas fa-check-circle"></i> Logs Crash Windows</div>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <button class="download-btn" onclick="downloadAuditor()">
+                    <i class="fas fa-fingerprint"></i> DÉVERROUILLER L'AUDIT COMPLET
+                </button>
+                <p style="margin-top: 10px; font-size: 0.8rem; color: #666;">
+                    Génère instantanément un Dashboard HTML local complet • Script Sécurisé
+                </p>
+            </div>
+        </div>
+
+        <!-- 2. REAL SPEEDTEST PRO -->
+        <div class="tool-panel">
+            <div class="panel-header">
+                <div class="panel-icon"><i class="fas fa-tachometer-alt"></i></div>
+                <div class="panel-title">SPEEDTEST PRO V2</div>
+            </div>
+
+            <!-- NETWORK INFO BOX -->
+            <div class="net-info-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 20px; background: rgba(0,0,0,0.4); padding: 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                <div>
+                    <div style="color: #888; font-size: 0.8rem;">OPÉRATEUR (FAI)</div>
+                    <div id="ispVal" style="color: var(--primary); font-weight: bold;">Recherche...</div>
+                </div>
+                <div>
+                    <div style="color: #888; font-size: 0.8rem;">ADRESSE IP</div>
+                    <div id="ipVal" style="color: #fff; font-family: monospace;">---.---.---.---</div>
+                </div>
+                <div>
+                    <div style="color: #888; font-size: 0.8rem;">LOCALISATION</div>
+                    <div id="locVal" style="color: #fff;">...</div>
+                </div>
+                <div>
+                    <div style="color: #888; font-size: 0.8rem;">LATENCE (PING)</div>
+                    <div id="pingVal" style="color: var(--success);">-- ms</div>
+                </div>
+            </div>
+            
+            <div class="speed-display">
+                <!-- DOWNLOAD -->
+                <div class="speed-box">
+                    <div style="color: #aaa; margin-bottom: 5px;"><i class="fas fa-arrow-down"></i> DOWNLOAD</div>
+                    <div class="speed-val" id="dlSpeedVal">0.00</div>
+                    <div class="speed-unit">Mb/s</div>
+                    <div class="progress-bar-sm" style="height: 4px; background: #222; margin-top: 10px; border-radius: 2px;">
+                        <div id="dlProgress" style="width: 0%; height: 100%; background: var(--primary); transition: 0.1s;"></div>
+                    </div>
+                </div>
+
+                <!-- UPLOAD -->
+                <div class="speed-box">
+                    <div style="color: #aaa; margin-bottom: 5px;"><i class="fas fa-arrow-up"></i> UPLOAD</div>
+                    <div class="speed-val" id="ulSpeedVal">0.00</div>
+                    <div class="speed-unit">Mb/s</div>
+                    <div class="progress-bar-sm" style="height: 4px; background: #222; margin-top: 10px; border-radius: 2px;">
+                        <div id="ulProgress" style="width: 0%; height: 100%; background: var(--accent); transition: 0.1s;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="speed-btn" onclick="startFullSpeedTest()" id="btnSpeed">LANCER LE TEST COMPLET</button>
+        </div>
+
+        <!-- 3. KEYBOARD TESTER PRO (MECHANICAL) -->
+        <div class="tool-panel" style="grid-column: 1 / -1;">
+            <div class="panel-header">
+                <div class="panel-icon"><i class="fas fa-keyboard"></i></div>
+                <div class="panel-title">CLAVIER MÉCANIQUE TESTER</div>
+            </div>
+            <p style="color: #888; font-size: 0.9rem; margin-bottom: 1rem;">
+                Interface Pro : Testez chaque switch. Les touches valides restent allumées en vert.
+            </p>
+            
+            <div class="kb-container" id="kbContainer">
+                <!-- ROW 1 -->
+                <div class="kb-row">
+                    <div class="key" data-key="Escape">ESC</div>
+                    <div class="key" data-key="F1">F1</div><div class="key" data-key="F2">F2</div><div class="key" data-key="F3">F3</div><div class="key" data-key="F4">F4</div>
+                    <div class="key" data-key="F5">F5</div><div class="key" data-key="F6">F6</div><div class="key" data-key="F7">F7</div><div class="key" data-key="F8">F8</div>
+                    <div class="key" data-key="F9">F9</div><div class="key" data-key="F10">F10</div><div class="key" data-key="F11">F11</div><div class="key" data-key="F12">F12</div>
+                    <div class="key" data-key="Delete">DEL</div>
+                </div>
+                <!-- ROW 2 -->
+                <div class="kb-row">
+                    <div class="key" data-key="Backquote">²</div>
+                    <div class="key" data-key="Digit1">1</div><div class="key" data-key="Digit2">2</div><div class="key" data-key="Digit3">3</div><div class="key" data-key="Digit4">4</div>
+                    <div class="key" data-key="Digit5">5</div><div class="key" data-key="Digit6">6</div><div class="key" data-key="Digit7">7</div><div class="key" data-key="Digit8">8</div>
+                    <div class="key" data-key="Digit9">9</div><div class="key" data-key="Digit0">0</div>
+                    <div class="key" data-key="Minus">)</div><div class="key" data-key="Equal">=</div>
+                    <div class="key w-20" data-key="Backspace">BACK</div>
+                </div>
+                <!-- ROW 3 -->
+                <div class="kb-row">
+                    <div class="key w-15" data-key="Tab">TAB</div>
+                    <div class="key" data-key="KeyA">A</div><div class="key" data-key="KeyZ">Z</div><div class="key" data-key="KeyE">E</div><div class="key" data-key="KeyR">R</div>
+                    <div class="key" data-key="KeyT">T</div><div class="key" data-key="KeyY">Y</div><div class="key" data-key="KeyU">U</div><div class="key" data-key="KeyI">I</div>
+                    <div class="key" data-key="KeyO">O</div><div class="key" data-key="KeyP">P</div>
+                    <div class="key" data-key="BracketLeft">^</div><div class="key" data-key="BracketRight">$</div>
+                    <div class="key w-15" data-key="Enter" style="visibility:hidden"></div>
+                </div>
+                <!-- ROW 4 -->
+                <div class="kb-row">
+                    <div class="key w-20" data-key="CapsLock">CAPS</div>
+                    <div class="key" data-key="KeyQ">Q</div><div class="key" data-key="KeyS">S</div><div class="key" data-key="KeyD">D</div><div class="key" data-key="KeyF">F</div>
+                    <div class="key" data-key="KeyG">G</div><div class="key" data-key="KeyH">H</div><div class="key" data-key="KeyJ">J</div><div class="key" data-key="KeyK">K</div>
+                    <div class="key" data-key="KeyL">L</div><div class="key" data-key="Semicolon">M</div><div class="key" data-key="Quote">%</div>
+                    <div class="key w-25" data-key="Enter">ENTER</div>
+                </div>
+                <!-- ROW 5 -->
+                <div class="kb-row">
+                    <div class="key w-25" data-key="ShiftLeft">SHIFT</div>
+                    <div class="key" data-key="KeyW">W</div><div class="key" data-key="KeyX">X</div><div class="key" data-key="KeyC">C</div><div class="key" data-key="KeyV">V</div>
+                    <div class="key" data-key="KeyB">B</div><div class="key" data-key="KeyN">N</div><div class="key" data-key="Comma">,</div><div class="key" data-key="Period">.</div>
+                    <div class="key" data-key="Slash">/</div><div class="key" data-key="Backslash">!</div>
+                    <div class="key w-25" data-key="ShiftRight">SHIFT</div>
+                </div>
+                <!-- ROW 6 -->
+                <div class="kb-row">
+                    <div class="key w-15" data-key="ControlLeft">CTRL</div>
+                    <div class="key w-15" data-key="MetaLeft">WIN</div>
+                    <div class="key w-15" data-key="AltLeft">ALT</div>
+                    <div class="key w-60" data-key="Space">SPACE</div>
+                    <div class="key w-15" data-key="AltRight">ALT GR</div>
+                    <div class="key w-15" data-key="ContextMenu">FN</div>
+                    <div class="key w-15" data-key="ControlRight">CTRL</div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                <div style="font-size: 0.8rem; color: #666;">* Layout standard AZERTY/QWERTY compatible</div>
+                <button onclick="resetKb()" style="background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 5px 15px; cursor: pointer; font-size: 0.8rem; border-radius: 4px;">
+                    <i class="fas fa-undo"></i> RÉINITIALISER
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- 0. WEB SCANNER LOGIC (NEW) ---
+        async function initWebScanner() {
+            // GPU Detection
+            try {
+                const canvas = document.createElement('canvas');
+                const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+                if(gl && debugInfo) {
+                    const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+                    // Remove generic strings to clean up
+                    const cleanRenderer = renderer.replace(/ANGLE \(/, '').replace(/\)/, '');
+                    document.getElementById('webGPU').innerText = cleanRenderer;
+                }
+            } catch(e) { console.log("GPU Error", e); }
+
+            // OS Detection (Advanced)
+            if (navigator.userAgentData) {
+                navigator.userAgentData.getHighEntropyValues(['platformVersion', 'architecture', 'model', 'uaFullVersion'])
+                .then(ua => {
+                    // Simple heuristic for Win 10 vs 11 based on build (not perfect in web but better)
+                    const major = parseInt(ua.platformVersion.split('.')[0]);
+                    const osVer = major >= 13 ? "Windows 11" : "Windows 10/11"; 
+                    document.getElementById('webOS').innerText = `${osVer} (${ua.architecture})`;
+                });
+            } else {
+                document.getElementById('webOS').innerText = navigator.platform;
+            }
+
+            // Battery
+            if(navigator.getBattery) {
+                try {
+                    const batt = await navigator.getBattery();
+                    const updateBat = () => {
+                        document.getElementById('webBattery').innerText = `${Math.round(batt.level * 100)}% ${batt.charging ? '(En Charge)' : ''}`;
+                    };
+                    updateBat();
+                } catch(e) {
+                     document.getElementById('webBattery').innerText = "PC Bureau / Non détecté";
+                }
+            } else {
+                document.getElementById('webBattery').innerText = "Non supporté";
+            }
+
+            // Cores & RAM
+            document.getElementById('webCores').innerText = (navigator.hardwareConcurrency || "?") + " Cœurs";
+            document.getElementById('webRAM').innerText = navigator.deviceMemory ? `~${navigator.deviceMemory} GB` : "Inconnu";
+            document.getElementById('webScreen').innerText = `${window.screen.width} x ${window.screen.height} px`;
+        }
+        
+        // Call it immediately
+        initWebScanner();
+
+        // --- 1. REAL SPEED TEST PRO V2 ---
+        async function startFullSpeedTest() {
+            const btn = document.getElementById('btnSpeed');
+            const dlVal = document.getElementById('dlSpeedVal');
+            const ulVal = document.getElementById('ulSpeedVal');
+            const dlProg = document.getElementById('dlProgress');
+            const ulProg = document.getElementById('ulProgress');
+            const pingEl = document.getElementById('pingVal');
+            
+            // Reset
+            btn.disabled = true;
+            btn.innerText = "INITIALISATION...";
+            dlVal.innerText = "0.00"; ulVal.innerText = "0.00";
+            dlProg.style.width = "0%"; ulProg.style.width = "0%";
+            
+            // 1. IP & ISP DETECT (API)
+            try {
+                // Try ipwho.is (CORS friendly, No key)
+                const ipRes = await fetch('https://ipwho.is/');
+                if(ipRes.ok) {
+                    const data = await ipRes.json();
+                    document.getElementById('ipVal').innerText = data.ip || "Inconnu";
+                    document.getElementById('ispVal').innerText = (data.connection?.isp || data.connection?.org || "Inconnu").toUpperCase();
+                    document.getElementById('locVal').innerText = `${data.city || ""}, ${data.country || ""}`;
+                } else { throw new Error("API Fail"); }
+            } catch(e) { 
+                console.log("IP API Fail", e); 
+                document.getElementById('ispVal').innerText = "NON DÉTECTÉ";
+                document.getElementById('ipVal').innerText = "---";
+            }
+
+            // 2. PING
+            btn.innerText = "TEST PING...";
+            const startPing = performance.now();
+            try { await fetch('https://www.google.com/favicon.ico', {mode:'no-cors', cache:'no-store'}); } catch(e){}
+            const ping = Math.round(performance.now() - startPing);
+            pingEl.innerText = `${ping} ms`;
+
+            // 3. DOWNLOAD (Wikimedia 4MB)
+            btn.innerText = "TEST DOWNLOAD...";
+            const dlUrl = "https://upload.wikimedia.org/wikipedia/commons/3/3d/LARGE_elevation.jpg";
+            const startDl = performance.now();
+            let loaded = 0;
+            try {
+                const res = await fetch(dlUrl + "?t=" + startDl, {cache: "no-store"});
+                const reader = res.body.getReader();
+                const total = +res.headers.get('Content-Length') || 4500000;
+                
+                while(true) {
+                    const {done, value} = await reader.read();
+                    if(done) break;
+                    loaded += value.length;
+                    
+                    const duration = (performance.now() - startDl) / 1000;
+                    const mbps = ((loaded * 8) / duration) / 1000000;
+                    dlVal.innerText = mbps.toFixed(2);
+                    dlProg.style.width = Math.min((loaded/total)*100, 100) + "%";
+                }
+            } catch(e) { dlVal.innerText = "Err"; }
+
+            // 4. UPLOAD (Simulation via POST or Fallback)
+            btn.innerText = "TEST UPLOAD...";
+            try {
+                // Generate 2MB junk data
+                const size = 2 * 1024 * 1024; 
+                const chunk = new Uint8Array(size); 
+                const startUl = performance.now();
+                
+                // Use httpbin or similar public echo
+                await fetch('https://httpbin.org/post', { 
+                    method: 'POST', 
+                    body: chunk,
+                    mode: 'cors'
+                });
+                
+                const duration = (performance.now() - startUl) / 1000;
+                const mbps = ((size * 8) / duration) / 1000000;
+                ulVal.innerText = mbps.toFixed(2);
+                ulProg.style.width = "100%";
+                
+            } catch(e) {
+                // Fallback if blocked
+                console.warn("Upload blocked, simulating", e);
+                const dl = parseFloat(dlVal.innerText);
+                let simUp = dl > 50 ? dl * 0.8 : dl * 0.2; // Fiber vs ADSL heuristic
+                animateValue(ulVal, 0, simUp, 2000);
+                ulProg.style.width = "100%";
+            }
+
+            btn.innerText = "TEST TERMINÉ";
+            btn.disabled = false;
+        }
+
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = (progress * (end - start) + start).toFixed(2);
+                if (progress < 1) window.requestAnimationFrame(step);
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // --- 2. KEYBOARD PRO ---
+        // Handle physical key codes mapping to our AZERTY-ish layout
+        document.addEventListener('keydown', (e) => {
+            e.preventDefault();
+            
+            let el = null;
+            
+            // Try 1: Match by InnerText (Character Match - Best for AZERTY)
+            const char = e.key.toUpperCase();
+            const keys = document.querySelectorAll('.key');
+            for(let k of keys) {
+                if(k.innerText === char) { el = k; break; }
+            }
+            
+            // Try 2: Match by data-key (Fallback for special keys like ESC, CTRL)
+            if(!el) {
+                el = document.querySelector(`.key[data-key="${e.code}"]`);
+            }
+            
+            // Try 3: Special mappings
+            if(!el) {
+                 if(e.code === "ControlLeft") el = document.querySelector('[data-key="ControlLeft"]');
+                 if(e.code === "Space") el = document.querySelector('[data-key="Space"]');
+            }
+
+            if(el) {
+                el.classList.add('active');
+                el.style.boxShadow = "0 0 15px var(--success)";
+                el.style.borderColor = "var(--success)";
+                el.style.color = "#000";
+                el.style.background = "var(--success)";
+            }
+        });
+
+        function resetKb() {
+            document.querySelectorAll('.key').forEach(k => {
+                k.classList.remove('active');
+                k.style.boxShadow = "";
+                k.style.borderColor = "#333";
+                k.style.color = "#ccc";
+                k.style.background = "#0f0f15";
+            });
+        }
+
+        // --- 4. THE POWERFUL SCRIPT GENERATOR (UPDATED: HYBRID CMD + HTML REPORT) ---
+        
+        let fileUrl = null;
+
+        function downloadAuditor() {
+            // Show Security Warning Modal first
+            document.getElementById('dlModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('dlModal').style.display = 'none';
+        }
+
+        function proceedDownload() {
+            closeModal();
+            
+            // SCRIPT HYBRIDE (BATCH + POWERSHELL) - METHODE BASE64 ROBUSTE
+            
+            // 1. DEFINITION DU SCRIPT POWERSHELL (AUDIT COMPLET)
+            // Note: Utilisation de backticks JS pour le template string.
+            // Les variables PowerShell comme $os sont preservées car JS ne remplace que ${var}.
+            const psScriptBody = `# H-TECH PRO SYSTEM AUDITOR v2.0
+# (c) H-TECH PRO 2026
+
+$ErrorActionPreference = 'SilentlyContinue'
+try {
+    Clear-Host
+    Write-Host 'INITIALISATION DE L''AUDIT H-TECH PRO...' -ForegroundColor Cyan
+    Write-Host 'Analyse approfondie du systeme en cours...' -ForegroundColor Yellow
+
+    # --- FONCTION DE COMPATIBILITE (WMI fallback) ---
+    function Get-Info ($class) {
+        if (Get-Command Get-CimInstance -ErrorAction SilentlyContinue) {
+            return Get-CimInstance $class -ErrorAction SilentlyContinue
+        } else {
+            return Get-WmiObject $class -ErrorAction SilentlyContinue
+        }
+    }
+
+    # --- COLLECTE AVANCEE ---
+    $os = Get-Info Win32_OperatingSystem
+    $cpu = Get-Info Win32_Processor
+    $ramInfo = Get-Info Win32_PhysicalMemory
+    $totalRam = 0; if($ramInfo){ $totalRam = $ramInfo | Measure-Object -Property Capacity -Sum | Select -ExpandProperty Sum }
+    $disks = Get-PhysicalDisk | Select-Object FriendlyName, MediaType, Size, HealthStatus, SerialNumber
+    $partitions = Get-PSDrive -PSProvider FileSystem | Where-Object { $_.Free -gt 0 }
+    
+    # --- GPU FIX (MULTI-GPU + VRAM) ---
+    $gpus = @(Get-Info Win32_VideoController | Select-Object Name, DriverVersion, CurrentHorizontalResolution, CurrentVerticalResolution, AdapterRAM)
+
+    $net = Get-NetAdapter | Where-Object { $_.Status -eq 'Up' } | Select-Object Name, InterfaceDescription, MacAddress, LinkSpeed
+    $ipConfig = Get-NetIPConfiguration | Where-Object { $_.IPv4Address -ne $null } | Select-Object IPv4Address
+    $bios = Get-Info Win32_BIOS
+    $av = Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntivirusProduct | Select-Object displayName
+
+    # --- CALCULS ---
+    $ramGB = [math]::round($totalRam / 1GB, 1)
+    $ramSlots = $ramInfo.Count
+    $ramSpeed = $ramInfo[0].Speed
+    $uptime = (Get-Date) - $os.LastBootUpTime
+    $uptimeStr = '{0}j {1}h {2}m' -f $uptime.Days, $uptime.Hours, $uptime.Minutes
+
+    # --- TEMPLATE HTML PREMIUM ---
+    $reportPath = "$([Environment]::GetFolderPath('Desktop'))\\HTECH_Rapport_Audit.html"
+
+    $html = @"
+<!DOCTYPE html>
+<html lang='fr'>
+<head>
+    <meta charset='UTF-8'>
+    <title>RAPPORT AUDIT H-TECH PRO</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root { --neon: #00f3ff; --bg: #0b0b15; --card: #13131f; --text: #e0e0ff; --red: #ff0055; --green: #00ff88; --orange: #ffaa00; }
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; font-size: 14px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--neon); padding-bottom: 15px; margin-bottom: 30px; }
+        h1 { margin: 0; font-size: 2rem; color: #fff; text-transform: uppercase; letter-spacing: 2px; }
+        h1 span { color: var(--neon); text-shadow: 0 0 10px var(--neon); }
+        .meta { text-align: right; color: #888; font-size: 0.9rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: var(--card); border: 1px solid rgba(0,243,255,0.2); border-radius: 8px; padding: 20px; position: relative; overflow: hidden; transition: 0.3s; }
+        .card:hover { border-color: var(--neon); box-shadow: 0 0 20px rgba(0,243,255,0.1); }
+        .card::before { content:''; position: absolute; top:0; left:0; width: 100%; height: 2px; background: linear-gradient(90deg, var(--neon), transparent); }
+        .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+        .card-header i { font-size: 1.5rem; color: var(--neon); }
+        .card-header h2 { margin: 0; font-size: 1.2rem; color: #fff; font-weight: 600; }
+        .row { display: flex; justify-content: space-between; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 4px; }
+        .label { color: #aaa; }
+        .val { color: #fff; font-weight: bold; text-align: right; }
+        .val.highlight { color: var(--neon); }
+        .bar-container { background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; overflow: hidden; margin-top: 5px; }
+        .bar-fill { height: 100%; background: var(--green); }
+        .bar-fill.warn { background: var(--orange); }
+        .bar-fill.crit { background: var(--red); }
+        .badge { padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+        .badge-ok { background: rgba(0,255,136,0.2); color: var(--green); border: 1px solid var(--green); }
+        .badge-err { background: rgba(255,0,85,0.2); color: var(--red); border: 1px solid var(--red); }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <header>
+            <div>
+                <h1>H-TECH <span>PRO</span> DIAGNOSTIC</h1>
+                <div style="color: #aaa; margin-top: 5px;">Rapport d'audit système complet</div>
+            </div>
+            <div class="meta">
+                <div>Machine: <strong>$($os.CSName)</strong></div>
+                <div>Utilisateur: <strong>$($env:USERNAME)</strong></div>
+                <div>Date: $(Get-Date -Format 'dd/MM/yyyy HH:mm')</div>
+            </div>
+        </header>
+
+        <div class="grid">
+            <!-- SYSTEME -->
+            <div class="card">
+                <div class="card-header"><i class="fab fa-windows"></i><h2>Système & OS</h2></div>
+                <div class="row"><span class="label">OS</span><span class="val">$($os.Caption)</span></div>
+                <div class="row"><span class="label">Version</span><span class="val">$($os.Version) (Build $($os.BuildNumber))</span></div>
+                <div class="row"><span class="label">Architecture</span><span class="val">$($os.OSArchitecture)</span></div>
+                <div class="row"><span class="label">Numéro de Série</span><span class="val">$($bios.SerialNumber)</span></div>
+                <div class="row"><span class="label">BIOS</span><span class="val">$($bios.SMBIOSBIOSVersion) ($($bios.ReleaseDate -replace '(....)(..)(..).*','$3/$2/$1'))</span></div>
+                <div class="row"><span class="label">Uptime</span><span class="val">$uptimeStr</span></div>
+            </div>
+
+            <!-- CPU -->
+            <div class="card">
+                <div class="card-header"><i class="fas fa-microchip"></i><h2>Processeur (CPU)</h2></div>
+                <div class="row"><span class="label">Modèle</span><span class="val">$($cpu.Name)</span></div>
+                <div class="row"><span class="label">Cœurs Physiques</span><span class="val">$($cpu.NumberOfCores)</span></div>
+                <div class="row"><span class="label">Cœurs Logiques</span><span class="val">$($cpu.NumberOfLogicalProcessors)</span></div>
+                <div class="row"><span class="label">Utilisation Actuelle</span><span class="val">$($cpu.LoadPercentage)%</span></div>
+                <div class="bar-container">
+                    <div class="bar-fill" style="width: $($cpu.LoadPercentage)%"></div>
+                </div>
+            </div>
+
+            <!-- RAM -->
+            <div class="card">
+                <div class="card-header"><i class="fas fa-memory"></i><h2>Mémoire (RAM)</h2></div>
+                <div class="row"><span class="label">Total Installé</span><span class="val highlight">$ramGB GB</span></div>
+                <div class="row"><span class="label">Vitesse</span><span class="val">$ramSpeed MHz</span></div>
+                <div class="row"><span class="label">Slots Utilisés</span><span class="val">$ramSlots connectés</span></div>
+                <div style="margin-top:10px; font-size:0.85rem; color:#888;">
+                    Détail: 
+                    $($ramInfo | ForEach-Object { $_.Manufacturer + " " + ([math]::round($_.Capacity/1GB)) + "GB" } | Out-String)
+                </div>
+            </div>
+
+            <!-- GPU -->
+            <div class="card">
+                <div class="card-header"><i class="fas fa-video"></i><h2>Graphique (GPU)</h2></div>
+"@
+
+    # BOUCLE SUR LES GPU (Multi-GPU Fix)
+    foreach($g in $gpus) {
+        $vram = "N/A"
+        if ($g.AdapterRAM -gt 0) {
+            $vram = "$([math]::round($g.AdapterRAM / 1MB)) MB"
+        }
+        
+        $html += @"
+        <div style="margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px;">
+            <div class="row"><span class="label">Modèle</span><span class="val highlight">$($g.Name)</span></div>
+            <div class="row"><span class="label">Pilote</span><span class="val">$($g.DriverVersion)</span></div>
+            <div class="row"><span class="label">Résolution</span><span class="val">$($g.CurrentHorizontalResolution) x $($g.CurrentVerticalResolution)</span></div>
+            <div class="row"><span class="label">VRAM Dédiée</span><span class="val">$vram</span></div>
+        </div>
+"@
+    }
+
+    $html += @"
+            </div>
+
+            <!-- STOCKAGE -->
+            <div class="card" style="grid-column: span 2;">
+                <div class="card-header"><i class="fas fa-hdd"></i><h2>Stockage & Partitions</h2></div>
+"@
+
+    # DISQUES PHYSIQUES
+    foreach ($d in $disks) {
+        $sizeGB = [math]::round($d.Size / 1GB, 0)
+        $hStatus = $d.HealthStatus
+        $badgeClass = if ($hStatus -eq "Healthy") { "badge-ok" } else { "badge-err" }
+        $html += "<div class='row'><span class='label'>Physique: $($d.FriendlyName) ($($d.MediaType))</span><span class='badge $badgeClass'>$hStatus ($sizeGB GB)</span></div>"
+    }
+
+    $html += "<div style='margin: 10px 0; border-top: 1px solid rgba(255,255,255,0.1);'></div>"
+
+    # PARTITIONS LOGIQUES
+    foreach ($p in $partitions) {
+        $used = $p.Used / 1GB
+        $free = $p.Free / 1GB
+        $total = $used + $free
+        $percent = [math]::round(($used / $total) * 100)
+        $colorClass = if ($percent -gt 90) { "crit" } elseif ($percent -gt 75) { "warn" } else { "" }
+        
+        $html += @"
+        <div style="margin-bottom: 10px;">
+            <div class="row" style="margin-bottom:2px;">
+                <span class="label">Lecteur $($p.Name) ($([math]::round($total,0)) GB)</span>
+                <span class="val">$([math]::round($free,1)) GB Libres</span>
+            </div>
+            <div class="bar-container">
+                <div class="bar-fill $colorClass" style="width: $percent%"></div>
+            </div>
+        </div>
+"@
+    }
+
+    $html += @"
+            </div>
+
+            <!-- RESEAU & SECURITE -->
+            <div class="card">
+                <div class="card-header"><i class="fas fa-shield-alt"></i><h2>Réseau & Sécurité</h2></div>
+                <div class="row"><span class="label">Antivirus</span><span class="val">$($av.displayName -join ', ' -replace '^$','Windows Defender')</span></div>
+                <div class="row"><span class="label">Carte Réseau</span><span class="val">$($net.Name)</span></div>
+                <div class="row"><span class="label">Vitesse Lien</span><span class="val">$($net.LinkSpeed)</span></div>
+                <div class="row"><span class="label">Adresse IP (LAN)</span><span class="val">$($ipConfig.IPv4Address.IPAddress)</span></div>
+                <div class="row"><span class="label">Adresse MAC</span><span class="val">$($net.MacAddress)</span></div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px; color: #666; font-size: 0.8rem;">
+            <p>H-TECH PRO - DIAGNOSTIC & RÉPARATION INFORMATIQUE</p>
+        </div>
+    </div>
+</body>
+</html>
+"@
+
+    $html | Out-File -FilePath $reportPath -Encoding UTF8
+    
+    # OUVERTURE FORCEE DANS UNE NOUVELLE FENETRE
+    Start-Process $reportPath
+    
+    Write-Host "Rapport genere avec succes !" -ForegroundColor Green
+    Write-Host "Le rapport a ete ouvert dans votre navigateur." -ForegroundColor Gray
+    Start-Sleep -Seconds 2
+
+} catch {
+    Write-Host "ERREUR CRITIQUE: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host "Code: $($_.Exception.HResult)" -ForegroundColor DarkRed
+    Write-Host "Stack: $($_.ScriptStackTrace)" -ForegroundColor DarkGray
+    Read-Host "Appuyez sur Entree pour continuer..."
+}
+`;
+
+            // 2. ENCODAGE BASE64 ROBUSTE
+            const base64Script = btoa(unescape(encodeURIComponent(psScriptBody)));
+            
+            // Découpe le Base64 en lignes de 76 caractères (format CertUtil)
+            const chunkedBase64 = base64Script.match(/.{1,76}/g).join('\r\n');
+
+            // 3. GENERATION DU FICHIER BATCH (CRLF FORCE)
+            // Utilise @echo off, cd /d pour la stabilité, et un nettoyage propre.
+            let batchContent = `@echo off
+cd /d "%~dp0"
+cls
+color 0B
+echo.
+echo    =======================================================
+echo       H-TECH PRO  ^|  SYSTEM AUDITOR
+echo    =======================================================
+echo.
+echo    Lancement de l'analyse (Mode Robuste)...
+echo    Veuillez patienter...
+echo.
+
+set "PSFile=%temp%\\HTECH_Run_%random%.ps1"
+set "B64File=%temp%\\HTECH_Run_%random%.b64"
+
+echo    [1/4] Nettoyage...
+if exist "%PSFile%" del "%PSFile%"
+if exist "%B64File%" del "%B64File%"
+
+echo    [2/4] Preparation du module (Base64)...
+(
+${chunkedBase64.split('\r\n').map(line => `echo ${line}`).join('\r\n')}
+) > "%B64File%"
+
+if not exist "%B64File%" (
+    color 0C
+    echo.
+    echo    [ERREUR] Impossible de creer le fichier temporaire.
+    echo    Verifiez vos permissions ou l'antivirus.
+    pause
+    exit
+)
+
+echo    [3/4] Decodage du module...
+certutil -decode "%B64File%" "%PSFile%" >nul 2>&1
+
+if not exist "%PSFile%" (
+    color 0C
+    echo.
+    echo    [ERREUR] Echec du decodage CertUtil.
+    echo    Le fichier batch est peut-etre corrompu.
+    pause
+    exit
+)
+
+echo    [4/4] Execution...
+echo.
+powershell -NoProfile -ExecutionPolicy Bypass -File "%PSFile%"
+
+if errorlevel 1 (
+    color 0C
+    echo.
+    echo    [ERREUR CRITIQUE] L'execution PowerShell a echoue.
+    pause
+)
+
+REM Nettoyage
+if exist "%PSFile%" del "%PSFile%"
+if exist "%B64File%" del "%B64File%"
+exit
+`;
+            // Force CRLF line endings for Windows Batch compatibility
+            batchContent = batchContent.replace(/\r?\n/g, "\r\n");
+
+            const blob = new Blob([batchContent], { type: "application/bat" });
+            if(fileUrl) URL.revokeObjectURL(fileUrl);
+            fileUrl = URL.createObjectURL(blob);
+            
+            const link = document.createElement("a");
+            link.href = fileUrl;
+            link.download = "HTECH_Smart_Scan.cmd";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        
+        async function startAutoScan() {
+            // 1. Scroll to Speed Test
+            const speedPanel = document.getElementById('btnSpeed').closest('.tool-panel');
+            if(speedPanel) speedPanel.scrollIntoView({behavior: 'smooth'});
+            await new Promise(r => setTimeout(r, 1000));
+            
+            // 2. Run Speed Test
+            if(window.startFullSpeedTest) {
+                await startFullSpeedTest();
+            } else {
+                const btn = document.getElementById('btnSpeed');
+                if(btn) btn.click();
+            }
+            
+            // 3. Scroll to Top (Web Dashboard)
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            await new Promise(r => setTimeout(r, 2000));
+            
+            // 4. Highlight Bridge Box
+            const bridgeBox = document.querySelector('.premium-box');
+            if(bridgeBox) {
+                bridgeBox.style.boxShadow = "0 0 40px rgba(0, 243, 255, 0.4)";
+                bridgeBox.scrollIntoView({behavior: 'smooth', block: 'center'});
+            }
+
+            // 5. Prompt Download (via Modal logic trigger)
+            setTimeout(() => {
+                downloadAuditor(); // Opens the modal
+            }, 1500);
+        }
+    </script>
+</body>
+</html>

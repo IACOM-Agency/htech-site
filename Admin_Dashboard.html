@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H-ADMIN | Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #141414;
+            --primary: #00f3ff; /* Neon Blue pour matcher le site */
+            --accent: #bc13fe; /* Purple */
+            --success: #00ff88;
+            --danger: #ff3333;
+            --text-gray: #888;
+            --border: rgba(255,255,255,0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: 260px;
+            background: var(--bg-card);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            transition: 0.3s;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+        }
+        .logo span { color: var(--primary); }
+
+        .nav-links {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 15px;
+            border-radius: 10px;
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: 0.2s;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(0, 243, 255, 0.1);
+            color: var(--primary);
+            border-color: rgba(0, 243, 255, 0.2);
+        }
+
+        .nav-item i { width: 20px; }
+
+        .user-profile {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+        .user-avatar {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: black;
+        }
+
+        /* --- MAIN CONTENT --- */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .search-bar {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 10px 20px;
+            border-radius: 20px;
+            color: white;
+            width: 300px;
+            outline: none;
+        }
+        .search-bar:focus { border-color: var(--primary); }
+
+        .btn {
+            background: var(--primary);
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn:hover { opacity: 0.9; }
+
+        /* --- DASHBOARD GRID --- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 15px;
+        }
+        .stat-card h3 { color: var(--text-gray); font-size: 14px; margin-bottom: 10px; }
+        .stat-card .value { font-size: 28px; font-weight: bold; }
+        .stat-card .trend { font-size: 12px; margin-top: 5px; display: flex; align-items: center; gap: 5px; }
+        .trend.up { color: var(--success); }
+        .trend.down { color: var(--danger); }
+
+        /* --- MODULES SECTIONS (Hidden by default except Overview) --- */
+        .module-section { display: none; }
+        .module-section.active { display: block; }
+
+        /* --- TABLES --- */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .data-table th, .data-table td {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+        .data-table th { color: var(--text-gray); font-weight: normal; }
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .status-pending { background: rgba(255, 165, 0, 0.2); color: orange; }
+        .status-done { background: rgba(0, 255, 136, 0.2); color: var(--success); }
+        .status-urgent { background: rgba(255, 51, 51, 0.2); color: var(--danger); }
+
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <a href="#" class="logo">H-TECH <span>ADMIN</span></a>
+        
+        <div class="nav-links">
+            <div class="nav-item active" onclick="showModule('overview')">
+                <i class="fas fa-home"></i> Vue d'ensemble
+            </div>
+            <div class="nav-item" onclick="showModule('clients')">
+                <i class="fas fa-users"></i> Clients (CRM)
+            </div>
+            <div class="nav-item" onclick="showModule('repairs')">
+                <i class="fas fa-tools"></i> Réparations
+            </div>
+            <div class="nav-item" onclick="showModule('stock')">
+                <i class="fas fa-box-open"></i> Stock
+            </div>
+            <div class="nav-item" onclick="showModule('accounting')">
+                <i class="fas fa-chart-line"></i> Compta
+            </div>
+        </div>
+
+        <div class="user-profile">
+            <div class="user-avatar">H</div>
+            <div>
+                <div style="font-weight: bold;">Hicham EL H.</div>
+                <div style="font-size: 12px; color: #666;">Admin</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        
+        <!-- HEADER COMMUNE -->
+        <div class="header">
+            <h2 id="page-title">Tableau de Bord</h2>
+            <div style="display: flex; gap: 20px;">
+                <input type="text" class="search-bar" placeholder="Rechercher...">
+                <button class="btn"><i class="fas fa-plus"></i> Nouveau</button>
+            </div>
+        </div>
+
+        <!-- MODULE: OVERVIEW -->
+        <div id="overview" class="module-section active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Chiffre d'Affaires (Mois)</h3>
+                    <div class="value">12,450 Dhs</div>
+                    <div class="trend up"><i class="fas fa-arrow-up"></i> +15% vs mois dernier</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Réparations en cours</h3>
+                    <div class="value">8</div>
+                    <div class="trend"><i class="fas fa-clock"></i> 3 urgentes</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Nouveaux Clients</h3>
+                    <div class="value">12</div>
+                    <div class="trend up"><i class="fas fa-arrow-up"></i> +4 cette semaine</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Stock Faible</h3>
+                    <div class="value">3</div>
+                    <div class="trend down"><i class="fas fa-exclamation-circle"></i> Commander SSD 240Go</div>
+                </div>
+            </div>
+
+            <div style="background: var(--bg-card); padding: 20px; border-radius: 15px; border: 1px solid var(--border);">
+                <h3 style="margin-bottom: 20px;">Dernières Réparations</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Client</th>
+                            <th>Appareil</th>
+                            <th>Problème</th>
+                            <th>Status</th>
+                            <th>Date Entrée</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Karim B.</td>
+                            <td>MacBook Pro 2019</td>
+                            <td>Écran Noir</td>
+                            <td><span class="status-badge status-urgent">Diagnostique</span></td>
+                            <td>Aujourd'hui</td>
+                        </tr>
+                        <tr>
+                            <td>Sarah L.</td>
+                            <td>Dell XPS 13</td>
+                            <td>Chauffe + Bruit</td>
+                            <td><span class="status-badge status-pending">En Attente Pièce</span></td>
+                            <td>Hier</td>
+                        </tr>
+                        <tr>
+                            <td>Mehdi T.</td>
+                            <td>iPhone 13</td>
+                            <td>Écran Cassé</td>
+                            <td><span class="status-badge status-done">Terminé</span></td>
+                            <td>12/01/2026</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- MODULE: CLIENTS (CRM) -->
+        <div id="clients" class="module-section">
+            <div style="background: var(--bg-card); padding: 20px; border-radius: 15px; border: 1px solid var(--border);">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Téléphone</th>
+                            <th>Email</th>
+                            <th>Total Dépensé</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Karim Benjelloun</td>
+                            <td>06 61 00 00 00</td>
+                            <td>karim.b@gmail.com</td>
+                            <td>4,500 Dhs</td>
+                            <td><button class="btn" style="padding: 5px 10px; font-size: 12px;">Voir</button></td>
+                        </tr>
+                        <!-- Plus de clients ici -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- MODULE: STOCK -->
+        <div id="stock" class="module-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Valeur Stock</h3>
+                    <div class="value">45,000 Dhs</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Articles</h3>
+                    <div class="value">142</div>
+                </div>
+            </div>
+            <div style="background: var(--bg-card); padding: 20px; border-radius: 15px; border: 1px solid var(--border);">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Article</th>
+                            <th>Référence</th>
+                            <th>Quantité</th>
+                            <th>Prix Achat</th>
+                            <th>Prix Vente</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>SSD Kingston 240Go</td>
+                            <td>SSD-K-240</td>
+                            <td>2</td>
+                            <td>180 Dhs</td>
+                            <td>350 Dhs</td>
+                            <td><span class="status-badge status-urgent">Critique</span></td>
+                        </tr>
+                        <tr>
+                            <td>RAM DDR4 8Go</td>
+                            <td>RAM-D4-8</td>
+                            <td>15</td>
+                            <td>200 Dhs</td>
+                            <td>400 Dhs</td>
+                            <td><span class="status-badge status-done">OK</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function showModule(moduleId) {
+            // Cacher toutes les sections
+            document.querySelectorAll('.module-section').forEach(el => el.classList.remove('active'));
+            // Enlever active des liens
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            
+            // Afficher la section demandée
+            document.getElementById(moduleId).classList.add('active');
+            
+            // Mettre le lien en actif (logique simplifiée)
+            event.currentTarget.classList.add('active');
+
+            // Changer le titre
+            const titles = {
+                'overview': 'Tableau de Bord',
+                'clients': 'Gestion Clients (CRM)',
+                'repairs': 'Suivi des Réparations',
+                'stock': 'Gestion du Stock',
+                'accounting': 'Comptabilité'
+            };
+            document.getElementById('page-title').innerText = titles[moduleId] || 'Dashboard';
+        }
+    </script>
+</body>
+</html>
+
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 { font-size: 28px; }
+
+        .date-filter {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+
+        /* --- CARDS --- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 80px; height: 80px;
+            background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+
+        .stat-title { color: var(--text-gray); font-size: 14px; margin-bottom: 10px; }
+        .stat-value { font-size: 32px; font-weight: 700; margin-bottom: 5px; }
+        .stat-change { font-size: 12px; display: flex; align-items: center; gap: 5px; }
+        .stat-change.up { color: var(--accent); }
+        .stat-change.down { color: var(--danger); }
+
+        /* --- CHARTS & TABLES --- */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chart-container, .recent-orders {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            height: 100%; /* Ensure full height */
+        }
+        
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        
+        th { color: var(--text-gray); font-weight: 500; }
+        td { color: #eee; }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .status-paid { background: rgba(46, 204, 113, 0.2); color: #2ecc71; }
+        .status-pending { background: rgba(241, 196, 15, 0.2); color: #f1c40f; }
+
+        .theme-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .theme-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+        }
+        .theme-icon {
+            width: 40px; height: 40px;
+            background: #333;
+            border-radius: 8px;
+            background-size: cover;
+        }
+
+        /* Views Management */
+        .content-view {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .content-view.active {
+            display: block;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .grid-2 { grid-template-columns: 1fr; }
+            .sidebar { width: 80px; padding: 10px; }
+            .nav-item span, .logo span, .user-profile span { display: none; }
+            .nav-item { justify-content: center; }
+            .logo { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <nav class="sidebar">
+        <div class="logo">
+            <i class="fas fa-cube"></i>
+            <span>H-ADMIN</span>
+        </div>
+        
+        <div class="nav-links">
+            <a href="Site_Web_H-TECH.html" class="nav-item">
+                <i class="fas fa-arrow-left"></i>
+                <span>Retour au Site</span>
+            </a>
+            <div class="nav-item active" onclick="switchView('dashboard', this)">
+                <i class="fas fa-chart-pie"></i>
+                <span>Tableau de Bord</span>
+            </div>
+            <div class="nav-item" onclick="switchView('orders', this)">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Commandes</span>
+            </div>
+            <div class="nav-item" onclick="switchView('themes', this)">
+                <i class="fas fa-palette"></i>
+                <span>Mes Thèmes</span>
+            </div>
+            <div class="nav-item" onclick="switchView('clients', this)">
+                <i class="fas fa-users"></i>
+                <span>Clients</span>
+            </div>
+            <div class="nav-item" onclick="switchView('settings', this)">
+                <i class="fas fa-cog"></i>
+                <span>Paramètres</span>
+            </div>
+             <div class="nav-item" style="border-top: 1px solid var(--border); margin-top: 10px; padding-top: 15px; color: #666; pointer-events: none;">
+                <span style="font-size: 10px; text-transform: uppercase; letter-spacing: 1px;">Outils</span>
+            </div>
+            <a href="Contract_Generator.html" class="nav-item">
+                <i class="fas fa-file-contract"></i>
+                <span>Générateur Contrats</span>
+            </a>
+        </div>
+
+        <div class="user-profile">
+            <div class="user-avatar">H</div>
+            <div style="flex:1;">
+                <div style="font-size:14px; font-weight:bold;">H-TECH Pro</div>
+                <div style="font-size:11px; color:var(--text-gray);">Admin</div>
+            </div>
+            <i class="fas fa-sign-out-alt" style="cursor:pointer; color:var(--text-gray);"></i>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        
+        <!-- VIEW: DASHBOARD -->
+        <div id="view-dashboard" class="content-view active">
+            <div class="header">
+                <div>
+                    <h1>Tableau de Bord</h1>
+                    <p style="color:var(--text-gray);">Bienvenue, voici ce qui se passe aujourd'hui.</p>
+                </div>
+                <select class="date-filter" onchange="updateChart(this.value)">
+                    <option value="today">Aujourd'hui</option>
+                    <option value="week">Cette Semaine</option>
+                    <option value="month">Ce Mois</option>
+                </select>
+            </div>
+
+            <!-- STATS -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-title">Revenu Total</div>
+                    <div class="stat-value">12,450 DH</div>
+                    <div class="stat-change up"><i class="fas fa-arrow-up"></i> +15% vs hier</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Commandes</div>
+                    <div class="stat-value">8</div>
+                    <div class="stat-change up"><i class="fas fa-arrow-up"></i> +3 nouvelles</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Visites Marketplace</div>
+                    <div class="stat-value">1,204</div>
+                    <div class="stat-change down"><i class="fas fa-arrow-down"></i> -2%</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Taux de Conversion</div>
+                    <div class="stat-value">2.4%</div>
+                    <div class="stat-change up"><i class="fas fa-arrow-up"></i> +0.4%</div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <!-- CHART -->
+                <div class="chart-container">
+                    <div class="section-header">
+                        <h3>Aperçu des Ventes</h3>
+                        <button style="background:transparent; border:none; color:var(--primary); cursor:pointer;">Voir tout</button>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- TOP THEMES -->
+                <div class="recent-orders">
+                    <div class="section-header">
+                        <h3>Thèmes Populaires</h3>
+                    </div>
+                    <div class="theme-list">
+                        <div class="theme-item">
+                            <div class="theme-icon" style="background-image:url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=200')"></div>
+                            <div style="flex:1;">
+                                <div style="font-weight:bold; font-size:14px;">CyberPress</div>
+                                <div style="font-size:11px; color:var(--text-gray);">Ecommerce</div>
+                            </div>
+                            <div style="font-weight:bold;">2900 DH</div>
+                        </div>
+                        <div class="theme-item">
+                            <div class="theme-icon" style="background-image:url('https://images.unsplash.com/photo-1600596542815-2a4d04792c95?q=80&w=200')"></div>
+                            <div style="flex:1;">
+                                <div style="font-weight:bold; font-size:14px;">Luxe Living</div>
+                                <div style="font-size:11px; color:var(--text-gray);">Immobilier</div>
+                            </div>
+                            <div style="font-weight:bold;">3500 DH</div>
+                        </div>
+                        <div class="theme-item">
+                            <div class="theme-icon" style="background-image:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=200')"></div>
+                            <div style="flex:1;">
+                                <div style="font-weight:bold; font-size:14px;">FitLife Gym</div>
+                                <div style="font-size:11px; color:var(--text-gray);">Santé</div>
+                            </div>
+                            <div style="font-weight:bold;">1800 DH</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RECENT ORDERS -->
+            <div class="chart-container" style="height: auto;">
+                <div class="section-header">
+                    <h3>Commandes Récentes</h3>
+                    <button style="background:transparent; border:none; color:var(--primary); cursor:pointer;" onclick="switchView('orders', document.querySelectorAll('.nav-item')[1])">Gérer</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Client</th>
+                            <th>Produit</th>
+                            <th>Date</th>
+                            <th>Montant</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#ORD-001</td>
+                            <td>Amine T.</td>
+                            <td>CyberPress Theme</td>
+                            <td>05 Jan 2026</td>
+                            <td>2900 DH</td>
+                            <td><span class="status-badge status-paid">Payé</span></td>
+                        </tr>
+                        <tr>
+                            <td>#ORD-002</td>
+                            <td>Sarah L.</td>
+                            <td>Zen Yoga Theme</td>
+                            <td>04 Jan 2026</td>
+                            <td>2100 DH</td>
+                            <td><span class="status-badge status-pending">En attente</span></td>
+                        </tr>
+                        <tr>
+                            <td>#ORD-003</td>
+                            <td>Karim B.</td>
+                            <td>Construction Pro</td>
+                            <td>04 Jan 2026</td>
+                            <td>2200 DH</td>
+                            <td><span class="status-badge status-paid">Payé</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- VIEW: ORDERS -->
+        <div id="view-orders" class="content-view">
+            <div class="header">
+                <h1>Gestion des Commandes</h1>
+            </div>
+            <div class="chart-container" style="height: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Client</th>
+                            <th>Produit</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#ORD-001</td>
+                            <td>Amine T.</td>
+                            <td>CyberPress Theme</td>
+                            <td>05 Jan 2026</td>
+                            <td><span class="status-badge status-paid">Payé</span></td>
+                            <td><button style="background:var(--primary); border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Détails</button></td>
+                        </tr>
+                        <tr>
+                            <td>#ORD-002</td>
+                            <td>Sarah L.</td>
+                            <td>Zen Yoga Theme</td>
+                            <td>04 Jan 2026</td>
+                            <td><span class="status-badge status-pending">En attente</span></td>
+                            <td><button style="background:var(--primary); border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Relancer</button></td>
+                        </tr>
+                         <tr>
+                            <td>#ORD-005</td>
+                            <td>Youssef K.</td>
+                            <td>Tech SaaS</td>
+                            <td>02 Jan 2026</td>
+                            <td><span class="status-badge status-paid">Payé</span></td>
+                            <td><button style="background:var(--primary); border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Détails</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- VIEW: THEMES -->
+        <div id="view-themes" class="content-view">
+             <div class="header">
+                <h1>Mes Thèmes</h1>
+                <button style="background:var(--primary); border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight:bold;">+ Ajouter Nouveau</button>
+            </div>
+            <div class="stats-grid">
+                 <div class="stat-card">
+                    <div class="stat-title">Thèmes Actifs</div>
+                    <div class="stat-value">12</div>
+                </div>
+                 <div class="stat-card">
+                    <div class="stat-title">Ventes Totales</div>
+                    <div class="stat-value">45</div>
+                </div>
+            </div>
+            <div class="grid-2" style="grid-template-columns: 1fr 1fr 1fr;">
+                 <div class="stat-card" style="text-align:center;">
+                     <div style="height:100px; background:url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=400'); background-size:cover; border-radius:10px; margin-bottom:15px;"></div>
+                     <h3>CyberPress</h3>
+                     <p style="color:var(--text-gray); font-size:12px; margin-bottom:10px;">Ecommerce / Tech</p>
+                     <div style="font-weight:bold; color:var(--primary); margin-bottom:15px;">2900 DH</div>
+                     <button style="background:rgba(255,255,255,0.1); border:1px solid var(--border); color:white; padding:5px 15px; border-radius:5px; cursor:pointer;">Modifier</button>
+                 </div>
+                 <div class="stat-card" style="text-align:center;">
+                     <div style="height:100px; background:url('https://images.unsplash.com/photo-1600596542815-2a4d04792c95?q=80&w=400'); background-size:cover; border-radius:10px; margin-bottom:15px;"></div>
+                     <h3>Luxe Living</h3>
+                     <p style="color:var(--text-gray); font-size:12px; margin-bottom:10px;">Real Estate</p>
+                     <div style="font-weight:bold; color:var(--primary); margin-bottom:15px;">3500 DH</div>
+                     <button style="background:rgba(255,255,255,0.1); border:1px solid var(--border); color:white; padding:5px 15px; border-radius:5px; cursor:pointer;">Modifier</button>
+                 </div>
+            </div>
+        </div>
+
+        <!-- VIEW: CLIENTS -->
+        <div id="view-clients" class="content-view">
+             <div class="header">
+                <h1>Base Clients</h1>
+            </div>
+             <div class="chart-container" style="height:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Email</th>
+                            <th>Ville</th>
+                            <th>Total Acheté</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Amine T.</td>
+                            <td>amine@gmail.com</td>
+                            <td>Casablanca</td>
+                            <td>5000 DH</td>
+                        </tr>
+                        <tr>
+                            <td>Sarah L.</td>
+                            <td>sarah.design@yahoo.fr</td>
+                            <td>Rabat</td>
+                            <td>2100 DH</td>
+                        </tr>
+                    </tbody>
+                </table>
+             </div>
+        </div>
+        
+        <!-- VIEW: SETTINGS -->
+        <div id="view-settings" class="content-view">
+             <div class="header">
+                <h1>Paramètres</h1>
+            </div>
+            <div class="chart-container" style="max-width:600px; height:auto;">
+                <h3 style="margin-bottom:20px;">Profil Administrateur</h3>
+                <div style="display:flex; flex-direction:column; gap:15px;">
+                    <div>
+                        <label style="display:block; color:var(--text-gray); margin-bottom:5px;">Nom de l'entreprise</label>
+                        <input type="text" value="H-TECH PRO" style="width:100%; padding:10px; background:#0a0a0a; border:1px solid var(--border); color:white; border-radius:5px;">
+                    </div>
+                     <div>
+                        <label style="display:block; color:var(--text-gray); margin-bottom:5px;">Email Admin</label>
+                        <input type="text" value="contact@h-tech.ma" style="width:100%; padding:10px; background:#0a0a0a; border:1px solid var(--border); color:white; border-radius:5px;">
+                    </div>
+                     <div>
+                        <label style="display:block; color:var(--text-gray); margin-bottom:5px;">Devise</label>
+                        <select style="width:100%; padding:10px; background:#0a0a0a; border:1px solid var(--border); color:white; border-radius:5px;">
+                            <option>MAD (Dirham Marocain)</option>
+                            <option>USD ($)</option>
+                            <option>EUR (€)</option>
+                        </select>
+                    </div>
+                    <button style="background:var(--primary); border:none; padding:12px; color:black; font-weight:bold; border-radius:5px; margin-top:10px; cursor:pointer;">Sauvegarder</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Switch Views Logic
+        function switchView(viewName, element) {
+            // Hide all views
+            document.querySelectorAll('.content-view').forEach(view => {
+                view.classList.remove('active');
+            });
+            // Show selected view
+            document.getElementById('view-' + viewName).classList.add('active');
+
+            // Update Nav State
+            if(element) {
+                document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('active');
+                });
+                element.classList.add('active');
+            }
+        }
+
+        // Chart Configuration
+        const ctx = document.getElementById('salesChart').getContext('2d');
+        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(212, 175, 55, 0.5)');
+        gradient.addColorStop(1, 'rgba(212, 175, 55, 0)');
+
+        let salesChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+                datasets: [{
+                    label: 'Ventes (DH)',
+                    data: [1500, 2200, 1800, 3500, 2900, 4200, 3800],
+                    borderColor: '#d4af37',
+                    backgroundColor: gradient,
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#0a0a0a',
+                    pointBorderColor: '#d4af37',
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: 'rgba(255,255,255,0.05)' },
+                        ticks: { color: '#888' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#888' }
+                    }
+                }
+            }
+        });
+
+        // Simulate Data Update
+        function updateChart(period) {
+            // Just randomized data for demo
+            let newData = [];
+            let newLabels = [];
+            
+            if(period === 'today') {
+                newLabels = ['8h', '10h', '12h', '14h', '16h', '18h', '20h'];
+                newData = [0, 1200, 2900, 2900, 4500, 5000, 6200];
+            } else if(period === 'week') {
+                newLabels = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+                newData = [1500, 2200, 1800, 3500, 2900, 4200, 3800];
+            } else {
+                newLabels = ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4'];
+                newData = [12000, 15000, 18000, 24000];
+            }
+
+            salesChart.data.labels = newLabels;
+            salesChart.data.datasets[0].data = newData;
+            salesChart.update();
+        }
+
+        // --- ORDER MANAGEMENT SYSTEM ---
+        function loadOrders() {
+            // Initialize if empty
+            if(!localStorage.getItem('admin_orders')) {
+                const dummy = [
+                    { id: '#ORD-001', client: 'Amine T.', product: 'CyberPress Theme', date: '05 Jan 2026', amount: '2900 DH', status: 'Payé' },
+                    { id: '#ORD-002', client: 'Sarah L.', product: 'Zen Yoga Theme', date: '04 Jan 2026', amount: '2100 DH', status: 'En attente' },
+                    { id: '#ORD-003', client: 'Karim B.', product: 'Construction Pro', date: '04 Jan 2026', amount: '2200 DH', status: 'Payé' }
+                ];
+                localStorage.setItem('admin_orders', JSON.stringify(dummy));
+            }
+
+            const orders = JSON.parse(localStorage.getItem('admin_orders'));
+
+            // 1. Dashboard Table (Recent 5)
+            const dashTable = document.querySelector('#view-dashboard table tbody');
+            if(dashTable) {
+                dashTable.innerHTML = orders.slice(0, 5).map(o => `
+                    <tr>
+                        <td>${o.id}</td>
+                        <td>${o.client}</td>
+                        <td>${o.product}</td>
+                        <td>${o.date}</td>
+                        <td>${o.amount}</td>
+                        <td><span class="status-badge ${o.status === 'Payé' ? 'status-paid' : 'status-pending'}">${o.status}</span></td>
+                    </tr>
+                `).join('');
+            }
+
+            // 2. Orders View Table (All)
+            const ordersTable = document.querySelector('#view-orders table tbody');
+            if(ordersTable) {
+                ordersTable.innerHTML = orders.map(o => `
+                    <tr>
+                        <td>${o.id}</td>
+                        <td>${o.client}</td>
+                        <td>${o.product}</td>
+                        <td>${o.date}</td>
+                        <td><span class="status-badge ${o.status === 'Payé' ? 'status-paid' : 'status-pending'}">${o.status}</span></td>
+                        <td>
+                            <button onclick="toggleStatus('${o.id}')" style="background:var(--primary); border:none; padding:5px 10px; border-radius:4px; cursor:pointer; color:black; font-weight:bold;">
+                                ${o.status === 'Payé' ? 'Voir' : 'Valider'}
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+            
+            // Update Stats
+            const countEl = document.querySelectorAll('.stat-value')[1];
+            if(countEl) countEl.innerText = orders.length;
+        }
+
+        function toggleStatus(id) {
+            let orders = JSON.parse(localStorage.getItem('admin_orders'));
+            const idx = orders.findIndex(o => o.id === id);
+            if(idx !== -1 && orders[idx].status !== 'Payé') {
+                if(confirm('Confirmer le paiement pour cette commande ?')) {
+                    orders[idx].status = 'Payé';
+                    localStorage.setItem('admin_orders', JSON.stringify(orders));
+                    loadOrders();
+                }
+            } else {
+                alert('Détails de la commande : ' + JSON.stringify(orders[idx], null, 2));
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', loadOrders);
+    </script>
+</body>
+</html>

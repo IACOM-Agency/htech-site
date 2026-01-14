@@ -1,0 +1,2655 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO OPTIMIZATION -->
+    <title>H-TECH PRO | Dépannage Informatique & Création Web Rabat</title>
+    <meta name="description" content="Expert en maintenance informatique à Rabat, Témara et Salé. Dépannage PC/Mac, Réseaux, Sécurité et Création de Sites Web. Intervention rapide 24/7.">
+    <meta name="keywords" content="Dépannage informatique Rabat, Réparation PC Témara, Maintenance réseau, Création site web Maroc, H-TECH PRO, Technicien informatique urgence">
+    <meta name="author" content="H-TECH PRO">
+    <meta name="robots" content="index, follow">
+
+    <!-- OPEN GRAPH (Social Media Sharing) -->
+    <meta property="og:title" content="H-TECH PRO | L'Expertise Informatique à Rabat">
+    <meta property="og:description" content="Besoin d'un dépannage ou d'un site web ? H-TECH PRO intervient en moins de 2h sur Rabat et environs. Solutions pour Pros et Particuliers.">
+    <meta property="og:image" content="https://h-tech-pro.ma/pro_image.jpg">
+    <meta property="og:url" content="https://h-tech-pro.ma">
+    <meta property="og:type" content="website">
+
+    <!-- SCHEMA.ORG (Google Rich Snippets) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ComputerStore",
+      "name": "H-TECH PRO",
+      "image": "https://h-tech-pro.ma/pro_image.jpg",
+      "@id": "https://h-tech-pro.ma",
+      "url": "https://h-tech-pro.ma",
+      "telephone": "+212600000000",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Centre Ville",
+        "addressLocality": "Rabat",
+        "addressRegion": "Rabat-Salé-Kénitra",
+        "postalCode": "10000",
+        "addressCountry": "MA"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 34.020882,
+        "longitude": -6.841650
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday"
+        ],
+        "opens": "00:00",
+        "closes": "23:59"
+      },
+      "sameAs": [
+        "https://www.facebook.com/htechpro",
+        "https://www.instagram.com/htechpro"
+      ]
+    }
+    </script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <!-- jsPDF Library for PDF Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-purple: #bc13fe;
+            --dark-bg: #050505;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-hover: rgba(255, 255, 255, 0.1);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 243, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(188, 19, 254, 0.05) 0%, transparent 40%);
+        }
+        
+        /* Smooth Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--dark-bg); }
+        ::-webkit-scrollbar-thumb { background: var(--neon-blue); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--neon-purple); }
+
+        /* Animation Classes & Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal-zoom {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .active-reveal {
+            opacity: 1;
+            transform: translateY(0) translateX(0) scale(1);
+        }
+
+        /* Staggered Delays */
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+
+        /* Impressive Hover Effects */
+        .pro-image-inner img {
+            transition: transform 0.6s ease;
+        }
+        .pro-image-inner:hover img {
+            transform: scale(1.1);
+        }
+        
+        .cta-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-btn::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        .cta-btn:hover::after {
+            left: 100%;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        /* --- SCROLL TO TOP BTN --- */
+        #scrollTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            font-size: 24px;
+            border: none;
+            outline: none;
+            background-color: var(--neon-blue);
+            color: var(--dark-bg);
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+            transition: 0.3s;
+        }
+
+        #scrollTopBtn:hover {
+            background-color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.8);
+        }
+
+        /* --- BACKGROUND ANIME --- */
+        .bg-grid {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.1;
+            z-index: -1;
+            perspective: 500px;
+            transform-style: preserve-3d;
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            0% { transform: translateY(0) rotateX(20deg); }
+            100% { transform: translateY(50px) rotateX(20deg); }
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 900;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .logo i {
+            color: var(--neon-blue);
+            font-size: 30px;
+            filter: drop-shadow(0 0 10px var(--neon-blue));
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            font-size: 18px;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .cta-btn {
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 10px 25px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+        }
+
+        .cta-btn:hover {
+            background: var(--neon-blue);
+            color: black;
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.6);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 0 20px;
+        }
+
+
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--neon-blue);
+            filter: blur(150px);
+            opacity: 0.2;
+            border-radius: 50%;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 80px;
+            line-height: 1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 span {
+            color: transparent;
+            -webkit-text-stroke: 2px var(--neon-blue);
+            display: block;
+        }
+
+        .hero p {
+            font-size: 24px;
+            color: #aaa;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        /* --- SERVICES (CARDS) --- */
+        .services {
+            padding: 100px 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 40px;
+            margin-bottom: 60px;
+            text-align: center;
+            color: white;
+        }
+
+        .section-title span {
+            border-bottom: 3px solid var(--neon-purple);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 40px;
+            border-radius: 15px;
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-purple);
+            box-shadow: 0 10px 30px rgba(188, 19, 254, 0.2);
+        }
+
+        .card i {
+            font-size: 50px;
+            color: var(--neon-purple);
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .card p {
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        /* --- SERVICE MODAL (FULLSCREEN) --- */
+        #service-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .service-content {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 40px;
+            background: #111;
+            border: 1px solid var(--neon-blue);
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 0 50px rgba(0, 243, 255, 0.1);
+        }
+
+        .close-service {
+            position: absolute;
+            top: 20px; right: 20px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .close-service:hover { color: var(--neon-blue); transform: rotate(90deg); }
+
+        .service-detail-title {
+            font-family: 'Orbitron';
+            font-size: 40px;
+            color: var(--neon-blue);
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        .service-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .detail-item {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 3px solid var(--neon-purple);
+        }
+
+        .detail-item h4 { color: white; margin-bottom: 10px; font-size: 18px; }
+        .detail-item p { color: #ccc; font-size: 14px; line-height: 1.6; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* --- STATS BAR --- */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.1), transparent);
+            padding: 50px 0;
+            margin: 50px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 50px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            color: var(--neon-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* --- CONTACT --- */
+        .contact {
+            padding: 100px 20px;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(0,0,0,0), #000);
+        }
+
+        .contact-box {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 50px;
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+        }
+
+        .contact-btn {
+            display: inline-block;
+            background: #25D366; /* WhatsApp Green */
+            color: white;
+            text-decoration: none;
+            padding: 15px 40px;
+            font-size: 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-top: 30px;
+            transition: 0.3s;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        .contact-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.5);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* --- FAQ SECTION --- */
+        .faq-section {
+            max-width: 800px;
+            margin: 0 auto 100px auto;
+            padding: 0 20px;
+        }
+
+        .accordion {
+            background-color: var(--glass);
+            color: white;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 18px;
+            transition: 0.4s;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion:hover, .active-accordion {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .panel {
+            padding: 0 18px;
+            background-color: rgba(0, 0, 0, 0.3);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            border-left: 2px solid var(--neon-blue);
+        }
+
+        .panel p {
+            padding: 20px 0;
+            color: #ccc;
+        }
+
+        /* --- ZONE INTERVENTION --- */
+        .zone-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .zone-item {
+            background: var(--glass);
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .zone-item:hover {
+            border-color: var(--neon-purple);
+            transform: translateY(-5px);
+        }
+
+        .zone-item i {
+            font-size: 30px;
+            color: var(--neon-blue);
+            margin-bottom: 10px;
+        }
+
+        /* --- FLOATING WHATSAPP --- */
+        .float-wa {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        /* Adjust ScrollTop to be higher */
+        #scrollTopBtn {
+            bottom: 100px; 
+        }
+
+        /* --- HAMBURGER MENU --- */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            z-index: 101;
+        }
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+        
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(8px, 6px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(8px, -6px); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 40px; }
+            nav { padding: 15px 20px; justify-content: space-between; }
+            
+            .hamburger { display: flex; }
+            
+            .nav-links { 
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 0; right: -100%;
+                width: 80%;
+                height: 100vh;
+                background: rgba(5,5,5,0.98);
+                padding: 80px 30px;
+                text-align: left;
+                border-left: 1px solid var(--neon-blue);
+                transition: 0.3s ease-in-out;
+                z-index: 100;
+                gap: 20px;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+            }
+            
+            .nav-links.active { right: 0; }
+            
+            .nav-links a { 
+                margin: 0; 
+                font-size: 18px; 
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+                padding-bottom: 15px;
+                display: block;
+            }
+            
+            .dropdown { margin-left: 0 !important; }
+            
+            .dropdown-content {
+                position: static;
+                background: rgba(255,255,255,0.02);
+                box-shadow: none;
+                padding: 10px 0 10px 20px;
+                display: block; /* Always show sub-items on mobile or handle via JS */
+                border: none;
+                margin-top: 10px;
+            }
+            
+            .stats { flex-direction: column; gap: 30px; }
+            .sos-btn { left: 20px; bottom: 20px; width: 50px; height: 50px; font-size: 20px; }
+        }
+
+        /* --- NEW FEATURES CSS --- */
+        
+        /* 1. TRACKER */
+        .tracker-section {
+            padding: 80px 20px;
+            background: rgba(0,0,0,0.5);
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+        
+        .tracker-box {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .tracker-input {
+            padding: 15px;
+            width: 70%;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--neon-blue);
+            color: white;
+            border-radius: 5px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 18px;
+        }
+        
+        .tracker-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            position: relative;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .tracker-steps::before {
+            content: '';
+            position: absolute;
+            top: 15px; left: 0; width: 100%; height: 2px;
+            background: #333;
+            z-index: 0;
+        }
+        
+        .step {
+            position: relative;
+            z-index: 1;
+            background: var(--dark-bg);
+            padding: 0 10px;
+            text-align: center;
+            opacity: 0.5;
+            transition: 0.3s;
+        }
+        
+        .step.active {
+            opacity: 1;
+        }
+        
+        .step-icon {
+            width: 30px; height: 30px;
+            background: #333;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #555;
+        }
+        
+        .step.active .step-icon {
+            background: var(--neon-blue);
+            border-color: var(--neon-blue);
+            color: black;
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        /* 2. PC BUILDER */
+        .builder-section {
+            padding: 100px 20px;
+            background: linear-gradient(to bottom, var(--dark-bg), #0a0a0a);
+            border-top: 1px solid var(--border);
+        }
+        
+        .builder-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .builder-form {
+            background: var(--glass);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+        }
+        
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 10px; color: var(--neon-blue); }
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid #333;
+            color: white;
+            border-radius: 5px;
+        }
+        
+        .config-result {
+            background: rgba(0, 243, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid var(--neon-blue);
+        }
+        
+        .part-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* 3. SOS BUTTON */
+        .sos-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 70px;
+            height: 70px;
+            background: #ff0000;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 24px;
+            z-index: 1000;
+            box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+            animation: sosPulse 1.5s infinite;
+            cursor: pointer;
+            text-decoration: none;
+            border: 2px solid white;
+        }
+        
+        @keyframes sosPulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 20px rgba(255, 0, 0, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+        }
+
+        @media (max-width: 900px) {
+            .builder-grid { grid-template-columns: 1fr; }
+        }
+
+        /* --- WEB SERVICES (SITES INTERNET) --- */
+        .web-pricing {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.1);
+            background: rgba(0, 243, 255, 0.05);
+        }
+
+        .pricing-card h3 {
+            font-family: 'Orbitron';
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .price {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--neon-blue);
+            margin: 20px 0;
+            display: block;
+        }
+
+        .price span {
+            font-size: 16px;
+            color: #888;
+            font-weight: normal;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .features-list li {
+            margin-bottom: 15px;
+            color: #ccc;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .features-list li i {
+            color: var(--neon-purple);
+        }
+
+        /* --- SCROLL REVEAL --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active-reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- DROPDOWN MENU --- */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: rgba(5, 5, 5, 0.95);
+            min-width: 200px;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+            z-index: 1000;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            top: 100%;
+            left: 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        .dropdown-content a {
+            color: #ccc;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            margin-left: 0 !important; /* Override nav link margin */
+            font-size: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(0, 243, 255, 0.1);
+            color: var(--neon-blue);
+        }
+
+        /* --- PRO SECTION --- */
+        .pro-section {
+            background: linear-gradient(45deg, rgba(0,0,0,0.8), rgba(20,20,20,0.9));
+            padding: 100px 20px;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .pro-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 50px;
+            max-width: 1300px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .pro-text h3 {
+            font-family: 'Orbitron';
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .pro-text p {
+            font-size: 18px;
+            color: #aaa;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .pro-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .pro-feature {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 3px solid var(--neon-blue);
+        }
+
+        .pro-image {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 20px;
+            padding: 5px; /* Border effect */
+            box-shadow: 0 0 50px rgba(0, 243, 255, 0.2);
+        }
+        
+        .pro-image-inner {
+            background: #000;
+            border-radius: 18px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SCROLL TO TOP BTN -->
+    <button id="scrollTopBtn" title="Haut de page"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- SOS BUTTON -->
+    <a href="https://wa.me/212600000000?text=SOS%20URGENCE%20H-TECH%20:%20J'ai%20une%20panne%20critique,%20rappelez-moi%20ASAP!" class="sos-btn" target="_blank" title="URGENCE 24/7">
+        SOS
+    </a>
+
+    <!-- FLOATING WHATSAPP -->
+    <a href="https://wa.me/212600000000" class="float-wa" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- SERVICES MODAL -->
+    <div id="service-modal">
+        <div class="service-content">
+            <span class="close-service" onclick="closeServiceModal()">&times;</span>
+            <h2 id="modal-service-title" class="service-detail-title">Service Title</h2>
+            <div id="modal-service-body" class="service-detail-grid">
+                <!-- Dynamic Content -->
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn-neon" onclick="closeServiceModal(); document.getElementById('contact').scrollIntoView();">Demander ce service</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BACKGROUND -->
+    <div class="bg-grid"></div>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="logo">
+            <i class="fas fa-hexagon-nodes"></i>
+            H-TECH PRO
+        </div>
+        
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="nav-links">
+            <a href="#home">Accueil</a>
+            <a href="#services">Expertise</a>
+            
+            <div class="dropdown" style="margin-left: 30px;">
+                <a href="#" style="color: var(--neon-blue); cursor: default; margin-left: 0;">Apps & Outils <i class="fas fa-chevron-down" style="font-size: 12px; margin-left: 5px;"></i></a>
+                <div class="dropdown-content">
+                    <a href="Facturier_Pro.html" target="_blank"><i class="fas fa-file-invoice-dollar"></i> Facturier Pro</a>
+                    <a href="Contract_Generator.html" target="_blank"><i class="fas fa-file-signature"></i> Générateur Contrats</a>
+                    <a href="Marketplace_Themes.html" target="_blank"><i class="fas fa-store"></i> Marketplace</a>
+                    <a href="Configurateur_PC.html" target="_blank"><i class="fas fa-microchip"></i> Config PC</a>
+                </div>
+            </div>
+
+            <a href="Diagnostic_Center.html" style="color: var(--neon-blue); font-weight: bold; border: 1px solid var(--neon-blue); padding: 5px 15px; border-radius: 4px;">Diagnostic PC</a>
+
+            <a href="#pro">Pro</a>
+            <a href="#pricing">Tarifs</a>
+            <a href="#web-services">Sites Internet</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <button class="cta-btn" onclick="window.location.href='#contact'">INTERVENTION</button>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+        <canvas id="particles-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; opacity: 0.5;"></canvas>
+        <div id="hero-content" style="position: relative; z-index: 2;">
+            <p>MAINTENANCE & RÉSEAUX | RABAT</p>
+            <h1>L'EXPERTISE<br><span>H-TECH PRO</span></h1>
+            <p>Ne laissez pas l'informatique ralentir votre business.<br>Intervention rapide. Solutions durables.</p>
+            <div style="margin-top: 40px;">
+                <button class="cta-btn" style="font-size: 1.2rem; padding: 15px 40px;" onclick="startDiagnostic()">
+                    <i class="fas fa-rocket"></i> LANCER LE DIAGNOSTIC
+                </button>
+            </div>
+        </div>
+
+        <!-- DIAGNOSTIC MODAL (Hidden by default) -->
+        <div id="diag-modal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 200; align-items: center; justify-content: center;">
+            <div style="background: #111; border: 1px solid var(--neon-blue); padding: 40px; border-radius: 20px; max-width: 600px; width: 90%; text-align: center; position: relative;">
+                <button onclick="closeDiagnostic()" style="position: absolute; top: 10px; right: 15px; background: none; border: none; color: white; font-size: 24px; cursor: pointer;">&times;</button>
+                
+                <h2 id="diag-title" style="color: var(--neon-blue); font-family: 'Orbitron'; margin-bottom: 20px;">DIAGNOSTIC EN LIGNE</h2>
+                
+                <div id="diag-content">
+                    <!-- Les questions s'afficheront ici -->
+                </div>
+
+                <!-- LOADING SCREEN (Added Static) -->
+                <div id="diag-loading" style="display:none; text-align:center;">
+                    <i class="fas fa-microchip fa-spin" style="font-size: 50px; color: var(--neon-blue); margin-bottom: 20px;"></i>
+                    <h3 style="color:white;">Analyse de votre problème...</h3>
+                    <p style="color:#aaa;">Comparaison avec notre base de connaissances...</p>
+                </div>
+
+                <div id="diag-result" style="display:none;">
+                    <i class="fas fa-check-circle" style="font-size: 50px; color: #2ecc71; margin-bottom: 20px;"></i>
+                    <h3 style="color: white; margin-bottom: 10px;">DIAGNOSTIC TERMINÉ</h3>
+                    <p id="result-text" style="color: #ccc; margin-bottom: 20px;"></p>
+                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                        ESTIMATION : <span id="result-price" style="color: var(--neon-blue); font-weight: bold; font-size: 1.2rem;"></span>
+                    </div>
+                    
+                    <button class="cta-btn" onclick="generateQuote()" style="margin-bottom: 15px; border-color: white; color: white;">
+                        <i class="fas fa-file-pdf"></i> TÉLÉCHARGER DEVIS PDF
+                    </button>
+                    <br>
+                    <button class="cta-btn" onclick="sendToWhatsApp()">
+                        <i class="fab fa-whatsapp"></i> ENVOYER À HICHAM
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- STATS -->
+    <div class="stats">
+        <div class="stat-item">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Disponibilité</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Réussite</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">RABAT</div>
+            <div class="stat-label">Zone d'action</div>
+        </div>
+    </div>
+
+    <!-- TRACKER REPARATION -->
+    <div class="tracker-section">
+        <h2 class="section-title" style="margin-bottom: 30px;"><span>SUIVI DE RÉPARATION</span></h2>
+        <div class="tracker-box">
+            <input type="text" id="repairCode" class="tracker-input" placeholder="Entrez votre N° de dossier (ex: REP-1234)">
+            <button class="cta-btn" onclick="checkRepairStatus()">VÉRIFIER</button>
+        </div>
+        
+        <div id="tracker-result" style="display:none;">
+            <div class="tracker-steps">
+                <div class="step" id="step-1">
+                    <div class="step-icon"><i class="fas fa-box-open"></i></div>
+                    <small>Reçu</small>
+                </div>
+                <div class="step" id="step-2">
+                    <div class="step-icon"><i class="fas fa-search"></i></div>
+                    <small>Diag</small>
+                </div>
+                <div class="step" id="step-3">
+                    <div class="step-icon"><i class="fas fa-tools"></i></div>
+                    <small>Réparation</small>
+                </div>
+                <div class="step" id="step-4">
+                    <div class="step-icon"><i class="fas fa-check"></i></div>
+                    <small>Prêt</small>
+                </div>
+            </div>
+            <p id="tracker-msg" style="margin-top: 20px; color: var(--neon-blue); font-size: 18px;"></p>
+        </div>
+    </div>
+
+    <!-- SERVICES -->
+    <section id="services" class="services">
+        <h2 class="section-title"><span>NOS SERVICES</span></h2>
+        
+        <div class="cards-grid">
+            <!-- Service 1 -->
+            <div class="card" onclick="openService('hardware')" style="cursor: pointer;">
+                <i class="fas fa-laptop-medical"></i>
+                <h3>Maintenance Hardware</h3>
+                <p>Réparation, nettoyage, et upgrade de vos machines. Nous redonnons vie à vos équipements lents ou HS.</p>
+                <span style="color:var(--neon-blue); font-size:0.8em; text-decoration:underline;">En savoir plus</span>
+            </div>
+
+            <!-- Service 2 -->
+            <div class="card" onclick="openService('network')" style="cursor: pointer;">
+                <i class="fas fa-network-wired"></i>
+                <h3>Réseaux & Sécurité</h3>
+                <p>Installation de baies de brassage, configuration routeurs, et sécurisation de vos données d'entreprise.</p>
+                <span style="color:var(--neon-blue); font-size:0.8em; text-decoration:underline;">En savoir plus & Démo Live</span>
+            </div>
+
+            <!-- Service 3 -->
+            <div class="card" onclick="openService('sysadmin')" style="cursor: pointer;">
+                <i class="fas fa-server"></i>
+                <h3>Administration Système</h3>
+                <p>Gestion de serveurs Windows/Linux, virtualisation, et solutions de sauvegarde automatique.</p>
+                <span style="color:var(--neon-blue); font-size:0.8em; text-decoration:underline;">En savoir plus</span>
+            </div>
+
+            <!-- Service 4 -->
+            <div class="card" onclick="openService('remote')" style="cursor: pointer;">
+                <i class="fas fa-headset"></i>
+                <h3>Assistance à Distance</h3>
+                <p>Prise en main immédiate via nos outils sécurisés pour régler vos bugs logiciels en quelques minutes.</p>
+                <span style="color:var(--neon-blue); font-size:0.8em; text-decoration:underline;">En savoir plus</span>
+            </div>
+
+            <!-- Service 5 -->
+            <div class="card" onclick="openService('webdev')" style="cursor: pointer;">
+                <i class="fas fa-laptop-code"></i>
+                <h3>Développement Web</h3>
+                <p>Création de sites vitrines, e-commerce et applications sur mesure pour propulser votre business.</p>
+                <span style="color:var(--neon-blue); font-size:0.8em; text-decoration:underline;">En savoir plus</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING IT (NOUVEAU) -->
+    <section id="pricing" style="padding: 100px 20px; background: rgba(0,0,0,0.5);">
+        <h2 class="section-title"><span>NOS TARIFS</span></h2>
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+            
+            <!-- Tarif 1 -->
+            <div style="background: var(--glass); border: 1px solid var(--border); padding: 30px; text-align: center; border-radius: 15px; transition: 0.3s;" onmouseover="this.style.borderColor='var(--neon-blue)'" onmouseout="this.style.borderColor='var(--border)'">
+                <i class="fas fa-search" style="font-size: 40px; color: var(--neon-blue); margin-bottom: 20px;"></i>
+                <h3 style="color: white; font-family: 'Orbitron'; margin-bottom: 10px;">DIAGNOSTIC</h3>
+                <div style="font-size: 30px; font-weight: bold; color: var(--neon-blue); margin-bottom: 10px;">GRATUIT*</div>
+                <p style="color: #888; font-size: 14px; margin-bottom: 20px;">*Si réparation acceptée.<br>Sinon 100 DH.</p>
+                <button class="cta-btn" onclick="startDiagnostic()" style="width: 100%; font-size: 14px;">LANCER DIAGNOSTIC</button>
+            </div>
+
+            <!-- Tarif 2 -->
+            <div style="background: var(--glass); border: 1px solid var(--border); padding: 30px; text-align: center; border-radius: 15px; transition: 0.3s;" onmouseover="this.style.borderColor='var(--neon-purple)'" onmouseout="this.style.borderColor='var(--border)'">
+                <i class="fas fa-broom" style="font-size: 40px; color: var(--neon-purple); margin-bottom: 20px;"></i>
+                <h3 style="color: white; font-family: 'Orbitron'; margin-bottom: 10px;">NETTOYAGE</h3>
+                <div style="font-size: 30px; font-weight: bold; color: var(--neon-purple); margin-bottom: 10px;">100 DH</div>
+                <p style="color: #888; font-size: 14px; margin-bottom: 20px;">Virus, Publicités, Lenteurs.<br>Optimisation complète.</p>
+                <button class="cta-btn" onclick="document.getElementById('contact').scrollIntoView()" style="width: 100%; font-size: 14px; border-color: var(--neon-purple); color: var(--neon-purple);">PRENDRE RDV</button>
+            </div>
+
+            <!-- Tarif 3 -->
+            <div style="background: var(--glass); border: 1px solid var(--border); padding: 30px; text-align: center; border-radius: 15px; position: relative; overflow: hidden; transition: 0.3s;" onmouseover="this.style.borderColor='var(--neon-blue)'" onmouseout="this.style.borderColor='var(--border)'">
+                <div style="position: absolute; top: 10px; right: -30px; background: var(--neon-blue); color: black; padding: 5px 30px; transform: rotate(45deg); font-weight: bold; font-size: 12px;">POPULAIRE</div>
+                <i class="fas fa-compact-disc" style="font-size: 40px; color: var(--neon-blue); margin-bottom: 20px;"></i>
+                <h3 style="color: white; font-family: 'Orbitron'; margin-bottom: 10px;">FORMATAGE</h3>
+                <div style="font-size: 30px; font-weight: bold; color: var(--neon-blue); margin-bottom: 10px;">150 DH</div>
+                <p style="color: #888; font-size: 14px; margin-bottom: 20px;">Windows 10/11 + Drivers<br>+ Office & Antivirus offerts.</p>
+                <button class="cta-btn" onclick="document.getElementById('contact').scrollIntoView()" style="width: 100%; font-size: 14px;">PRENDRE RDV</button>
+            </div>
+
+            <!-- Tarif 4 -->
+            <div style="background: var(--glass); border: 1px solid var(--border); padding: 30px; text-align: center; border-radius: 15px; transition: 0.3s;" onmouseover="this.style.borderColor='var(--neon-purple)'" onmouseout="this.style.borderColor='var(--border)'">
+                <i class="fas fa-hdd" style="font-size: 40px; color: var(--neon-purple); margin-bottom: 20px;"></i>
+                <h3 style="color: white; font-family: 'Orbitron'; margin-bottom: 10px;">RÉCUPÉRATION</h3>
+                <div style="font-size: 30px; font-weight: bold; color: var(--neon-purple); margin-bottom: 10px;">SUR DEVIS</div>
+                <p style="color: #888; font-size: 14px; margin-bottom: 20px;">Disque dur, Clé USB, SD.<br>Paiement au résultat uniquement.</p>
+                <button class="cta-btn" onclick="document.getElementById('contact').scrollIntoView()" style="width: 100%; font-size: 14px; border-color: var(--neon-purple); color: var(--neon-purple);">CONTACTER</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PRO SECTION -->
+    <section id="pro" class="pro-section">
+        <div class="pro-grid">
+            <div class="pro-text">
+                <h2 style="font-family:'Orbitron'; font-size:40px; margin-bottom:20px;">ESPACE <span style="color:var(--neon-blue);">PRO</span></h2>
+                <p>Des solutions informatiques dédiées aux entreprises, PME et Startups. Externalisez votre DSI et concentrez-vous sur votre cœur de métier.</p>
+                
+                <div class="pro-features">
+                    <div class="pro-feature">
+                        <h4 style="color:white; margin-bottom:10px;"><i class="fas fa-shield-alt" style="color:var(--neon-blue);"></i> Sécurité & Audit</h4>
+                        <p style="font-size:14px; color:#ccc;">Protection contre les cyberattaques et mise en conformité des données.</p>
+                    </div>
+                    <div class="pro-feature">
+                        <h4 style="color:white; margin-bottom:10px;"><i class="fas fa-server" style="color:var(--neon-blue);"></i> Infrastructure</h4>
+                        <p style="font-size:14px; color:#ccc;">Installation serveurs, réseaux locaux et solutions Cloud.</p>
+                    </div>
+                    <div class="pro-feature">
+                        <h4 style="color:white; margin-bottom:10px;"><i class="fas fa-file-contract" style="color:var(--neon-blue);"></i> Contrats MCO</h4>
+                        <p style="font-size:14px; color:#ccc;">Maintenance en Condition Opérationnelle avec SLA garanti.</p>
+                    </div>
+                    <div class="pro-feature">
+                        <h4 style="color:white; margin-bottom:10px;"><i class="fas fa-headset" style="color:var(--neon-blue);"></i> Support VIP</h4>
+                        <p style="font-size:14px; color:#ccc;">Ligne directe prioritaire pour vos urgences critiques.</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 40px;">
+                    <button class="cta-btn" onclick="window.open('https://wa.me/212600000000?text=Bonjour,%20je%20souhaite%20un%20devis%20PRO', '_blank')">DEMANDER UN DEVIS PRO</button>
+                </div>
+            </div>
+
+            <div class="pro-image">
+                <div class="pro-image-inner" style="position: relative; overflow: hidden; height: 400px; background: #000;">
+                    <!-- IMAGE UTILISATEUR INTÉGRÉE -->
+                    <img src="pro_image.jpg" 
+                         alt="Infrastructure Serveur H-TECH" 
+                         style="width: 100%; height: 100%; object-fit: cover; border-radius: 18px; display: block;">
+                    
+                    <!-- GRADIENT OVERLAY -->
+                    <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 120px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); pointer-events: none;"></div>
+
+                    <!-- BOUTONS ACTIONS RAPIDES -->
+                    <div style="position: absolute; bottom: 30px; left: 0; width: 100%; display: flex; justify-content: center; gap: 15px; z-index: 10;">
+                        <button onclick="window.open('Facturier_Pro.html', '_blank')" class="cta-btn" style="background: rgba(0,0,0,0.6); font-size: 14px; padding: 10px 20px; border-color: white; color: white; backdrop-filter: blur(5px);">
+                            <i class="fas fa-file-invoice"></i> GÉNÉRER DEVIS
+                        </button>
+                        <button onclick="window.open('Contract_Generator.html', '_blank')" class="cta-btn" style="background: var(--neon-blue); font-size: 14px; padding: 10px 20px; border: none; color: black; box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);">
+                            <i class="fas fa-pen-nib"></i> CRÉER CONTRAT
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WEB SERVICES (SITES INTERNET) -->
+    <section id="web-services" style="padding: 100px 20px;">
+        <h2 class="section-title"><span>CRÉATION WEB & DIGITAL</span></h2>
+        
+        <div class="web-pricing">
+            <!-- Card 1: Vitrine -->
+            <div class="pricing-card">
+                <i class="fab fa-wordpress" style="font-size: 50px; color: var(--neon-blue); margin-bottom: 20px;"></i>
+                <h3>Site Vitrine</h3>
+                <span class="price">1500 DH <span>/ démarrage</span></span>
+                <p style="color:var(--neon-blue); font-size:14px; margin-bottom:15px; font-weight:bold; background:rgba(0, 243, 255, 0.1); padding:5px; border-radius:5px;">TECHNOLOGIE WORDPRESS</p>
+                <ul class="features-list">
+                    <li><i class="fas fa-check"></i> Design Moderne (Thème)</li>
+                    <li><i class="fas fa-check"></i> 5 Pages (Accueil, Services...)</li>
+                    <li><i class="fas fa-check"></i> Formulaire de Contact</li>
+                    <li><i class="fas fa-check"></i> Idéal TPE / Auto-entrepreneur</li>
+                </ul>
+                <button class="cta-btn" onclick="window.open('https://wa.me/212600000000?text=Bonjour,%20je%20suis%20intéressé%20par%20un%20Site%20Vitrine%20(WordPress)', '_blank')">COMMANDER</button>
+            </div>
+
+            <!-- Card 2: E-Commerce -->
+            <div class="pricing-card" style="border-color: var(--neon-purple); background: rgba(188, 19, 254, 0.05);">
+                <div style="position:absolute; top:0; right:0; background:var(--neon-purple); color:white; padding:5px 15px; font-size:12px; font-weight:bold;">POPULAIRE</div>
+                <i class="fas fa-shopping-cart" style="font-size: 50px; color: var(--neon-purple); margin-bottom: 20px;"></i>
+                <h3>E-Commerce</h3>
+                <span class="price">3500 DH <span>/ démarrage</span></span>
+                <p style="color:var(--neon-purple); font-size:14px; margin-bottom:15px; font-weight:bold; background:rgba(188, 19, 254, 0.1); padding:5px; border-radius:5px;">WORDPRESS + WOOCOMMERCE</p>
+                <ul class="features-list">
+                    <li><i class="fas fa-check"></i> Boutique en Ligne Complète</li>
+                    <li><i class="fas fa-check"></i> Paiement (CMI, PayPal)</li>
+                    <li><i class="fas fa-check"></i> Gestion Stocks Facile</li>
+                    <li><i class="fas fa-check"></i> Formation Admin Incluse</li>
+                </ul>
+                <button class="cta-btn" style="border-color: var(--neon-purple); color: var(--neon-purple);" onclick="window.open('https://wa.me/212600000000?text=Bonjour,%20je%20suis%20intéressé%20par%20un%20Site%20E-Commerce%20(WordPress)', '_blank')">COMMANDER</button>
+            </div>
+
+            <!-- Card 3: Sur Mesure -->
+            <div class="pricing-card">
+                <i class="fas fa-code" style="font-size: 50px; color: #f7df1e; margin-bottom: 20px;"></i>
+                <h3>Sur Mesure (Code)</h3>
+                <span class="price">Sur Devis <span>/ projet</span></span>
+                <p style="color:#f7df1e; font-size:14px; margin-bottom:15px; font-weight:bold; background:rgba(247, 223, 30, 0.1); padding:5px; border-radius:5px;">HTML5 • REACT • PYTHON</p>
+                <ul class="features-list">
+                    <li><i class="fas fa-check"></i> Performance Maximale</li>
+                    <li><i class="fas fa-check"></i> SaaS & Tableaux de Bord</li>
+                    <li><i class="fas fa-check"></i> Intégration API & IA</li>
+                    <li><i class="fas fa-check"></i> Maintenance Avancée</li>
+                </ul>
+                <button class="cta-btn" style="border-color: #f7df1e; color: #f7df1e;" onclick="window.open('https://wa.me/212600000000?text=Bonjour,%20j\'ai%20un%20projet%20web%20spécifique%20(Sur%20Mesure)', '_blank')">CONTACTER</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- PC BUILDER -->
+    <section id="builder" class="builder-section">
+        <h2 class="section-title"><span>CONFIGURATEUR PC INTELLIGENT</span></h2>
+        <p style="text-align: center; color: #aaa; margin-bottom: 50px;">L'IA H-TECH calcule la meilleure machine pour votre budget.</p>
+        
+        <div class="builder-grid">
+            <div class="builder-form">
+                <div class="form-group">
+                    <label><i class="fas fa-gamepad"></i> Usage Principal</label>
+                    <select id="usage" onchange="calculateConfig()">
+                        <option value="bureau">Bureautique & Surf</option>
+                        <option value="gamer_mid">Gaming (Fortnite, LoL, Valo)</option>
+                        <option value="gamer_ultra">Gaming Ultra (AAA, 4K)</option>
+                        <option value="workstation">Montage Vidéo / 3D</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-coins"></i> Budget Max (DH)</label>
+                    <input type="range" id="budget" min="3000" max="30000" step="500" value="8000" oninput="document.getElementById('budgetVal').innerText = this.value + ' DH'; calculateConfig()">
+                    <div style="text-align: right; color: var(--neon-blue); font-weight: bold; margin-top: 5px;" id="budgetVal">8000 DH</div>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-microchip"></i> Préférence CPU</label>
+                    <select id="cpu_pref" onchange="calculateConfig()">
+                        <option value="intel">Intel</option>
+                        <option value="amd">AMD</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="config-result" id="configResult">
+                <h3 style="color: white; margin-bottom: 20px; text-align: center;"><i class="fas fa-robot"></i> RECOMMANDATION</h3>
+                <div id="parts-list">
+                    <!-- Parts generated by JS -->
+                </div>
+                <div style="margin-top: 30px; text-align: center;">
+                    <div style="font-size: 24px; color: white; margin-bottom: 10px;">Total Estimé : <span id="totalPrice" style="color: var(--neon-blue);">0 DH</span></div>
+                    <button class="cta-btn" onclick="orderConfig()">COMMANDER CETTE CONFIG</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="zone" style="padding: 100px 20px; text-align: center;">
+        <h2 class="section-title"><span>ZONE D'INTERVENTION</span></h2>
+        <p style="color:#aaa; max-width:600px; margin:0 auto;">Déplacement rapide à domicile ou au bureau.</p>
+        
+        <div class="zone-grid">
+            <div class="zone-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>RABAT</h3>
+                <p style="font-size:0.9em; color:#888;">Agdal, Hay Riad, Océan...</p>
+            </div>
+            <div class="zone-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>SALÉ</h3>
+                <p style="font-size:0.9em; color:#888;">Marina, Bettana, Tabriquet...</p>
+            </div>
+            <div class="zone-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>TÉMARA</h3>
+                <p style="font-size:0.9em; color:#888;">Harhoura, Guich Loudaya...</p>
+            </div>
+            <div class="zone-item">
+                <i class="fas fa-globe"></i>
+                <h3>À DISTANCE</h3>
+                <p style="font-size:0.9em; color:#888;">Partout au Maroc (Logiciel)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" style="padding: 50px 20px; background: rgba(255,255,255,0.02);">
+        <h2 class="section-title"><span>QUESTIONS FRÉQUENTES</span></h2>
+        <div class="faq-section">
+            
+            <button class="accordion">Combien coûte un diagnostic ? <i class="fas fa-chevron-down" style="float:right"></i></button>
+            <div class="panel">
+                <p>Le pré-diagnostic par téléphone ou WhatsApp est <strong>100% GRATUIT</strong>. Pour un diagnostic physique approfondi avec démontage, le tarif est de 100 DH (déductible si vous acceptez la réparation).</p>
+            </div>
+
+            <button class="accordion">Intervenez-vous le soir ou le week-end ? <i class="fas fa-chevron-down" style="float:right"></i></button>
+            <div class="panel">
+                <p>Oui ! H-TECH PRO comprend que les pannes n'attendent pas. Nous sommes disponibles <strong>24/7 sur rendez-vous</strong> (majoration possible nuit/dimanche).</p>
+            </div>
+
+            <button class="accordion">Mes données sont-elles en sécurité ? <i class="fas fa-chevron-down" style="float:right"></i></button>
+            <div class="panel">
+                <p>Absolument. La confidentialité est notre priorité. Nous ne consultons jamais vos fichiers personnels et nous proposons des solutions de sauvegarde avant toute intervention risquée (formatage).</p>
+            </div>
+
+            <button class="accordion">Garantissez-vous vos réparations ? <i class="fas fa-chevron-down" style="float:right"></i></button>
+            <div class="panel">
+                <p>Oui, toutes nos réparations matérielles sont garanties <strong>3 mois</strong>. Si le même problème revient, nous intervenons gratuitement.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact">
+        <h2 class="section-title"><span>NOUS CONTACTER</span></h2>
+        
+        <div style="max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 50px; text-align: left;">
+            
+            <!-- Info Box -->
+            <div class="contact-box" style="margin: 0; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                <h3 style="font-family: 'Orbitron'; font-size: 24px; margin-bottom: 20px; color: white;">UNE URGENCE ?</h3>
+                <p style="color: #ccc; margin-bottom: 30px;">Hicham et son équipe sont prêts à intervenir sur Rabat et ses environs.</p>
+                
+                <div style="margin-bottom: 30px; color: #888; font-size: 16px; display: flex; flex-direction: column; gap: 15px;">
+                    <div style="display:flex; align-items:center; gap:15px;"><i class="fas fa-phone" style="color:var(--neon-blue); font-size:20px;"></i> <span>+212 6 XX XX XX XX</span></div>
+                    <div style="display:flex; align-items:center; gap:15px;"><i class="fas fa-envelope" style="color:var(--neon-blue); font-size:20px;"></i> <span>contact@h-tech-pro.ma</span></div>
+                    <div style="display:flex; align-items:center; gap:15px;"><i class="fas fa-map-marker-alt" style="color:var(--neon-blue); font-size:20px;"></i> <span>Rabat, Maroc</span></div>
+                </div>
+
+                <a href="https://wa.me/212600000000" class="contact-btn" style="text-align: center;">
+                    <i class="fab fa-whatsapp"></i> CONTACT RAPIDE
+                </a>
+            </div>
+
+            <!-- Form Box -->
+            <div style="background: var(--glass); border: 1px solid var(--border); padding: 40px; border-radius: 20px;">
+                <h3 style="font-family: 'Orbitron'; font-size: 24px; margin-bottom: 20px; color: white;">ENVOYER UN MESSAGE</h3>
+                <form onsubmit="event.preventDefault(); alert('Message envoyé (Simulation). Nous vous rappellerons sous 15min !');">
+                    <div style="margin-bottom: 20px;">
+                        <label style="display:block; color:#aaa; margin-bottom:5px;">Nom Complet</label>
+                        <input type="text" style="width:100%; padding:10px; background:rgba(0,0,0,0.5); border:1px solid #333; color:white; border-radius:5px;" required>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display:block; color:#aaa; margin-bottom:5px;">Téléphone</label>
+                        <input type="tel" style="width:100%; padding:10px; background:rgba(0,0,0,0.5); border:1px solid #333; color:white; border-radius:5px;" required>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display:block; color:#aaa; margin-bottom:5px;">Message / Problème</label>
+                        <textarea style="width:100%; padding:10px; background:rgba(0,0,0,0.5); border:1px solid #333; color:white; border-radius:5px; height:100px;" required></textarea>
+                    </div>
+                    <button type="submit" class="cta-btn" style="width:100%;">ENVOYER DEMANDE</button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ABOUT US -->
+    <section id="about" style="padding: 100px 20px; background: rgba(0,0,0,0.8); border-top: 1px solid var(--border);">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 50px;">
+            <div style="flex: 1; min-width: 300px;">
+                <h2 class="section-title" style="text-align: left; margin-bottom: 30px;">À PROPOS DE <span>H-TECH PRO</span></h2>
+                <p style="color: #ccc; font-size: 18px; line-height: 1.8; margin-bottom: 20px;">
+                    Fondée avec une vision d'excellence technologique, <strong>H-TECH PRO</strong> est bien plus qu'une société de maintenance informatique. Nous sommes votre partenaire stratégique dans la transformation numérique.
+                </p>
+                <p style="color: #ccc; font-size: 18px; line-height: 1.8; margin-bottom: 30px;">
+                    Notre mission est simple : <strong>Garantir la continuité de votre activité</strong> grâce à des solutions robustes, sécurisées et innovantes. Que vous soyez un particulier passionné ou une entreprise exigeante, nous déployons notre expertise pour résoudre vos défis techniques les plus complexes.
+                </p>
+                <div style="display: flex; gap: 20px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-certificate" style="color: var(--neon-blue); font-size: 24px;"></i>
+                        <span style="color: white; font-weight: bold;">Certifié Expert</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-users" style="color: var(--neon-blue); font-size: 24px;"></i>
+                        <span style="color: white; font-weight: bold;">Support Humain</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-bolt" style="color: var(--neon-blue); font-size: 24px;"></i>
+                        <span style="color: white; font-weight: bold;">Réactivité Totale</span>
+                    </div>
+                </div>
+            </div>
+            <div style="flex: 1; min-width: 300px; text-align: center;">
+                 <div style="position: relative; display: inline-block;">
+                    <div style="position: absolute; top: -20px; left: -20px; width: 100px; height: 100px; border-top: 5px solid var(--neon-purple); border-left: 5px solid var(--neon-purple);"></div>
+                    <div style="position: absolute; bottom: -20px; right: -20px; width: 100px; height: 100px; border-bottom: 5px solid var(--neon-blue); border-right: 5px solid var(--neon-blue);"></div>
+                    <div style="background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; backdrop-filter: blur(10px); border: 1px solid var(--border);">
+                        <i class="fas fa-quote-left" style="font-size: 30px; color: var(--neon-purple); display: block; margin-bottom: 20px;"></i>
+                        <p style="font-style: italic; color: white; font-size: 20px; margin-bottom: 20px;">
+                            "L'informatique ne doit pas être un frein, mais un accélérateur de réussite. Chez H-TECH PRO, nous transformons chaque problème en solution."
+                        </p>
+                        <h4 style="color: var(--neon-blue); font-family: 'Orbitron';">Hicham EL H.</h4>
+                        <span style="color: #888; font-size: 14px;">Fondateur & Expert IT</span>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section id="testimonials" style="padding: 80px 20px; background: #080808; position: relative; border-top: 1px solid rgba(255,255,255,0.05);">
+        <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+            <h2 class="section-title" style="margin-bottom: 50px;">ILS NOUS FONT <span>CONFIANCE</span></h2>
+            
+            <div class="testimonials-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <!-- Avis 1 -->
+                <div class="testimonial-card" style="background: rgba(255,255,255,0.03); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); text-align: left; transition: 0.3s;">
+                    <div style="display: flex; gap: 5px; color: #f1c40f; margin-bottom: 15px;">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p style="color: #ccc; font-style: italic; margin-bottom: 20px; line-height: 1.6;">"Service exceptionnel ! Hicham a récupéré mes données professionnelles sur un disque dur HS en moins de 24h. Un vrai magicien."</p>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="width: 40px; height: 40px; background: #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white;">K</div>
+                        <div>
+                            <div style="color: white; font-weight: bold;">Karim Benjelloun</div>
+                            <div style="color: #666; font-size: 12px;">Architecte, Rabat</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avis 2 -->
+                <div class="testimonial-card" style="background: rgba(255,255,255,0.03); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); text-align: left; transition: 0.3s;">
+                    <div style="display: flex; gap: 5px; color: #f1c40f; margin-bottom: 15px;">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p style="color: #ccc; font-style: italic; margin-bottom: 20px; line-height: 1.6;">"Nous avons acheté le thème 'Corporate' sur la Marketplace pour notre cabinet. Installation facile et design ultra-moderne. Merci !"</p>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="width: 40px; height: 40px; background: #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white;">S</div>
+                        <div>
+                            <div style="color: white; font-weight: bold;">Sarah Idrissi</div>
+                            <div style="color: #666; font-size: 12px;">Gérante, Cabinet Idrissi</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Avis 3 -->
+                <div class="testimonial-card" style="background: rgba(255,255,255,0.03); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); text-align: left; transition: 0.3s;">
+                    <div style="display: flex; gap: 5px; color: #f1c40f; margin-bottom: 15px;">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p style="color: #ccc; font-style: italic; margin-bottom: 20px; line-height: 1.6;">"Intervention réseau rapide et efficace pour nos bureaux. Le simulateur en ligne nous a bien aidé à estimer le coût avant."</p>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div style="width: 40px; height: 40px; background: #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white;">M</div>
+                        <div>
+                            <div style="color: white; font-weight: bold;">Mehdi Tazi</div>
+                            <div style="color: #666; font-size: 12px;">Directeur IT, Startup Zone</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <style>
+                .testimonial-card:hover {
+                    transform: translateY(-5px);
+                    background: rgba(255,255,255,0.05) !important;
+                    border-color: var(--neon-blue) !important;
+                    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+                }
+            </style>
+        </div>
+    </section>
+
+    <footer style="background: #050505; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 50px;">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; text-align: left;">
+            <div>
+                <h3 style="color:white; margin-bottom: 20px; font-family: 'Orbitron';">H-TECH PRO.</h3>
+                <p style="color: #888; font-size: 14px; line-height: 1.6;">L'expertise informatique à votre service sur Rabat et ses environs. Dépannage, maintenance et solutions web.</p>
+            </div>
+            <div>
+                <h4 style="color:white; margin-bottom: 20px;">Liens Rapides</h4>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <a href="#about" style="color: #888; text-decoration: none; transition: 0.3s;">À propos</a>
+                    <a href="#services" style="color: #888; text-decoration: none; transition: 0.3s;">Services</a>
+                    <a href="#pro" style="color: #888; text-decoration: none; transition: 0.3s;">Professionnels</a>
+                    <a href="Marketplace_Themes.html" style="color: var(--neon-blue); text-decoration: none; font-weight: bold;">Marketplace Thèmes</a>
+                    <a href="Mentions_Legales.html" style="color: #666; font-size: 12px; margin-top: 10px;">Mentions Légales</a>
+                    <a href="Politique_Confidentialite.html" style="color: #666; font-size: 12px;">Confidentialité</a>
+                </div>
+            </div>
+            <div>
+                <h4 style="color:white; margin-bottom: 20px;">Contact</h4>
+                <div style="color: #888; font-size: 14px; display: flex; flex-direction: column; gap: 10px;">
+                    <span><i class="fas fa-envelope" style="width: 20px;"></i> contact@h-tech.ma</span>
+                    <span><i class="fas fa-phone" style="width: 20px;"></i> +212 6 00 00 00 00</span>
+                    <span><i class="fas fa-map-marker-alt" style="width: 20px;"></i> Rabat, Maroc</span>
+                </div>
+            </div>
+            <div>
+                <h4 style="color:white; margin-bottom: 20px;">Espace Pro</h4>
+                <a href="Admin_Dashboard.html" target="_blank" style="display: inline-block; padding: 10px 20px; border: 1px solid #333; border-radius: 5px; color: #888; text-decoration: none; font-size: 13px; transition: 0.3s;">
+                    <i class="fas fa-lock"></i> Accès Admin
+                </a>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); color: #555; font-size: 13px;">
+            <p>&copy; 2026 H-TECH PRO. Tous droits réservés. Designed by AI.</p>
+        </div>
+    </footer>
+
+    <div id="h-chat-widget">
+        <div id="chat-bubble" onclick="toggleChat()">
+            <i class="fas fa-robot"></i>
+            <span class="notification-dot">1</span>
+        </div>
+        <div id="chat-window">
+            <div class="chat-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <div class="bot-avatar"><i class="fas fa-robot"></i></div>
+                    <div>
+                        <div style="font-weight:bold;">H-ASSISTANT</div>
+                        <div style="font-size:11px; color:#2ecc71;">● En ligne</div>
+                    </div>
+                </div>
+                <button onclick="toggleChat()" style="background:none; border:none; color:white; cursor:pointer;">&times;</button>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="message bot">
+                    Bonjour ! Je suis l'IA de H-TECH. Comment puis-je vous aider aujourd'hui ?
+                </div>
+                <div class="quick-replies">
+                    <button onclick="sendMsg('Prix')">💰 Tarifs</button>
+                    <button onclick="sendMsg('Services')">🛠️ Services</button>
+                    <button onclick="sendMsg('Contact')">📞 Contact</button>
+                    <button onclick="sendMsg('Devis')">📄 Devis</button>
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Écrivez votre message..." onkeypress="handleEnter(event)">
+                <button onclick="sendUserMsg()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Chatbot Styles */
+        #h-chat-widget {
+            position: fixed;
+            bottom: 120px; /* Positioned above SOS button */
+            left: 30px;    /* Moved to left side to avoid WhatsApp overlap */
+            z-index: 9999;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        #chat-bubble {
+            width: 60px;
+            height: 60px;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 243, 255, 0.4);
+            transition: 0.3s;
+            position: relative;
+        }
+        #chat-bubble:hover { transform: scale(1.1); }
+        #chat-bubble i { font-size: 28px; color: black; }
+        
+        .notification-dot {
+            position: absolute;
+            top: 0; right: 0;
+            background: red;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid #000;
+        }
+
+        #chat-window {
+            position: absolute;
+            bottom: 80px;
+            left: 0; /* Opens aligned to the left */
+            width: 320px;
+            height: 450px;
+            background: #111;
+            border: 1px solid var(--neon-blue);
+            border-radius: 20px;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Responsive adjustments for Chatbot */
+        @media (max-width: 400px) {
+            #h-chat-widget {
+                left: 20px;
+                bottom: 100px;
+            }
+            #chat-window {
+                width: 280px; /* Smaller width for small screens */
+            }
+        }
+
+        .chat-header {
+            background: rgba(0, 243, 255, 0.1);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .bot-avatar {
+            width: 35px; height: 35px;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: black;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            padding: 10px 15px;
+            border-radius: 15px;
+            font-size: 14px;
+            max-width: 80%;
+            line-height: 1.4;
+        }
+        .message.bot {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-bottom-left-radius: 2px;
+            align-self: flex-start;
+        }
+        .message.user {
+            background: var(--neon-blue);
+            color: black;
+            border-bottom-right-radius: 2px;
+            align-self: flex-end;
+        }
+
+        .quick-replies {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .quick-replies button {
+            background: transparent;
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .quick-replies button:hover {
+            background: var(--neon-blue);
+            color: black;
+        }
+
+        .chat-input-area {
+            padding: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            gap: 10px;
+        }
+        #chat-input {
+            flex: 1;
+            background: rgba(255,255,255,0.05);
+            border: none;
+            padding: 10px;
+            border-radius: 20px;
+            color: white;
+            outline: none;
+        }
+        .chat-input-area button {
+            background: var(--neon-blue);
+            border: none;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: black;
+        }
+    </style>
+
+    <script>
+        function toggleChat() {
+            const win = document.getElementById('chat-window');
+            if (win.style.display === 'flex') {
+                win.style.display = 'none';
+            } else {
+                win.style.display = 'flex';
+                document.querySelector('.notification-dot').style.display = 'none';
+            }
+        }
+
+        function handleEnter(e) {
+            if (e.key === 'Enter') sendUserMsg();
+        }
+
+        function sendMsg(text) {
+            addMessage(text, 'user');
+            processBotResponse(text);
+        }
+
+        function sendUserMsg() {
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+            if (text) {
+                addMessage(text, 'user');
+                input.value = '';
+                processBotResponse(text);
+            }
+        }
+
+        function addMessage(text, sender) {
+            const div = document.createElement('div');
+            div.className = `message ${sender}`;
+            div.innerText = text;
+            const container = document.getElementById('chat-messages');
+            container.appendChild(div);
+            
+            // Remove quick replies if user typed
+            const qr = container.querySelector('.quick-replies');
+            if(qr) container.appendChild(qr); // Move to bottom or remove? Let's keep it simple.
+            
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function processBotResponse(input) {
+            const lower = input.toLowerCase();
+            let response = "Je n'ai pas compris. Voulez-vous parler à un humain sur WhatsApp ?";
+            let showWa = true;
+
+            // Simple Logic
+            if (lower.includes('bonjour') || lower.includes('salut')) {
+                response = "Bonjour ! Comment puis-je vous aider à booster votre business aujourd'hui ?";
+                showWa = false;
+            } else if (lower.includes('prix') || lower.includes('tarif') || lower.includes('coût')) {
+                response = "Nos diagnostics démarrent à 100 DH. Pour les sites web, nous avons des thèmes à partir de 1500 DH. Quel est votre projet ?";
+                showWa = false;
+            } else if (lower.includes('service') || lower.includes('faire')) {
+                response = "Nous faisons : \n1. Maintenance Informatique 🛠️\n2. Création de Sites Web 🌐\n3. Réseaux & Caméras 📹\nQue cherchez-vous ?";
+                showWa = false;
+            } else if (lower.includes('devis')) {
+                response = "Vous pouvez générer un devis instantané sur notre Marketplace ou cliquer sur 'Intervention' pour un diagnostic.";
+                showWa = false;
+            } else if (lower.includes('contact') || lower.includes('téléphone')) {
+                response = "Vous pouvez nous joindre au +212 6 00 00 00 00 ou directement sur WhatsApp.";
+            }
+
+            // Simulate typing
+            const container = document.getElementById('chat-messages');
+            const typing = document.createElement('div');
+            typing.className = 'message bot';
+            typing.innerText = '...';
+            container.appendChild(typing);
+            container.scrollTop = container.scrollHeight;
+
+            setTimeout(() => {
+                container.removeChild(typing);
+                addMessage(response, 'bot');
+                if (showWa) {
+                    const waBtn = document.createElement('div');
+                    waBtn.innerHTML = `<button onclick="window.open('https://wa.me/212600000000', '_blank')" style="background:#25D366; color:white; border:none; padding:8px 15px; border-radius:15px; margin-top:5px; cursor:pointer;"><i class="fab fa-whatsapp"></i> Continuer sur WhatsApp</button>`;
+                    container.appendChild(waBtn);
+                    container.scrollTop = container.scrollHeight;
+                }
+            }, 1000);
+        }
+        
+        // Force le scroll en haut au chargement
+        if (history.scrollRestoration) {
+            history.scrollRestoration = 'manual';
+        } else {
+            window.onbeforeunload = function () {
+                window.scrollTo(0, 0);
+            }
+        }
+        window.onload = function() {
+            setTimeout(function() {
+                window.scrollTo(0, 0);
+            }, 10);
+        };
+        
+        // Petit script pour l'effet de scroll sur la nav
+        const scrollBtn = document.getElementById("scrollTopBtn");
+
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            
+            // Gestion Nav
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(5, 5, 5, 0.95)';
+                nav.style.boxShadow = '0 5px 20px rgba(0,0,0,0.5)';
+            } else {
+                nav.style.background = 'rgba(5, 5, 5, 0.8)';
+                nav.style.boxShadow = 'none';
+            }
+
+            // Gestion Bouton ScrollTop
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollBtn.style.display = "block";
+            } else {
+                scrollBtn.style.display = "none";
+            }
+        });
+
+        // Action du bouton
+        scrollBtn.onclick = function() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        };
+
+        // FAQ ACCORDION
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active-accordion");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                } 
+            });
+        }
+
+        // --- SERVICE MODAL LOGIC ---
+        const servicesData = {
+            hardware: {
+                title: "Maintenance Hardware",
+                details: [
+                    { title: "Diagnostic Avancé", desc: "Tests complets RAM, Disque, Carte Mère avec outils pro." },
+                    { title: "Nettoyage & Thermique", desc: "Dépoussiérage intégral et changement de pâte thermique haute performance." },
+                    { title: "Réparation Électronique", desc: "Soudure de précision, remplacement de connecteurs et composants." },
+                    { title: "Upgrade Performance", desc: "Installation SSD NVMe et extension RAM pour booster la vitesse x10." }
+                ]
+            },
+            network: {
+                title: "Réseaux & Sécurité",
+                details: [
+                    { title: "Architecture Réseau", desc: "Câblage RJ45, installation baies de brassage et prises murales." },
+                    { title: "Configuration Pro", desc: "Routeurs et Switchs (Cisco, Ubiquiti, Mikrotik) pour débit optimal." },
+                    { title: "Cybersécurité", desc: "Mise en place de Pare-feu (Firewall) et VPN pour accès distant sécurisé." },
+                    { title: "Wi-Fi Entreprise", desc: "Bornes Wi-Fi maillées pour une couverture totale sans coupure." }
+                ]
+            },
+            sysadmin: {
+                title: "Administration Système",
+                details: [
+                    { title: "Windows Server / Linux", desc: "Installation, configuration et maintenance de serveurs." },
+                    { title: "Gestion Utilisateurs", desc: "Active Directory, GPO et gestion des droits d'accès." },
+                    { title: "Virtualisation", desc: "Optimisation avec Proxmox, VMware ou Hyper-V." },
+                    { title: "Sauvegardes 3-2-1", desc: "Stratégies de backup automatique (Veeam) pour zéro perte de données." }
+                ]
+            },
+            remote: {
+                title: "Assistance à Distance",
+                details: [
+                    { title: "Prise en main immédiate", desc: "Intervention rapide via RustDesk, AnyDesk ou TeamViewer." },
+                    { title: "Nettoyage Logiciel", desc: "Suppression de virus, malwares et logiciels publicitaires." },
+                    { title: "Installation Logiciels", desc: "Office, Antivirus, Logiciels métiers (Sage, Adobe, etc.)." },
+                    { title: "Optimisation OS", desc: "Nettoyage registre et fichiers temporaires pour accélérer Windows." }
+                ]
+            },
+            webdev: {
+                title: "Développement Web & Apps",
+                details: [
+                    { title: "Sites Vitrines & E-commerce", desc: "Création de boutiques en ligne (WooCommerce, Shopify) et sites pro." },
+                    { title: "Développement Sur Mesure", desc: "Applications web spécifiques (Python, React) adaptées à vos besoins." },
+                    { title: "Applications Mobiles", desc: "Développement d'apps natives ou hybrides pour iOS et Android." },
+                    { title: "SEO & Marketing", desc: "Optimisation pour les moteurs de recherche et visibilité digitale." }
+                ]
+            }
+        };
+
+        function openService(serviceKey) {
+            const data = servicesData[serviceKey];
+            if(!data) return;
+
+            document.getElementById('modal-service-title').innerText = data.title;
+            const body = document.getElementById('modal-service-body');
+            body.innerHTML = "";
+
+            data.details.forEach(item => {
+                body.innerHTML += `
+                    <div class="detail-item">
+                        <h4><i class="fas fa-check-circle" style="color:var(--neon-blue)"></i> ${item.title}</h4>
+                        <p>${item.desc}</p>
+                    </div>
+                `;
+            });
+
+            // Intégration Simulateur pour le service Réseau
+            if(serviceKey === 'network') {
+                body.innerHTML += `
+                    <div style="margin-top: 25px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                        <p style="margin-bottom: 15px; font-size: 0.9em; color: #ccc;">Découvrez notre expertise via notre simulateur interactif :</p>
+                        <button onclick="window.open('Network_Simulator.html', '_blank')" 
+                            class="cta-btn" 
+                            style="background: linear-gradient(45deg, #00bceb, #00ff9d); border: none; padding: 12px 30px; color: #000; font-weight: bold; border-radius: 30px; box-shadow: 0 0 15px rgba(0, 188, 235, 0.3); transition: transform 0.2s;">
+                            <i class="fas fa-laptop-code" style="margin-right:8px;"></i> LANCER LE SIMULATEUR PRO
+                        </button>
+                    </div>
+                `;
+            }
+
+            document.getElementById('service-modal').style.display = "block";
+            document.body.style.overflow = "hidden"; // Bloque le scroll arrière-plan
+        }
+
+        function closeServiceModal() {
+            document.getElementById('service-modal').style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        // Fermer si on clique dehors
+        window.onclick = function(event) {
+            const modal = document.getElementById('service-modal');
+            if (event.target == modal) {
+                closeServiceModal();
+            }
+        }
+
+        // --- TRACKER LOGIC ---
+        function checkRepairStatus() {
+            const code = document.getElementById('repairCode').value.toUpperCase();
+            const resultBox = document.getElementById('tracker-result');
+            const msg = document.getElementById('tracker-msg');
+            const steps = document.querySelectorAll('.step');
+            
+            // Reset steps
+            steps.forEach(s => s.classList.remove('active'));
+            resultBox.style.display = 'block';
+
+            if(code === "") {
+                msg.innerHTML = "<span style='color:red'>Veuillez entrer un numéro de dossier.</span>";
+                return;
+            }
+
+            // Mock Logic
+            let stage = 0;
+            let message = "";
+
+            if(code === "DEMO-1") { stage = 1; message = "Votre appareil a été bien reçu. Diagnostic en attente."; }
+            else if(code === "DEMO-2") { stage = 2; message = "Diagnostic en cours... Nos techniciens analysent la panne."; }
+            else if(code === "DEMO-3") { stage = 3; message = "Réparation en cours. Pièces commandées : SSD 1To."; }
+            else if(code === "DEMO-4") { stage = 4; message = "✅ VOTRE APPAREIL EST PRÊT ! Vous pouvez passer le récupérer."; }
+            else {
+                msg.innerHTML = "<span style='color:red'>Numéro de dossier introuvable. Essayez DEMO-3.</span>";
+                return;
+            }
+
+            // Activate steps
+            for(let i=0; i<stage; i++) {
+                steps[i].classList.add('active');
+            }
+            msg.innerHTML = message;
+        }
+
+        // --- PC BUILDER LOGIC ---
+        const partsDB = {
+            cpus: {
+                intel: [
+                    { name: "i3-12100F", price: 1100, score: 1 },
+                    { name: "i5-12400F", price: 1800, score: 2 },
+                    { name: "i5-13600K", price: 3500, score: 3 },
+                    { name: "i7-13700K", price: 4500, score: 4 },
+                    { name: "i9-13900K", price: 6500, score: 5 }
+                ],
+                amd: [
+                    { name: "Ryzen 5 5500", price: 1000, score: 1 },
+                    { name: "Ryzen 5 5600X", price: 1700, score: 2 },
+                    { name: "Ryzen 7 5800X3D", price: 3500, score: 3 },
+                    { name: "Ryzen 9 7900X", price: 4800, score: 4 },
+                    { name: "Ryzen 9 7950X", price: 6800, score: 5 }
+                ]
+            },
+            gpus: [
+                { name: "GTX 1650", price: 1800, score: 1 },
+                { name: "RTX 3050", price: 2800, score: 2 },
+                { name: "RTX 3060", price: 3500, score: 2 },
+                { name: "RTX 4060 Ti", price: 4500, score: 3 },
+                { name: "RTX 4070", price: 6500, score: 4 },
+                { name: "RTX 4080", price: 12000, score: 5 },
+                { name: "RTX 4090", price: 20000, score: 6 }
+            ]
+        };
+
+        function calculateConfig() {
+            const usage = document.getElementById('usage').value;
+            const budget = parseInt(document.getElementById('budget').value);
+            const cpuPref = document.getElementById('cpu_pref').value;
+            
+            let recommendedCPU = null;
+            let recommendedGPU = null;
+            let ram = "8GB DDR4";
+            let storage = "256GB SSD";
+
+            // Budget allocation strategy (approx)
+            // GPU ~35-40%, CPU ~20-25%, Rest ~35%
+            const maxGpuBudget = budget * 0.45;
+            const maxCpuBudget = budget * 0.25;
+
+            // Find best GPU fits budget
+            const gpus = partsDB.gpus.filter(g => g.price <= maxGpuBudget);
+            recommendedGPU = gpus[gpus.length - 1] || partsDB.gpus[0];
+
+            // Find best CPU fits budget
+            const cpus = partsDB.cpus[cpuPref].filter(c => c.price <= maxCpuBudget);
+            recommendedCPU = cpus[cpus.length - 1] || partsDB.cpus[cpuPref][0];
+
+            // Adjust based on Usage
+            if(usage === 'bureau') {
+                recommendedGPU = { name: "Intégré (iGPU)", price: 0 };
+                ram = "8GB DDR4";
+                storage = "500GB SSD NVMe";
+            } else if(usage === 'gamer_mid') {
+                ram = "16GB DDR4 3200MHz";
+                storage = "1TB SSD NVMe";
+            } else if(usage === 'gamer_ultra') {
+                ram = "32GB DDR5 6000MHz";
+                storage = "2TB SSD Gen4";
+            } else if(usage === 'workstation') {
+                ram = "64GB DDR5";
+                storage = "2TB SSD + 4TB HDD";
+            }
+
+            // Total Calculation
+            const estimatedTotal = recommendedCPU.price + recommendedGPU.price + 1500; // +1500 for Case/PSU/MB approx
+
+            // Display
+            const list = document.getElementById('parts-list');
+            list.innerHTML = `
+                <div class="part-item"><span>Processeur</span> <strong>${recommendedCPU.name}</strong></div>
+                <div class="part-item"><span>Carte Graphique</span> <strong>${recommendedGPU.name}</strong></div>
+                <div class="part-item"><span>Mémoire RAM</span> <strong>${ram}</strong></div>
+                <div class="part-item"><span>Stockage</span> <strong>${storage}</strong></div>
+                <div class="part-item"><span>Boîtier & Alim</span> <strong>Pack H-TECH RGB</strong></div>
+            `;
+            
+            document.getElementById('totalPrice').innerText = estimatedTotal + " DH";
+        }
+
+        function orderConfig() {
+            const cpu = document.querySelector('#parts-list .part-item:nth-child(1) strong').innerText;
+            const gpu = document.querySelector('#parts-list .part-item:nth-child(2) strong').innerText;
+            const total = document.getElementById('totalPrice').innerText;
+            
+            const msg = `Salut H-TECH ! Je suis intéressé par cette config IA : CPU ${cpu}, GPU ${gpu}, Prix env ${total}. Dispo ?`;
+            window.open(`https://wa.me/212600000000?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // Init Builder
+        calculateConfig();
+
+
+        /* --- DIAGNOSTIC INTELLIGENT (Cerveau) --- */
+        let currentStep = 0;
+        let answers = {};
+        
+        // Configuration des Questions Améliorée
+        const questions = [
+            {
+                id: 'type',
+                text: "Quel appareil souhaitez-vous diagnostiquer ?",
+                options: [
+                    { label: "PC Portable (Windows)", value: "Laptop Windows", next: 'brand_pc' },
+                    { label: "MacBook (Apple)", value: "MacBook", next: 'symptome_mac' },
+                    { label: "PC Fixe / Gamer", value: "Desktop", next: 'symptome_pc' },
+                    { label: "Réseau / Wi-Fi", value: "Network", next: 'symptome_network' }
+                ]
+            },
+            {
+                id: 'brand_pc',
+                text: "Quelle est la marque de l'ordinateur ?",
+                options: [
+                    { label: "HP", value: "HP", next: 'symptome_pc' },
+                    { label: "Dell", value: "Dell", next: 'symptome_pc' },
+                    { label: "Lenovo", value: "Lenovo", next: 'symptome_pc' },
+                    { label: "Asus / Acer", value: "Asus/Acer", next: 'symptome_pc' },
+                    { label: "Autre", value: "Autre", next: 'symptome_pc' }
+                ]
+            },
+            {
+                id: 'symptome_pc',
+                text: "Quel est le problème principal ?",
+                options: [
+                    { label: "Lenteur insupportable", value: "Lenteur Système", price: "150 - 300 DH", time: "24h" },
+                    { label: "Ne s'allume plus", value: "Panne Démarrage", price: "Diagnostic requis", time: "48h" },
+                    { label: "Écran cassé / Noir", value: "Écran HS", price: "Sur Devis", time: "24h" },
+                    { label: "Surchauffe / Bruit ventilo", value: "Surchauffe", price: "150 DH", time: "2h" },
+                    { label: "Virus / Publicités", value: "Infection Virus", price: "100 - 200 DH", time: "2h" }
+                ]
+            },
+            {
+                id: 'symptome_mac',
+                text: "Quel est le souci avec votre Mac ?",
+                options: [
+                    { label: "Lenteur / Roue multicolore", value: "Lenteur Mac", price: "300 DH", time: "24h" },
+                    { label: "Ne démarre pas (Pomme)", value: "Boot Loop", price: "Sur Devis", time: "48h" },
+                    { label: "Batterie gonflée / HS", value: "Batterie HS", price: "Sur Devis", time: "2h" }
+                ]
+            },
+            {
+                id: 'symptome_network',
+                text: "Décrivez la situation réseau :",
+                options: [
+                    { label: "Wi-Fi faible dans certaines pièces", value: "Zone Morte Wi-Fi", price: "300 - 500 DH", time: "1 jour" },
+                    { label: "Coupures fréquentes", value: "Instabilité", price: "200 DH", time: "2h" },
+                    { label: "Installation nouveau bureau", value: "Câblage Pro", price: "Sur Devis", time: "Étude" }
+                ]
+            }
+        ];
+
+        function startDiagnostic() {
+            document.getElementById('diag-modal').style.display = 'flex';
+            currentStep = 0;
+            answers = {};
+            showQuestion('type');
+        }
+
+        function closeDiagnostic() {
+            document.getElementById('diag-modal').style.display = 'none';
+            document.getElementById('diag-content').style.display = 'block';
+            document.getElementById('diag-result').style.display = 'none';
+            document.getElementById('diag-loading').style.display = 'none';
+        }
+
+        function showQuestion(questionId) {
+            const q = questions.find(x => x.id === questionId);
+            if (!q) return showAnalyzing();
+
+            let html = `<h3 style="color:white; margin-bottom:30px;">${q.text}</h3>`;
+            
+            q.options.forEach(opt => {
+                const nextStep = opt.next ? `'${opt.next}'` : 'null';
+                const price = opt.price ? `'${opt.price}'` : 'null';
+                const time = opt.time ? `'${opt.time}'` : 'null';
+                
+                html += `
+                    <button class="cta-btn" 
+                            style="display:block; width:100%; margin-bottom:15px; text-align:left; border: 1px solid #333;"
+                            onclick="saveAnswer('${questionId}', '${opt.label}', ${nextStep}, ${price}, ${time})">
+                        ${opt.label} <i class="fas fa-chevron-right" style="float:right; margin-top:3px;"></i>
+                    </button>
+                `;
+            });
+
+            document.getElementById('diag-content').innerHTML = html;
+        }
+
+        function saveAnswer(qId, label, nextStep, price, time) {
+            answers[qId] = label;
+            if (price) answers['price'] = price;
+            if (time) answers['time'] = time;
+
+            if (nextStep) {
+                showQuestion(nextStep);
+            } else {
+                showAnalyzing();
+            }
+        }
+
+        function showAnalyzing() {
+            document.getElementById('diag-content').style.display = 'none';
+            document.getElementById('diag-loading').style.display = 'block';
+
+            // Simulation d'attente 2 secondes
+            setTimeout(() => {
+                document.getElementById('diag-loading').style.display = 'none';
+                showResult();
+            }, 2000);
+        }
+
+        function showResult() {
+            document.getElementById('diag-result').style.display = 'block';
+            
+            const type = answers['type'];
+            const brand = answers['brand_pc'] ? `(${answers['brand_pc']})` : "";
+            const problem = answers['symptome_pc'] || answers['symptome_network'] || answers['symptome_mac'];
+            const price = answers['price'] || "Sur Devis";
+            const time = answers['time'] || "N/A";
+
+            const summary = `
+                <div style="text-align:left; background:#111; padding:15px; border-radius:10px; border:1px solid #333;">
+                    <p><strong style="color:var(--neon-cyan)">Appareil :</strong> ${type} ${brand}</p>
+                    <p><strong style="color:var(--neon-violet)">Diagnostic :</strong> ${problem}</p>
+                    <p><strong style="color:#fff">Durée estimée :</strong> ${time}</p>
+                    <p><strong style="color:#0f0">Indice de réparabilité :</strong> Élevé</p>
+                </div>
+            `;
+            document.getElementById('result-text').innerHTML = summary;
+            document.getElementById('result-price').innerText = price;
+        }
+
+        async function generateQuote() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const type = answers['type'];
+            const brand = answers['brand_pc'] || "";
+            const problem = answers['symptome_pc'] || answers['symptome_network'] || answers['symptome_mac'];
+            const price = answers['price'] || "Sur Devis";
+            const date = new Date().toLocaleDateString('fr-FR');
+            const ref = "DEVIS-" + Math.floor(Math.random() * 10000);
+
+            // -- EN-TÊTE --
+            doc.setFillColor(5, 5, 5); // Noir fond
+            doc.rect(0, 0, 210, 40, 'F');
+            
+            doc.setTextColor(0, 243, 255); // Cyan Neon
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(22);
+            doc.text("H-TECH PRO", 20, 25);
+            
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(10);
+            doc.text("Solutions Informatiques & Réseaux", 20, 32);
+
+            // -- INFO DEVIS --
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(16);
+            doc.text("DEVIS ESTIMATIF", 140, 60);
+            
+            doc.setFontSize(10);
+            doc.text(`Date : ${date}`, 140, 70);
+            doc.text(`Réf : ${ref}`, 140, 75);
+
+            // -- CLIENT --
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text("CLIENT :", 20, 60);
+            doc.setFont("helvetica", "normal");
+            doc.text("Client Web (Diagnostic en ligne)", 20, 70);
+
+            // -- TABLEAU --
+            let startY = 100;
+            
+            // Header Tableau
+            doc.setFillColor(200, 200, 200);
+            doc.rect(20, startY, 170, 10, 'F');
+            doc.setFont("helvetica", "bold");
+            doc.text("Description", 25, startY + 7);
+            doc.text("Prix Estimé", 185, startY + 7, { align: "right" });
+
+            // Row 1
+            doc.setFont("helvetica", "normal");
+            doc.text(`Appareil : ${type} ${brand}`, 25, startY + 20);
+            doc.text(`Problème détecté : ${problem}`, 25, startY + 27);
+            doc.text(price, 185, startY + 20, { align: "right" });
+
+            doc.line(20, startY + 35, 190, startY + 35);
+
+            // -- TOTAL --
+            doc.setFont("helvetica", "bold");
+            doc.text("TOTAL ESTIMÉ :", 100, startY + 50);
+            doc.setTextColor(188, 19, 254); // Violet Neon
+            doc.setFontSize(14);
+            doc.text(price, 190, startY + 50, { align: "right" });
+
+            // -- FOOTER --
+            doc.setTextColor(100, 100, 100);
+            doc.setFontSize(8);
+            doc.text("Ce document est une estimation générée automatiquement suite au diagnostic en ligne.", 20, 270);
+            doc.text("Le prix final sera confirmé après intervention physique.", 20, 275);
+            doc.text("H-TECH PRO - Rabat, Maroc - Tél: +212 6 XX XX XX XX", 105, 285, { align: "center" });
+
+            // Save
+            doc.save(`Devis_H-TECH_${ref}.pdf`);
+        }
+
+        function sendToWhatsApp() {
+            // Remplace ce numéro par le tien !
+            const phone = "212600000000"; 
+            
+            const type = answers['type'];
+            const brand = answers['brand_pc'] || "";
+            const problem = answers['symptome_pc'] || answers['symptome_network'] || answers['symptome_mac'];
+            const price = answers['price'] || "Sur Devis";
+            const time = answers['time'] || "N/A";
+
+            const text = `*NOUVEAU DIAGNOSTIC H-TECH*%0A%0A` +
+                         `🖥️ *Appareil :* ${type} ${brand}%0A` +
+                         `🔧 *Problème :* ${problem}%0A` +
+                         `⏱️ *Délai estimé :* ${time}%0A` +
+                         `💰 *Budget :* ${price}%0A%0A` +
+                         `Je souhaite confirmer ce devis.`;
+            
+            window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+        }
+
+    </script>
+    <!-- SCROLL REVEAL SCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Options pour l'observer
+            const observerOptions = {
+                threshold: 0.1, // Déclenche quand 10% de l'élément est visible
+                rootMargin: "0px 0px -50px 0px" // Décalage pour déclencher un peu avant le bas
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active-reveal');
+                        observer.unobserve(entry.target); // Stop observing once revealed
+                    }
+                });
+            }, observerOptions);
+
+            // 1. Ciblage général (Sections, Titres, Boutons)
+            const generalTargets = document.querySelectorAll('section h2, section p, .cta-btn, .pro-text, .pro-image, .tracker-box, .contact-box');
+            generalTargets.forEach(el => {
+                el.classList.add('reveal');
+                observer.observe(el);
+            });
+
+            // 2. Ciblage avec Zoom (Cartes, Prix)
+            const zoomTargets = document.querySelectorAll('.card, .pricing-card, .zone-item');
+            zoomTargets.forEach((el, index) => {
+                el.classList.add('reveal', 'reveal-zoom');
+                observer.observe(el);
+            });
+
+            // 3. Effet de délai en cascade (Staggering) pour les grilles
+            const grids = document.querySelectorAll('.cards-grid, .pricing-grid, .zone-grid, .stats');
+            grids.forEach(grid => {
+                const children = grid.children;
+                Array.from(children).forEach((child, index) => {
+                    // Ajoute un délai progressif : 0ms, 150ms, 300ms...
+                    child.style.transitionDelay = `${index * 150}ms`;
+                });
+            });
+
+            // 4. Animation Hero Spécifique (Démarrage)
+            const heroContent = document.getElementById('hero-content');
+            if(heroContent) {
+                heroContent.classList.add('reveal');
+                setTimeout(() => {
+                    heroContent.classList.add('active-reveal');
+                }, 500);
+            }
+
+
+        });
+    </script>
+    <!-- PARTICLES EFFECT SCRIPT -->
+     <script>
+        // HAMBURGER MENU TOGGLE
+        function toggleMenu() {
+            const nav = document.querySelector('.nav-links');
+            const burger = document.querySelector('.hamburger');
+            if(nav && burger) {
+                nav.classList.toggle('active');
+                burger.classList.toggle('active');
+            }
+        }
+
+         const canvas = document.getElementById('particles-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            
+            let particlesArray;
+            
+            function setCanvasSize() {
+                const heroSection = document.querySelector('.hero');
+                canvas.width = window.innerWidth;
+                canvas.height = heroSection ? heroSection.offsetHeight : window.innerHeight;
+            }
+            
+            class Particle {
+                constructor(x, y, directionX, directionY, size, color) {
+                    this.x = x;
+                    this.y = y;
+                    this.directionX = directionX;
+                    this.directionY = directionY;
+                    this.size = size;
+                    this.color = color;
+                }
+                
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                }
+                
+                update() {
+                    if (this.x > canvas.width || this.x < 0) {
+                        this.directionX = -this.directionX;
+                    }
+                    if (this.y > canvas.height || this.y < 0) {
+                        this.directionY = -this.directionY;
+                    }
+                    this.x += this.directionX;
+                    this.y += this.directionY;
+                    this.draw();
+                }
+            }
+            
+            function init() {
+                particlesArray = [];
+                let numberOfParticles = (canvas.height * canvas.width) / 15000;
+                for (let i = 0; i < numberOfParticles; i++) {
+                    let size = (Math.random() * 2) + 1;
+                    let x = (Math.random() * ((canvas.width - size * 2) - (size * 2)) + size * 2);
+                    let y = (Math.random() * ((canvas.height - size * 2) - (size * 2)) + size * 2);
+                    let directionX = (Math.random() * 0.4) - 0.2;
+                    let directionY = (Math.random() * 0.4) - 0.2;
+                    let color = '#00f3ff';
+                    
+                    particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+                }
+            }
+            
+            function connect() {
+                let opacityValue = 1;
+                for (let a = 0; a < particlesArray.length; a++) {
+                    for (let b = a; b < particlesArray.length; b++) {
+                        let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                        if (distance < (canvas.width/7) * (canvas.height/7)) {
+                            opacityValue = 1 - (distance/20000);
+                            ctx.strokeStyle = 'rgba(0, 243, 255,' + opacityValue + ')';
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+            
+            function animate() {
+                requestAnimationFrame(animate);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                for (let i = 0; i < particlesArray.length; i++) {
+                    particlesArray[i].update();
+                }
+                connect();
+            }
+            
+            setCanvasSize();
+            init();
+            animate();
+            
+            window.addEventListener('resize', function() {
+                setCanvasSize();
+                init();
+            });
+        }
+    </script>
+</body>
+</html>

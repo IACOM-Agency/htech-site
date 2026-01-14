@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion Clients - HTECH</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #10b981; /* Green for Clients */
+            --primary-dark: #059669;
+            --background: #111827;
+            --surface: #1f2937;
+            --text: #f9fafb;
+            --text-muted: #9ca3af;
+            --border: #374151;
+            --danger: #ef4444;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background-color: var(--surface);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .container { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+
+        h2 { margin-bottom: 1.5rem; font-size: 1.25rem; color: var(--primary); }
+
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.9rem; }
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            color: var(--text);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .form-control:focus { border-color: var(--primary); }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary { background-color: var(--primary); color: white; width: 100%; justify-content: center; }
+        .btn-primary:hover { background-color: var(--primary-dark); }
+        
+        .btn-danger { background-color: var(--danger); color: white; padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+        .btn-edit { background-color: #3b82f6; color: white; padding: 0.4rem 0.8rem; font-size: 0.8rem; margin-right: 0.5rem; }
+
+        .client-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .client-item {
+            background-color: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .client-item:hover { transform: translateX(5px); border-color: var(--primary); }
+
+        .client-info h3 { font-size: 1.1rem; margin-bottom: 0.25rem; }
+        .client-info p { font-size: 0.9rem; color: var(--text-muted); }
+        .client-info .company { color: var(--primary); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
+
+        .actions { display: flex; align-items: center; }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+        }
+        
+        .nav-link { color: var(--text-muted); text-decoration: none; margin-left: 1rem; transition: color 0.2s; }
+        .nav-link:hover { color: var(--text); }
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="brand">
+            <i class="fas fa-users"></i>
+            Gestion Clients
+        </a>
+        <nav>
+            <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Accueil</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Add Client Form -->
+        <div class="card">
+            <h2><i class="fas fa-user-plus"></i> Nouveau Client</h2>
+            <form id="clientForm">
+                <input type="hidden" id="clientId">
+                <div class="form-group">
+                    <label>Nom Complet / Contact</label>
+                    <input type="text" id="clientName" class="form-control" required placeholder="ex: Ahmed Alami">
+                </div>
+                <div class="form-group">
+                    <label>Entreprise (Optionnel)</label>
+                    <input type="text" id="clientCompany" class="form-control" placeholder="ex: Société ABC SARL">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="clientEmail" class="form-control" placeholder="client@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Téléphone</label>
+                    <input type="tel" id="clientPhone" class="form-control" placeholder="06 00 00 00 00">
+                </div>
+                <div class="form-group">
+                    <label>Adresse</label>
+                    <textarea id="clientAddress" class="form-control" rows="3" placeholder="Adresse complète..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Enregistrer le Client
+                </button>
+            </form>
+        </div>
+
+        <!-- Client List -->
+        <div class="card">
+            <h2><i class="fas fa-list"></i> Liste des Clients</h2>
+            <div id="clientList" class="client-list">
+                <!-- Clients will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Store clients in localStorage
+        let clients = JSON.parse(localStorage.getItem('htech_clients')) || [];
+
+        const form = document.getElementById('clientForm');
+        const listContainer = document.getElementById('clientList');
+
+        // Render clients on load
+        renderClients();
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const id = document.getElementById('clientId').value;
+            const client = {
+                id: id || Date.now().toString(),
+                name: document.getElementById('clientName').value,
+                company: document.getElementById('clientCompany').value,
+                email: document.getElementById('clientEmail').value,
+                phone: document.getElementById('clientPhone').value,
+                address: document.getElementById('clientAddress').value,
+                createdAt: new Date().toISOString()
+            };
+
+            if (id) {
+                // Edit existing
+                const index = clients.findIndex(c => c.id === id);
+                if (index > -1) clients[index] = client;
+            } else {
+                // Add new
+                clients.push(client);
+            }
+
+            saveAndRender();
+            form.reset();
+            document.getElementById('clientId').value = '';
+        });
+
+        function deleteClient(id) {
+            if(confirm('Êtes-vous sûr de vouloir supprimer ce client ?')) {
+                clients = clients.filter(c => c.id !== id);
+                saveAndRender();
+            }
+        }
+
+        function editClient(id) {
+            const client = clients.find(c => c.id === id);
+            if (client) {
+                document.getElementById('clientId').value = client.id;
+                document.getElementById('clientName').value = client.name;
+                document.getElementById('clientCompany').value = client.company;
+                document.getElementById('clientEmail').value = client.email;
+                document.getElementById('clientPhone').value = client.phone;
+                document.getElementById('clientAddress').value = client.address;
+                
+                // Scroll to form
+                document.querySelector('.container').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function saveAndRender() {
+            localStorage.setItem('htech_clients', JSON.stringify(clients));
+            renderClients();
+        }
+
+        function renderClients() {
+            listContainer.innerHTML = '';
+            
+            if (clients.length === 0) {
+                listContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-folder-open" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <p>Aucun client enregistré pour le moment.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Sort by newest first
+            clients.slice().reverse().forEach(client => {
+                const div = document.createElement('div');
+                div.className = 'client-item';
+                div.innerHTML = `
+                    <div class="client-info">
+                        ${client.company ? `<div class="company">${client.company}</div>` : ''}
+                        <h3>${client.name}</h3>
+                        <p><i class="fas fa-envelope" style="width:15px"></i> ${client.email || 'Non renseigné'}</p>
+                        <p><i class="fas fa-phone" style="width:15px"></i> ${client.phone || 'Non renseigné'}</p>
+                    </div>
+                    <div class="actions">
+                        <button onclick="editClient('${client.id}')" class="btn btn-edit"><i class="fas fa-pen"></i></button>
+                        <button onclick="deleteClient('${client.id}')" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                listContainer.appendChild(div);
+            });
+        }
+    </script>
+</body>
+</html>
